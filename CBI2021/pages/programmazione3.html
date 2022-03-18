@@ -35,9 +35,10 @@ nel caso in cui la condizione sia verificata</li>
 </ul>
 <p>Per esempio per controllare che il contenuto di una variabile
 chiamata <em>numero</em> sia uguale a zero si scriverebbe:</p>
-<pre><code>if numero == 0 {
-	// Cose da fare se uguale a 0
-}</code></pre>
+<pre><code>if numero == 0 {</code></pre>
+<p>// Cose da fare se uguale a 0
+<pre><code>}</code></pre>
+</p>
 <p>In questo codice è apparso una nuova combinazione di simboli che
 non avevamo ancora visto: l'operatore <strong>==</strong> che, come si può
 intuire, ha questa sintassi: <primoArgomento> <strong>==</strong> <secondoArgomento>
@@ -108,9 +109,10 @@ italiano con delle espressioni di uso comune: <strong>&&</strong> (e), <strong>|
 <strong>!</strong> (non)</p>
 <p>A questo punto nell'esercizio 3 della volta scorsa potrebbe
 apparire un blocco di codice fatto così:</p>
-<pre><code>if primoVoto &lt;= 10 &amp;&amp; primoVoto &gt;= 3 &amp;&amp; secondoVoto &lt;= 10 &amp;&amp; secondoVoto &gt;= 3 {
-	// Va tutto bene
-}</code></pre>
+<pre><code>if primoVoto &lt;= 10 &amp;&amp; primoVoto &gt;= 3 &amp;&amp; secondoVoto &lt;= 10 &amp;&amp; secondoVoto &gt;= 3 {</code></pre>
+<p>// Va tutto bene
+<pre><code>}</code></pre>
+</p>
 <h1>Selezione a due vie: if/else</h1>
 <p>A volte occorre eseguire cose diverse se la condizione è verificata
 oppure se non lo è, in questi casi al costrutto <strong>if</strong> si aggiungono
@@ -124,34 +126,40 @@ sia verificata.</li>
 <p>Una forma alternativa del costrutto <strong>if</strong> (oppure <strong>if/else</strong>)
 consiste nel dichiarare una variabile prima di specificare la
 condizione da verificare, ad esempio:</p>
-<pre><code>if t := c * 2; t &lt; 100 {
-	fmt.Println(&quot;t vale&quot;, t, &quot; che è minore di 100&quot;)
-} else {
-	fmt.Println(&quot;t vale&quot;, t, &quot; che è maggiore o uguale a 100&quot;)
-}</code></pre>
+<pre><code>if t := c * 2; t &lt; 100 {</code></pre>
+<p>fmt.Println("t vale", t, " che è minore di 100")
+<pre><code>} else {</code></pre>
+<p>fmt.Println("t vale", t, " che è maggiore o uguale a 100")
+<pre><code>}</code></pre>
+</p>
+</p>
 <p>In questo caso la variabile t viene dichiarata subito dopo la
 parola if e la condizione da testare segue il <strong>;</strong>.</p>
 <p>Le variabili dichiarate in questo modo e le variabili dichiarate
 all'interno dell'if sono locali, ovvero scompaiono non appena il
 blocco di istruzioni è terminato.</p>
-<pre><code>if t &gt; 0 {
-	s := t * 2 					// la variabile s è locale a questo blocco
-	fmt.Println(s)
-}
+<pre><code>if t &gt; 0 {</code></pre>
+<p>s := t * 2 					// la variabile s è locale a questo blocco
+fmt.Println(s)
+<pre><code>}
 fmt.Println(s)					// ERRORE: La variabile s non esiste fuori dal blocco</code></pre>
+</p>
 <h1>Selezione a più vie: if/else if</h1>
 <p>Se le condizioni mutualmente esclusive sono più di una si può usare
 un costrutto simile ai precedenti:</p>
-<pre><code>if &lt;condizione&gt; {
-	// &lt;condizione1&gt; è vera
-} else if &lt;condizione2&gt; {
-	// &lt;condizione2&gt; è vera
-} else {
-	// nessuna delle precedenti è vera
-}</code></pre>
+<pre><code>if &lt;condizione&gt; {</code></pre>
+<p>// <condizione1> è vera
+<pre><code>} else if &lt;condizione2&gt; {</code></pre>
+<p>// <condizione2> è vera
+<pre><code>} else {</code></pre>
+<p>// nessuna delle precedenti è vera
+<pre><code>}</code></pre>
+</p>
+</p>
+</p>
 <h1>Esercizi</h1>
 <h2>Esercizio 0 - Operatori di confronto e logici</h2>
-<p><em>Problema</em>: Scrivere un programma go <code>condizioni.go</code> per testare,
+<p><em>Problema</em>: Scrivere un programma go <a href="condizioni.go">condizioni.go</a> per testare,
 una a una, le condizioni nella tabella che segue. Il programma, per
 ogni condizione (a., &#x2026;, x.), legge un valore da tastiera (del
 tipo indicato) e stampa <code>true</code> o <code>false</code>, a seconda che la
@@ -247,11 +255,13 @@ la falsifica) e solo poi procedere alla successiva.</p>
 <p>int uguale a 10: <strong>11</strong></p>
 <p>false</p>
 <p><em>Nota</em>: Il seguente codice:</p>
-<pre><code>if n == 10 {
-	fmt.Println(true)
-} else {
-	fmt.Println(false)
-}</code></pre>
+<pre><code>if n == 10 {</code></pre>
+<p>fmt.Println(true)
+<pre><code>} else {</code></pre>
+<p>fmt.Println(false)
+<pre><code>}</code></pre>
+</p>
+</p>
 <p>si può scrivere in modo più compatto (ed equivalente) così:</p>
 <pre><code>fmt.Println(n == 10)</code></pre>
 <p>Questo perchè l'espressione <strong>n == 10</strong> quando viene valutata dà come
@@ -263,71 +273,71 @@ import &quot;fmt&quot;
 
 func main() {
 	var n int
-	
+
 	// Punto a
 	fmt.Println(&quot;int uguale a 10: &quot;)
 	fmt.Scan(&amp;n)
 	fmt.Println(n == 10)
-	
+
 	// Punto b
 	fmt.Println(&quot;int diverso da 10: &quot;)
 	fmt.Scan(&amp;n)
 	fmt.Println(n != 10)
-	
+
 	// Punto c
 	fmt.Println(&quot;int diverso da 10 e da 20: &quot;)
 	fmt.Scan(&amp;n)
 	fmt.Println(n != 10 &amp;&amp; n != 20)
-	
+
 	// Punto d
 	fmt.Println(&quot;int diverso da 10 o da 20: &quot;)
 	fmt.Scan(&amp;n)
 	fmt.Println(n != 10 || n != 20)
-	
+
 	// Punto e
 	fmt.Println(&quot;int maggiore o uguale a 10: &quot;)
 	fmt.Scan(&amp;n)
 	fmt.Println(n &gt;= 10)
-	
+
 	// Punto f
 	fmt.Println(&quot;int compreso tra 10 e 20, inclusi: &quot;)
 	fmt.Scan(&amp;n)
 	fmt.Println(n &lt;= 20 &amp;&amp; n &gt;= 10)
-	
+
 	// Punto g
 	fmt.Println(&quot;int compreso tra 10 e 20, esclusi: &quot;)
 	fmt.Scan(&amp;n)
 	fmt.Println(n &lt; 20 &amp;&amp; n &gt; 10)
-	
+
 	// Punto h
 	fmt.Println(&quot;int compreso tra 10 e 20, 10 incluso e 20 escluso: &quot;)
 	fmt.Scan(&amp;n)
 	fmt.Println(n &lt; 20 &amp;&amp; n &gt;= 10)
-	
+
 	// Punto i
 	fmt.Println(&quot;int minore di 10 o maggiore di 20&quot;)
 	fmt.Scan(&amp;n)
 	fmt.Println(n &lt; 10 || n &gt; 20)
-	
+
 	// Punto j
 	fmt.Println(&quot;int compreso tra 10 e 20 o tra 30 e 40, estremi inclusi: &quot;)
 	fmt.Scan(&amp;n)
 	fmt.Println((n &lt;= 20 &amp;&amp; n &gt;= 10) || (n &lt;= 40 &amp;&amp; n &gt;= 30))
-	
+
 	// Punto k
 	fmt.Println(&quot;int multiplo di 4 ma non di 100&quot;)
 	fmt.Scan(&amp;n)
-	fmt.Println(n % 4 == 0 &amp;&amp; n % 100 != 0)
-	
+	fmt.Println(n%4 == 0 &amp;&amp; n%100 != 0)
+
 	// Punto l
 	fmt.Println(&quot;int dispari e compreso tra 0 e 100, inclusi&quot;)
 	fmt.Scan(&amp;n)
-	fmt.Println(n % 2 == 1 &amp;&amp; 0 &lt;= n &amp;&amp; a &lt;= 100)
-	
+	fmt.Println(n%2 == 1 &amp;&amp; 0 &lt;= n &amp;&amp; a &lt;= 100)
+
 	return
 }</code></pre>
 <h2>Esercizio 1 - Voto valido</h2>
-<p><em>Problema:</em> Scrivere un programma Go <code>voto_valido.go</code> che legge un
+<p><em>Problema:</em> Scrivere un programma Go <a href="voto_valido.go">voto_valido.go</a> che legge un
 numero intero, se il numero non è compreso tra 3 e 10, stampa "voto
 non valido", altrimenti non stampa niente.</p>
 <p><em>Esempi di esecuzione</em>:</p>
@@ -343,15 +353,15 @@ func main() {
 	var voto int
 	fmt.Println(&quot;voto: &quot;)
 	fmt.Scan(&amp;voto)
-	
-	if voto &lt; 3 || voto  &gt; 10 {
+
+	if voto &lt; 3 || voto &gt; 10 {
 		fmt.Println(&quot;voto non valido&quot;)
 	}
-	
+
 	return
 }</code></pre>
 <h2>Esercizio 2 - Maggiore</h2>
-<p><em>Problema:</em> Scrivere un programma Go maggiore.go che legga due
+<p><em>Problema:</em> Scrivere un programma Go <a href="maggiore.go">maggiore.go</a> che legga due
 interi, li salvi in due variabili <code>max</code> e <code>min</code> in qualsiasi
 ordine; se non sono in ordine, li sistemi in modo che <code>min</code>
 contenga il minore e <code>max</code> il maggiore; infine stampi il contenuto
@@ -368,21 +378,21 @@ import &quot;fmt&quot;
 
 func main() {
 	var max, min int
-	
+
 	fmt.Println(&quot;due int:&quot;)
 	fmt.Scan(&amp;max)
 	fmt.Scan(&amp;min)
-	
+
 	if min &gt; max {
 		max, min = min, max // Scambio i valori usando l'assegnamento multiplo
 	}
-	
+
 	fmt.Println(max, min)
-	
+
 	return
 }</code></pre>
 <h2>Esercizio 3 - Pari e dispari</h2>
-<p><em>Problema:</em> Scrivere un programma <code>pari_dispari.go</code> che legge un
+<p><em>Problema:</em> Scrivere un programma <a href="pari_dispari.go">pari_dispari.go</a> che legge un
 intero <code>n</code> e, a seconda del valore di <code>n</code>, stampa uno dei messaggi
 "n è pari" oppure "n è dispari".</p>
 <p><em>Esempi di esecuzione</em>:</p>
@@ -390,7 +400,7 @@ intero <code>n</code> e, a seconda del valore di <code>n</code>, stampa uno dei 
 <p>4 è pari</p>
 <p>numero: <strong>5</strong></p>
 <p>5 è dispari</p>
-<p><em>Nota</em>: Un numero intero <code>n</code> è pari se il resto della divisione 
+<p><em>Nota</em>: Un numero intero <code>n</code> è pari se il resto della divisione
 di <code>n</code> per 2 è pari a zero. In go l'operatore che calcola il resto della
 divisione intera è <code>%</code>.</p>
 <h3>Soluzione</h3>
@@ -398,22 +408,22 @@ divisione intera è <code>%</code>.</p>
 
 import &quot;fmt&quot;
 
-	func main() {
+func main() {
 	var numero int
-	
+
 	fmt.Println(&quot;numero:&quot;)
 	fmt.Scan(&amp;numero)
-	
-	if numero % 2 == 0 {
+
+	if numero%2 == 0 {
 		fmt.Println(numero, &quot; è pari&quot;)
 	} else {
 		fmt.Println(numero, &quot; è dispari&quot;)
 	}
-	
+
 	return
 }</code></pre>
 <h2>Esercizio 4 - Tariffe scontate</h2>
-<p><em>Problema:</em> Scrivere un programma <code>tariffe.go</code> che chiede
+<p><em>Problema:</em> Scrivere un programma <a href="tariffe.go">tariffe.go</a> che chiede
 all'utente l'età (<code>int</code>) e se è studente (<code>bool</code>) e stampa il costo
 del biglietto di ingresso al cinema secondo la seguente tabella:</p>
 <p><table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
@@ -467,13 +477,13 @@ import &quot;fmt&quot;
 func main() {
 	var eta int
 	var studente bool
-	
+
 	fmt.Println(&quot;età:&quot;)
-	fmt.Scan(&amp;eta) 
-	
+	fmt.Scan(&amp;eta)
+
 	fmt.Println(&quot;studente? (t/f):&quot;)
 	fmt.Scan(&amp;studente)
-	
+
 	if eta &gt;= 0 &amp;&amp; eta &lt; 9 {
 		fmt.Println(&quot;gratis&quot;)
 	} else if studente || eta &lt; 14 {
@@ -483,11 +493,11 @@ func main() {
 	} else {
 		fmt.Println(&quot;10 euro&quot;)
 	}
-	
+
 	return
 }</code></pre>
 <h2>Esercizio 5 - Sovrapposizione</h2>
-<p><em>Problema:</em> Scrivere un programma <code>sovrapposizione.go</code> che legge da
+<p><em>Problema:</em> Scrivere un programma <a href="sovrapposizione.go">sovrapposizione.go</a> che legge da
 tastiera il giorno [1-31], l'ora di inizio [0-24] e l'ora di fine
 [0-24] di due appuntamenti e stabilisce se si sovrappongono (anche
 parzialmente) oppure no.</p>
@@ -506,13 +516,13 @@ import &quot;fmt&quot;
 func main() {
 	var gg1, start1, end1 int
 	var gg2, start2, end2 int
-	
+
 	fmt.Println(&quot;appuntamento 1 (gg, start, end): &quot;)
 	fmt.Scan(&amp;gg1, &amp;start1, &amp;end1)
-	
+
 	fmt.Println(&quot;appuntamento 2 (gg, start, end): &quot;)
 	fmt.Scan(&amp;gg2, &amp;start2, &amp;end2)
-	
+
 	if gg1 != gg2 {
 		fmt.Println(&quot;non si sovrappongono&quot;)
 	} else {
@@ -523,5 +533,4 @@ func main() {
 		}
 	}
 	return
-}
-</code></pre>
+}</code></pre>

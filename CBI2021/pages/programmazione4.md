@@ -30,14 +30,14 @@ problema con gli strumenti che abbiamo imparato fino ad ora:
 
 
 	package main
-	
+
 	import "fmt"
-	
+
 	func main() {
 	var numero1, numero2, numero3, numero4, numero5,
 		numero6, numero7, numero8, numero9, numero10 float64
 		var media float64
-		
+
 		fmt.Scan(&numero1, &numero2, &numero3, &numero4, &numero5,
 		&numero6, &numero7, &numero8, &numero9, &numero10)
 		media = (numero1 + numero2 + numero3 + numero4 + numero5 +
@@ -55,52 +55,52 @@ aggiungere il risultato alla media.
 
 
 	package main
-	
+
 	import "fmt"
-	
+
 	func main() {
 		var numero, media float64
-		
+
 		// Numero 1
 		fmt.Scan(&numero)
 		media += numero
-		
+
 		// Numero 2
 		fmt.Scan(&numero)
 		media += numero
-		
+
 		// Numero 3
 		fmt.Scan(&numero)
 		media += numero
-		
+
 		// Numero 4
 		fmt.Scan(&numero)
 		media += numero
-		
+
 		// Numero 5
 		fmt.Scan(&numero)
 		media += numero
-		
+
 		// Numero 6
 		fmt.Scan(&numero)
 		media += numero
-		
+
 		// Numero 7
 		fmt.Scan(&numero)
 		media += numero
-		
+
 		// Numero 8
 		fmt.Scan(&numero)
 		media += numero
-		
+
 		// Numero 9
 		fmt.Scan(&numero)
 		media += numero
-		
+
 		// Numero 10
 		fmt.Scan(&numero)
 		media += numero
-		
+
 		media /= 10
 		fmt.Println("Media: ", media)
 		return
@@ -121,7 +121,7 @@ blocco di istruzioni. Se la condizione specificata è vera si
 ripete l'intero blocco.
 
 	for <cond> {
-		// Istruzioni che si ripetono finchè <cond> non risulta falsa
+// Istruzioni che si ripetono finchè <cond> non risulta falsa
 	}
 
 
@@ -136,7 +136,7 @@ dopo la parola chiave **for**
 
 
 	for {
-		// Istruzioni che si ripetono sempre
+// Istruzioni che si ripetono sempre
 	}
 
 ### Break e continue
@@ -157,8 +157,8 @@ Si potrebbe utilizzare un ciclo for unario al posto del costrutto
 
 
 	for <cond> {
-		// Istruzioni da eseguire
-		break // Esci dal ciclo
+// Istruzioni da eseguire
+break // Esci dal ciclo
 	}
 
 ## Ciclo for ternario
@@ -191,9 +191,9 @@ concisa il problema della media di 10 numeri che abbiamo posto
 all'inizio:
 
 	package main
-	
+
 	import "fmt"
-	
+
 	const nAddendi = 10
 	func main() {
 		var numero, media float64
@@ -222,7 +222,7 @@ che vengono dichiarate negli argomenti del **for** sono locali.
 
 ## Esercizio 0 - Raddoppio
 
-*Problema:* Scrivere un programma go ``raddoppio.go`` che legge 5
+*Problema:* Scrivere un programma go <a href="raddoppio.go">raddoppio.go</a> che legge 5
 numeri da tastiera e di ciascuno stampa il doppio.
 
 
@@ -249,24 +249,11 @@ Inserire un valore: **53**
 106
 
 ## Soluzione
-
-	package main
-	
-	import "fmt"
-	
-	func main() {
-		var numero int
-		for i := 0; i < 4; i++ {
-			fmt.Print("Inserire un valore: ")
-			fmt.Scan(&numero)
-			fmt.Println(numero * 2)
-		}
-		return
-	}
+{{cat raddoppio.go | sed 's/^/	/g'}}
 
 ## Esercizio 1 - Sequenza
 
-*Problema:*  Scrivere un programma go ``sequenza.go`` che legge un
+*Problema:*  Scrivere un programma go <a href="sequenza.go">sequenza.go</a> che legge un
 numero da tastiera e stampa la sequenza di valori da 1 a n.
 
 
@@ -285,24 +272,11 @@ Inserire un valore: **5**
 5
 
 ### Soluzione
-	
-	package main
-	
-	import "fmt"
-	
-	func main() {
-		var end int
-		fmt.Print("Inserire un valore: ")
-		fmt.Scan(&end)
-		for i := 1; i <= end; i++ {
-			fmt.Println(i)
-		}
-		return
-	}
+{{cat sequenza.go | sed 's/^/	/g'}}
 
 ## Esercizio 2 - Sequenza pari
 
-*Problema:* Scrivere un programma go ``sequenza_pari.go`` che legge
+*Problema:* Scrivere un programma go <a href="sequenza_pari.go">sequenza_pari.go</a> che legge
 un numero da tastiera e stampa la sequenza di valori pari tra 1 e
 n.
 
@@ -315,24 +289,11 @@ Inserire un valore: **5**
 4
 
 ### Soluzione
-
-	package main
-	
-	import "fmt"
-	
-	func main() {
-		var numero int
-		fmt.Print("Inserire un valore: ")
-		fmt.Scan(&numero)
-		for i := 2; i <= numero; i = i + 2 {
-			fmt.Println(i)
-		}
-		return
-	}
+{{cat sequenza_pari.go | sed 's/^/	/g'}}
 
 ## Esercizio 3 - Tabellina
 
-*Problema:* Scrivere un programma go ``tabellina.go`` che legge un
+*Problema:* Scrivere un programma go <a href="tabellina.go">tabellina.go</a> che legge un
 numero da tastiera e stampa la tabellina di quel numero (n*1, n*2,
 &#x2026;, n*10).
 
@@ -361,29 +322,14 @@ Inserire un valore: **3**
 30
 
 ### Soluzione
-
-	package main
-	
-	import "fmt"
-	
-	func main() {
-		var numero int
-		fmt.Print("Inserire un valore: ")
-		fmt.Scan(&numero)
-		
-		for i := 1; i <= 10; i++ {
-			fmt.Println(i * numero)
-		}
-		return
-	}
+{{cat tabellina.go | sed 's/^/	/g'}}
 
 ## Esercizio 4 - Voto valido
 
-*Problema:* Scrivere un programma go ``voto_valido.go`` che stampa
+*Problema:* Scrivere un programma go <a href="voto_valido_loop.go">voto_valido_loop.go</a> che stampa
 "voto:" per chiedere un valore voto fino ad ottenere un valore
 valido, cioè compreso tra 3 <= voto <= 10, e poi stampa "voto
 valido"
-
 
 
 *Esempio di esecuzione*:
@@ -401,27 +347,11 @@ Inserire un voto: **5**
 voto valido
 
 ### Soluzione
-
-	package main
-	
-	import "fmt"
-	
-	func main() {
-		var voto int
-		fmt.Print("Inserire un voto: ")
-		fmt.Scan(&voto)
-		for voto < 3 || voto > 10 {
-			fmt.Print("voto non valido")
-			fmt.Print("Inserire un voto: ")
-			fmt.Scan("&voto")
-		}
-		fmt.Println("voto valido")
-		return
-	}
+{{cat voto_valido_loop.go | sed 's/^/	/g'}}
 
 ## Esercizio 5 - Massimo
 
-*Problema:* Scrivere un programma ``massimo.go`` che legge 5 numeri
+*Problema:* Scrivere un programma <a href="massimo.go">massimo.go</a> che legge 5 numeri
 numeri interi, ne stampa la somma ed il massimo.
 
 *Esempio di esecuzione*:
@@ -433,29 +363,11 @@ Somma: 15
 Massimo: 5
 
 ### Soluzione
-
-	package main
-	
-	import "fmt"
-	
-	func main() {
-		var somma, massimo, numero int
-		fmt.Print("Inserire 5 valori")
-		for i := 0; i < 4; i++ {
-			fmt.Scan(&numero)
-			if numero > massimo {
-				massimo = numero
-			}
-			somma += numero
-		}
-		fmt.Println("Somma: ", somma)
-		fmt.Println("Massimo: ", massimo)
-		return
-	}
+{{cat massimo.go | sed 's/^/	/g'}}
 
 ## Esercizio 6 - Primo
 
-*Problema:* Scrivere un programma ``primo.go`` che legge in input un
+*Problema:* Scrivere un programma <a href="primo.go">primo.go</a> che legge in input un
 numero intero e determina se è primo.
 
 *Esempio di esecuzione*:
@@ -468,26 +380,11 @@ Inserire un valore: **7**
 determinare il primo numero che è suo divisore (se c'è).
 
 ### Soluzione
-
-	package main
-	
-	import "fmt"
-	
-	func main() {
-		var numero int
-		for i := 2; i <= numero / 2; i++ {
-			if numero % i == 0 {
-				fmt.Println(numero, " non è primo.")
-			return
-			}
-		}
-		fmt.Println(numero, " è primo.")
-		return
-	}
+{{cat primo.go | sed 's/^/	/g'}}
 
 ## Esercizio 7 - Media
 
-*Problema:* Scrivere un programma ``media_var.go`` che legge in input
+*Problema:* Scrivere un programma <a href="media_var.go">media_var.go</a> che legge in input
 dei numeri diversi da 0 e ne stampa la media.
 
 *Esempio di esecuzione*:
@@ -503,22 +400,5 @@ Inserire un valore: **0**
 Media: 5
 
 ### Soluzione
+{{cat media_var.go | sed 's/^/	/g'}}
 
-	package main
-	
-	import "fmt"
-	
-	func main() {
-		var valore, quantità, media float64
-		fmt.Print("inserire un valore: ")
-		fmt.Scan(&valore)
-		for numero != 0 {
-			media += valore
-			quantità++
-			fmt.Print("inserire un valore: ")
-			fmt.Scan(&valore)
-		}
-		media /= quantità
-		fmt.Println("Media: ", media)
-		return
-	}

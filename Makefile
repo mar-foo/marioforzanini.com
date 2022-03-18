@@ -8,6 +8,7 @@ articles: pages
 cbi: CBI2021
 	cd CBI2021 ; $(MAKE) all
 	cp -r CBI2021/output/* output/CBI2021/
+	cp CBI2021/pages/*.go output/CBI2021/
 
 clean:
 	rm output/*.html output/pub/*.css

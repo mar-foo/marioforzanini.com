@@ -152,7 +152,7 @@ Nella risoluzione di questi esercizi mi aspetto 2 cose:
 0. Cercate di utilizzare delle funzioni per rendere il codice dentro ``main()`` più leggibile. Ad esempio nell'esercizio 2 potreste servirvi di una funzione ``func isVocale(r rune) bool`` e di una funzione ``func contaVocali(s string) int``
 
 ## Esercizio 0
-*Problema*: Scrivere un programma es0.go che legge un byte (Occorre
+*Problema*: Scrivere un programma <a href="es0.go">es0.go</a> che legge un byte (Occorre
 uno Scan in più per catturare l'invio) e
 0. Stampa il byte precedente, il byte stesso e quello successivo in ordine lessicografico (ASCII)
 0. Stabilisce se è una lettera tra A e L (maiuscole), o altro
@@ -177,7 +177,7 @@ BCD
 A-L
 
 ## Esercizio 1 - Rompi stringa
-*Problema*: Scrivere un programma ``rompi_stringa.go`` che legge in
+*Problema*: Scrivere un programma <a href="rompi_stringa.go">rompi_stringa.go</a> che legge in
 input una stringa e la stampa in verticale, una runa per riga.
 
 *Esempio di esecuzione*:
@@ -198,7 +198,7 @@ h
 
 ## Esercizio 2 - Conta vocali
 
-*Problema*: Scrivere un programma ``conta_vocali.go`` che legge in
+*Problema*: Scrivere un programma <a href="conta_vocali.go">conta_vocali.go</a> che legge in
 input una parola e stampa il numero di lettere (``rune``) che sono
 vocali (aeiou).
 
@@ -214,7 +214,7 @@ Inserire una parola: **supercalifragilisticoespiralidoso**
 
 ## Esercizio 3 - Trova rune
 
-*Problema*: Scrivere un programma ``trova.go`` che legge un ``rune`` e
+*Problema*: Scrivere un programma <a href="trova.go">trova.go</a> che legge un ``rune`` e
 una stringa e stampa la prima posizione (indicizzata a partire da 0)
 del carattere nella stringa, o -1 se il carattere non c'è.
 
@@ -228,7 +228,7 @@ Stringa: **Tre tigri contro tre tigri**
 
 ## Esercizio 4 - Minuscole o maiuscole
 
-*Problema*: Scrivere un programma ``minuscole_maiuscole.go`` che legge
+*Problema*: Scrivere un programma <a href="minuscole_maiuscole.go">minuscole_maiuscole.go</a> che legge
 una stringa e stabilisce se questa contiene solo maiuscole, solo
 minuscole o entrambe e stampa un messaggio opportuno.
 
@@ -250,7 +250,7 @@ Inserire una stringa: **dopo un punto fermo occorre una maiuscola**
 Solo minuscole
 
 ## Esercizio 5 - Cesare
-*Problema*: Scrivere un programma ``cesare.go`` che legge un valore
+*Problema*: Scrivere un programma <a href="cesare.go">cesare.go</a> che legge un valore
 ``int`` non negativo ``k`` (la chiave di cifratura) e una sequenza di
 lettere minuscole (sulla stessa riga e senza spazi), terminate da
 '\n'.  Il programma stampa la sequenza letta cifrata secondo il
