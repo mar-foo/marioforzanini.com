@@ -13,13 +13,12 @@ PAGES = index.html \
                 programmazione6.html \
                 programmazione8.html \
                 programmazione9.html \
-                programmazione10.html \
-		programmazione11.html
+                programmazione10.html
 
 all: $(PAGES)
 
 %.html: %.md
-	smu $< > $@
+	shtpl < $< | smu > $@
 
 clean:
 	rm *.html

@@ -9,7 +9,7 @@ fatta così:
 
 	package main
 	import "fmt"
-	
+
 	func main() {
 		fmt.Println(<messaggio>)
 		return
@@ -52,10 +52,10 @@ variabile.
 	import "fmt"
 
 	func main() {
-		var n int
-		n = 10
-		fmt.Println(n)
-		return
+var n int
+n = 10
+fmt.Println(n)
+return
 	}
 
 ### Tipi di variabili
@@ -71,10 +71,10 @@ decimali e valori di verità (*true* oppure *false*).
 	import "fmt"
 
 	func main() {
-		var n float64
-		n = 1.10
-		fmt.Println(n)
-		return
+var n float64
+n = 1.10
+fmt.Println(n)
+return
 	}
 
 ## Nota: dichiarazioni multiple
@@ -93,14 +93,14 @@ variabili come intero e come float64 dà un errore.
 
 	package main
 	import "fmt"
-	
+
 	func main() {
-		var n int
-		var m float64
-		n = 10
-		m = 20.0
-		fmt.Println(n + m) // ERRORE
-		return
+var n int
+var m float64
+n = 10
+m = 20.0
+fmt.Println(n + m) // ERRORE
+return
 	}
 
 ## Nota: variabili inizializzate
@@ -112,11 +112,11 @@ il tipo della variabile e assegnerà il valore.
 
 	package main
 	import "fmt"
-	
+
 	func main() {
-		primo := 20
-		fmt.Println(primo)
-		return
+primo := 20
+fmt.Println(primo)
+return
 	}
 
 ## Nota: identificatore blank
@@ -128,11 +128,11 @@ variabile occorre mettere il simbolo ``_``
 
 	package main
 	import "fmt"
-	
+
 	func main() {
-		_, n := 10, 20
-		fmt.Println(n)
-		return
+_, n := 10, 20
+fmt.Println(n)
+return
 	}
 
 # Lettura da tastiera
@@ -157,11 +157,11 @@ conserva il valore letto in una variabile è fatto così:
 
 	package main
 	import "fmt"
-	
+
 	func main() {
-		var numero int
-		fmt.Scan(&numero)
-		return
+var numero int
+fmt.Scan(&numero)
+return
 	}
 
 Alla fine del programma nella variabile ``numero`` sarà conservato il
@@ -183,7 +183,7 @@ eventualmente si può calcolare il resto con l'operazione ``%`` (detta
 
 ## Esercizio 0 - Conversione da secondi in minuti
 
-*Problema*: Scrivere un programma Go ``secondi_minuti.go`` che, preso
+*Problema*: Scrivere un programma Go <a href="secondi_minuti.go">secondi_minuti.go</a> che, preso
 in input un valore **intero** rappresentante una quantità in secondi,
 stampi in output il corrispondente valore in minuti.
 
@@ -194,26 +194,16 @@ Numero di secondi: **120**
 Numero di minuti: **2**
 
 ### Soluzione
-
-	package main
-	import "fmt"
-	
-	func main() {
-		var secondi int
-		fmt.Println("Numero di secondi: ")
-		fmt.Scan(&secondi)
-		fmt.Println("Numero di minuti: ", secondi / 60)
-		return
-	}
+{{cat secondi_minuti.go | sed 's/^/	/g'}}
 
 ## Esercizio 1 - Conversione da ore in giorni
 
-					
-*Problema:* Scrivere un programma Go ``minuti_ore.go`` che, preso in
+
+*Problema:* Scrivere un programma Go <a href="minuti_ore.go">minuti_ore.go</a> che, preso in
 input un valore **intero** rappresentante una quantità in ore,
 stampi in output il corrispondente valore in giorni.
 
-					
+
 *Esempio di esecuzione*
 
 Numero di ore: **48**
@@ -221,31 +211,20 @@ Numero di ore: **48**
 Numero di giorni: 2
 
 ### Soluzione
-
-	package main
-	
-	import "fmt"
-	
-	func main() {
-		var ore int
-		fmt.Println("Numero di ore:")
-		fmt.Scan(&ore)
-		fmt.Println("Numero di giorni: ", ore / 24)
-		return
-	}
+{{cat minuti_ore.go | sed 's/^/	/g'}}
 
 ## Esercizio 2 - Consumo medio e resa di un motore
-					
-*Problema:* Scrivere un programma Go ``consumo_resa.go`` che calcola
+
+*Problema:* Scrivere un programma Go <a href="consumo_resa.go">consumo_resa.go</a> che calcola
 il consumo medio e la resa di un motore date la distanza totale
 percorsa (in km) e la quantità di carburante utilizzata (in litri).
 I valori in input sono di tipo float64.
-					
+
 *Nota:* Il consumo medio di carburante si esprime in l/km ed è la
 quantità di carburante che occorre in media per percorrere un km di
 strada. La resa di un motore è data dalla distanza percorsa in
 media con un litro di carburante e si esprime con km/l.
-					
+
 *Esempio di esecuzione:*
 
 Distanza percorsa (in km): **50**
@@ -257,28 +236,14 @@ Consumo medio: 0.2 l/km
 Resa media: 5 km/l
 
 ### Soluzione
-
-	package main
-	
-	import "fmt"
-	
-	func main() {
-		var distanza, carburante float64
-		fmt.Println("Distanza percorsa (in km): ")
-		fmt.Scan(&distanza)
-		fmt.Println("Quantità di carburante utilizzata (in l): ")
-		fmt.Scan(&carburante)
-	
-		fmt.Println("Consumo medio: ", carburante / distanza, "km/l")
-		fmt.Println("Resa media: ", distanza / carburante, "l/km")
-	}
+{{cat consumo_resa.go | sed 's/^/	/g'}}
 
 ## Esercizio 3 - Media di due voti
-					
-*Problema:* Scrivere un programma Go ``media_due_voti.go``
+
+*Problema:* Scrivere un programma Go <a href="media_due_voti.go">media_due_voti.go</a>
 che, letti due voti (di tipo float64), ne calcola la media.
 
-					
+
 *Esempio di esecuzione:*
 
 Primo voto: **6**
@@ -287,43 +252,27 @@ Secondo voto: **7**
 
 Media: 6.5
 ### Soluzione
-
-	package main
-	
-	import "fmt"
-	
-	func main() {
-		var primoVoto, secondoVoto float64
-	
-		fmt.Println("Primo voto: ")
-		fmt.Scan(&primoVoto)
-	
-		fmt.Println("Secondo voto: ")
-		fmt.Scan(&secondoVoto)
-	
-		fmt.Println("Media: ", (primoVoto + secondoVoto) / 2)
-		return
-	}
+{{cat media_due_voti.go | sed 's/^/	/g'}}
 
 ## Esercizio 4 - Velocità
-					
-*Problema:* Scrivere un programma Go =velocità.go= che calcola la
+
+*Problema:* Scrivere un programma Go <a href="velocità.go">velocità.go</a> che calcola la
 velocità media su un tratto di strada, dopo aver letto in input la
 lunghezza del tratto (in km) e il tempo trascorso nel percorrerlo
 (in ore). I valori letto sono di tipo float64.
 
 
-					
+
 *Nota:* La velocità media si esprime in km/h e si calcola dividendo
 la lunghezza dell tratto percorso per il tempo necessario a
 percorrerlo
 
-					
+
 *Bonus:* Utilizzando i risultati di conversione degli esercizi
 precedenti, come ricavereste la velocità in m/s.
 
 
-					
+
 *Esempio di esecuzione:*
 
 Lunghezza del percorso (in km): **72**
@@ -335,45 +284,21 @@ Velocità media: 36 km/h
 Velocità media: 10 m/s
 
 ### Soluzione
-
-	package main
-	
-	import "fmt"
-	
-	func main() {
-		const SECONDI_IN_ORE = 3600 // 60 * 60
-		const METRI_IN_CHILOMETRO = 1000
-	
-		var chilometri, ore float64
-	
-		fmt.Println("Lunghezza del percorso (in km): ")
-		fmt.Scan(&chilometri)
-	
-		fmt.Println("Tempo trascorso (in h): ")
-		fmt.Scan(&ore)
-	
-		fmt.Println("Velocità media: ", chilometri / ore, "km/h")
-	
-		secondi := ore * SECONDI_IN_ORE
-		metri := chilometri * METRI_IN_CHILOMETRO
-		fmt.Println("Velocità media: ", metri / secondi, "m/s")
-	
-		return
-	}
+{{cat velocita.go | sed 's/^/	/g'}}
 
 ## Esercizio 5 - Conversione da secondi a giorni, ore, minuti
-					
-*Problema:* Scrivere un programma Go ``secondi_giorni.go``
+
+*Problema:* Scrivere un programma Go <a href="secondi_giorni.go">secondi_giorni.go</a>
 che, preso in input un valore *intero* rappresentante una
 quantità in secondi, stampi in output il corrispondente valore
 in giorni, ore, minuti, secondi.
 
 
-					
+
 *Bonus:* Provate a farlo senza usare mai l'operazione di sottrazione.
 
 
-					
+
 *Esempio di esecuzione:*
 
 Numero di secondi: **123456**
@@ -381,33 +306,4 @@ Numero di secondi: **123456**
 g:h:m:s = 1:10:17:36
 
 ### Soluzione
-
-	package main
-	
-	import "fmt"
-	
-	func main() {
-		const ORE_IN_GIORNI = 24
-		const MINUTI_IN_ORE = 60
-		const SECONDI_IN_MINUTO = 60
-	
-		var secondiTotali int
-	
-		fmt.Println("Numero di secondi:")
-		fmt.Scan(&secondiTotali)
-	
-		secondi_in_ore := MINUTI_IN_ORE * SECONDI_IN_MINUTO
-		secondi_in_giorni := ORE_IN_GIORNI * secondi_in_ore
-	
-		giorni := secondiTotali / secondi_in_giorni
-		resto := secondiTotali % secondi_in_giorni
-	
-		ore := resto / secondi_in_ore
-		resto = resto % secondi_in_ore
-	
-		minuti := resto / SECONDI_IN_MINUTO
-		secondi := resto % SECONDI_IN_MINUTO
-	
-		fmt.Println("g:h:m:s -", giorni, ":", ore, ":", minuti, ":", secondi)
-		return
-	}
+{{cat secondi_giorni.go | sed 's/^/	/g'}}
