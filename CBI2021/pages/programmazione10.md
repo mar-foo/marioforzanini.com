@@ -57,7 +57,7 @@ wxyz
 # Esercizi
 
 ## Esercizio 0 - Conta maiuscole
-*Problema*: Scrivere un programma go `<a href="onta_maiuscole.go">onta_maiuscole.go</a> che legge
+*Problema*: Scrivere un programma go <a href="conta_maiuscole.go">conta_maiuscole.go</a> che legge
 in input una stringa, conta il numero di maiuscole e stampa il
 risultato.
 
