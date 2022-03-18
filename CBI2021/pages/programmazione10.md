@@ -67,6 +67,10 @@ Inserire una string: **AbCdEfG**
 
 Maiuscole: 4
 
+### Soluzione
+
+{{cat conta_maiuscole.go | sed 's/^/	/g'}}
+
 ## Esercizio 1 - Capitalize
 *Problema*: Scrivere un programma go ``capitalize.go`` che legge in
 input una stringa e restituisce la stessa stringa in cui l'inizio di
@@ -77,6 +81,10 @@ ogni parola è maiuscolo mentre il resto è minuscolo.
 Inserire una stringa: **nESSuno sCriVe iN quESTo moDo**
 
 Nessuno Scrive In Questo Modo
+
+### Soluzione
+
+{{cat capitalize.go | sed 's/^/	/g'}}
 
 ## Esercizio 2 - Database
 *Problema*: Scrivere un programma go <a href="database.go">database.go</a> che legge in
@@ -99,6 +107,9 @@ Email: mario.forzanini@studenti.unimi.it
 
 Ultimo voto: 18
 
+### Soluzione
+
+{{cat database.go | sed 's/^/	/g'}}
 
 ## Esercizio 3 - Cripta password
 
@@ -121,3 +132,7 @@ Parola: **nomedelmiocane118**
 Password: n0m3d3lm10c@n3118
 
 *Nota*: Non usatelo per delle password vere
+
+### Soluzione
+
+{{cat cripta_password.go | sed 's/^/	/g'}}
