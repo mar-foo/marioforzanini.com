@@ -7,7 +7,7 @@ condizioni **if/else**.
 
 ## Esercizio 0 - Differenze
 
-*Problema*: Scrivere un programma ``differenze.go``
+*Problema*: Scrivere un programma <a href="differenze.go">differenze.go</a>
 che legge una serie di valori ``float64`` da tastiera e
 stampa le differenze, cioè la differenza tra il secondo e il primo,
 tra il terzo ed il secondo, e così via. Il programma termina quando
@@ -31,27 +31,11 @@ Scrivi un numero: **0**
 Differenza = -34
 
 ### Soluzione
-
-	package main
-	
-	import "fmt"
-	
-	func main() {
-		var corrente, precedente float64
-		fmt.Print("Scrivi un numero: ")
-		fmt.Scan(&corrente);
-		for corrente != 0 {
-			precedente = corrente
-			fmt.Print("Scrivi un numero: ")
-			fmt.Scan(&corrente)
-			fmt.Println("Differenza = ", corrente - precedente)
-		}
-		return
-	}
+{{cat differenze.go | sed 's/^/	/g'}}
 
 ## Esercizio 1 - Quadrati
 
-*Problema*: Scrivere un programma ``quadrati.go`` che
+*Problema*: Scrivere un programma <a href="quadrati.go">quadrati.go</a> che
 legge in input un intero n positivo e calcola il massimo quadrato
 ``(k^2) <= n``.
 
@@ -62,26 +46,11 @@ Inserisci un numero: **56**
 Massimo quadrato: 49
 
 ### Soluzione
-
-	package main
-	
-	import "fmt"
-	
-	func main() {
-		var n, k int
-		fmt.Print("Inserisci un numero: ")
-		fmt.Scan(&n)
-		
-		for i:= 1; i*i < n; i++ {
-			k = i*i
-		}
-		fmt.Println("Massimo quadrato: ", k);
-		return
-	}
+{{cat quadrati.go | sed 's/^/	/g'}}
 
 ## Esercizio 2 - Euclide
 
-*Problema*: Scrivere un programma ``euclide.go`` che
+*Problema*: Scrivere un programma <a href="euclide.go">euclide.go</a> che
 legge da standard input due interi *a* e *b*, con ``a >=
 b``, e calcola il MCD tra i due numeri con l'algoritmo di
 Euclide.
@@ -104,7 +73,7 @@ si ripete da 1.
 
 ## Esercizio 3 - Andamento
 
-*Problema*: Scrivere un programma ``andamento.go``
+*Problema*: Scrivere un programma <a href="andamento.go">andamento.go</a>
 che legge da tastiera una serie (di almeno un elemento) di numeri
 interi > -1 e stampa "+" ogni volta che il nuovo valore è maggiore o
 uguale al precedente e "-" altrimenti. Il programma si ferma quando il
@@ -120,7 +89,7 @@ somma: 31
 
 ## Esercizio 4 - Somma cifre
 
-*Problema*: Scrivere un programma ``somma_cifre.go``
+*Problema*: Scrivere un programma <a href="somma_cifre.go">somma_cifre.go</a>
 che calcola la somma delle cifre di un numero intero positivo fornito
 da standard input.
 
@@ -132,8 +101,7 @@ Somma: 35
 
 ## Esercizio 5 - Slash
 
-*Problema*: Scrivere un programma
-``slash.go`` che legge un intero positivo e stampa un
+*Problema*: Scrivere un programma <a href="slash.go">slash.go</a> che legge un intero positivo e stampa un
 back-slash (\) di asterischi di altezza n.
 
 *Esempi di esecuzione*:
@@ -147,26 +115,11 @@ Dimensione \: **3**
 
 
 ### Soluzione
-
-	package main
-	import "fmt"
-	
-	func main() {
-		var lines int
-		fmt.Print("Altezza: ")
-		fmt.Scan(&lines)
-		for i := 0; i < lines; i++ {
-			for j := 0; j < i; j++ {
-				fmt.Print(" ")
-			}
-			fmt.Println("*")
-		}
-		return
-	}
+{{cat slash.go | sed 's/^/	/g'}}
 
 ## Esercizio 6 - Fibonacci
 
-*Problema*: Scrivere un programma ``fibonacci.go``
+*Problema*: Scrivere un programma <a href="fibonacci.go">fibonacci.go</a>
 che legge un intero positivo e stampa i numeri di fibonacci dal primo
 all'n-esimo.
 

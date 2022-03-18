@@ -19,7 +19,7 @@ PAGES = index.html \
 all: $(PAGES)
 
 %.html: %.md
-	smu $< > $@
+	shtpl < $< | smu > $@
 
 clean:
 	rm *.html

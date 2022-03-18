@@ -133,7 +133,7 @@ la media di due numeri letti dall'utente:
 
 	package main
 	import "fmt"
-	
+
 	func main() {
 		var x, y float64
 		fmt.Print("Inserire due numeri: ")
@@ -141,7 +141,7 @@ la media di due numeri letti dall'utente:
 		fmt.Println("Media: ", media(x, y))
 		return
 	}
-	
+
 	func media(primo float64, secondo float64) float64 {
 		return (primo + secondo) / 2
 	}
@@ -184,7 +184,7 @@ una funzione "slash". Quali argomenti avrà questa funzione? Quali valori restit
 
 ## Esercizio 2 - Rettangolo
 
-*Problema*: Scrivere un programma ``rettangolo.go`` che legge due interi positivi ``n`` e
+*Problema*: Scrivere un programma <a href="rettangolo.go">rettangolo.go</a> che legge due interi positivi ``n`` e
 ``m`` e stampa un rettangolo di base ``n`` e altezza ``m`` asterischi. L'implementazione deve
 contenere una funzione chiamata "rettangolo" che si occupi di disegnare la  figura.
 
@@ -199,10 +199,13 @@ Altezza: **4**
 	*****
 	*****
 
+### Soluzione
+
+{{cat rettangolo.go | sed 's/^/	/g'}}
 
 ## Esercizio 3 - Legge oraria
 
-*Problema*: Scrivere un programma ``legge_oraria.go`` che accetti in input 4 parametri:
+*Problema*: Scrivere un programma <a href="legge_oraria.go">legge_oraria.go</a> che accetti in input 4 parametri:
 
 * Velocità
 * Posizione al tempo 0
@@ -238,10 +241,14 @@ t₁: **20**
 	19  96
 	20  101
 
+### Soluzione
+
+{{cat legge_oraria.go | sed 's/^/	/g'}}
+
 
 ## Esercizio 4 - Piano inclinato
 
-*Problema*: Scrivere un programma ``piano_inclinato.go`` che legga 2 parametri:
+*Problema*: Scrivere un programma <a href="piano_inclinato.go">piano_inclinato.go</a> che legga 2 parametri:
 
 * Massa ``m``
 * Angolo alla base ``α``
