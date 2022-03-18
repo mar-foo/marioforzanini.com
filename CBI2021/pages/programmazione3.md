@@ -51,7 +51,7 @@ chiamata *numero* sia uguale a zero si scriverebbe:
 
 
 	if numero == 0 {
-		// Cose da fare se uguale a 0
+// Cose da fare se uguale a 0
 	}
 
 In questo codice è apparso una nuova combinazione di simboli che
@@ -137,7 +137,7 @@ apparire un blocco di codice fatto così:
 
 
 	if primoVoto <= 10 && primoVoto >= 3 && secondoVoto <= 10 && secondoVoto >= 3 {
-		// Va tutto bene
+// Va tutto bene
 	}
 
 # Selezione a due vie: if/else
@@ -160,9 +160,9 @@ condizione da verificare, ad esempio:
 
 
 	if t := c * 2; t < 100 {
-		fmt.Println("t vale", t, " che è minore di 100")
+fmt.Println("t vale", t, " che è minore di 100")
 	} else {
-		fmt.Println("t vale", t, " che è maggiore o uguale a 100")
+fmt.Println("t vale", t, " che è maggiore o uguale a 100")
 	}
 
 In questo caso la variabile t viene dichiarata subito dopo la
@@ -175,8 +175,8 @@ blocco di istruzioni è terminato.
 
 
 	if t > 0 {
-		s := t * 2 					// la variabile s è locale a questo blocco
-		fmt.Println(s)
+s := t * 2 					// la variabile s è locale a questo blocco
+fmt.Println(s)
 	}
 	fmt.Println(s)					// ERRORE: La variabile s non esiste fuori dal blocco
 
@@ -187,18 +187,18 @@ un costrutto simile ai precedenti:
 
 
 	if <condizione> {
-		// <condizione1> è vera
+// <condizione1> è vera
 	} else if <condizione2> {
-		// <condizione2> è vera
+// <condizione2> è vera
 	} else {
-		// nessuna delle precedenti è vera
+// nessuna delle precedenti è vera
 	}
 
 # Esercizi
 
 ## Esercizio 0 - Operatori di confronto e logici
 
-*Problema*: Scrivere un programma go ``condizioni.go`` per testare,
+*Problema*: Scrivere un programma go <a href="condizioni.go">condizioni.go</a> per testare,
 una a una, le condizioni nella tabella che segue. Il programma, per
 ogni condizione (a., &#x2026;, x.), legge un valore da tastiera (del
 tipo indicato) e stampa ``true`` o ``false``, a seconda che la
@@ -305,9 +305,9 @@ false
 
 
 	if n == 10 {
-		fmt.Println(true)
+fmt.Println(true)
 	} else {
-		fmt.Println(false)
+fmt.Println(false)
 	}
 
 si può scrivere in modo più compatto (ed equivalente) così:
@@ -320,80 +320,11 @@ Questo perchè l'espressione **n == 10** quando viene valutata dà come
 risultato ``true`` se è vera e ``false`` altrimenti.
 
 ### Soluzione
-
-	package main
-	
-	import "fmt"
-	
-	func main() {
-		var n int
-		
-		// Punto a
-		fmt.Println("int uguale a 10: ")
-		fmt.Scan(&n)
-		fmt.Println(n == 10)
-		
-		// Punto b
-		fmt.Println("int diverso da 10: ")
-		fmt.Scan(&n)
-		fmt.Println(n != 10)
-		
-		// Punto c
-		fmt.Println("int diverso da 10 e da 20: ")
-		fmt.Scan(&n)
-		fmt.Println(n != 10 && n != 20)
-		
-		// Punto d
-		fmt.Println("int diverso da 10 o da 20: ")
-		fmt.Scan(&n)
-		fmt.Println(n != 10 || n != 20)
-		
-		// Punto e
-		fmt.Println("int maggiore o uguale a 10: ")
-		fmt.Scan(&n)
-		fmt.Println(n >= 10)
-		
-		// Punto f
-		fmt.Println("int compreso tra 10 e 20, inclusi: ")
-		fmt.Scan(&n)
-		fmt.Println(n <= 20 && n >= 10)
-		
-		// Punto g
-		fmt.Println("int compreso tra 10 e 20, esclusi: ")
-		fmt.Scan(&n)
-		fmt.Println(n < 20 && n > 10)
-		
-		// Punto h
-		fmt.Println("int compreso tra 10 e 20, 10 incluso e 20 escluso: ")
-		fmt.Scan(&n)
-		fmt.Println(n < 20 && n >= 10)
-		
-		// Punto i
-		fmt.Println("int minore di 10 o maggiore di 20")
-		fmt.Scan(&n)
-		fmt.Println(n < 10 || n > 20)
-		
-		// Punto j
-		fmt.Println("int compreso tra 10 e 20 o tra 30 e 40, estremi inclusi: ")
-		fmt.Scan(&n)
-		fmt.Println((n <= 20 && n >= 10) || (n <= 40 && n >= 30))
-		
-		// Punto k
-		fmt.Println("int multiplo di 4 ma non di 100")
-		fmt.Scan(&n)
-		fmt.Println(n % 4 == 0 && n % 100 != 0)
-		
-		// Punto l
-		fmt.Println("int dispari e compreso tra 0 e 100, inclusi")
-		fmt.Scan(&n)
-		fmt.Println(n % 2 == 1 && 0 <= n && a <= 100)
-		
-		return
-	}
+{{cat condizioni.go | sed 's/^/	/g'}}
 
 ## Esercizio 1 - Voto valido
 
-*Problema:* Scrivere un programma Go ``voto_valido.go`` che legge un
+*Problema:* Scrivere un programma Go <a href="voto_valido.go">voto_valido.go</a> che legge un
 numero intero, se il numero non è compreso tra 3 e 10, stampa "voto
 non valido", altrimenti non stampa niente.
 
@@ -407,26 +338,11 @@ voto non valido
 voto: **4**
 
 ### Soluzione
-
-	package main
-	
-	import "fmt"
-	
-	func main() {
-		var voto int
-		fmt.Println("voto: ")
-		fmt.Scan(&voto)
-		
-		if voto < 3 || voto  > 10 {
-			fmt.Println("voto non valido")
-		}
-		
-		return
-	}
+{{cat voto_valido.go | sed 's/^/	/g'}}
 
 ## Esercizio 2 - Maggiore
 
-*Problema:* Scrivere un programma Go maggiore.go che legga due
+*Problema:* Scrivere un programma Go <a href="maggiore.go">maggiore.go</a> che legga due
 interi, li salvi in due variabili ``max`` e ``min`` in qualsiasi
 ordine; se non sono in ordine, li sistemi in modo che ``min``
 contenga il minore e ``max`` il maggiore; infine stampi il contenuto
@@ -444,30 +360,11 @@ due int: **20 10**
 20
 
 ### Soluzione
-
-	package main
-	
-	import "fmt"
-	
-	func main() {
-		var max, min int
-		
-		fmt.Println("due int:")
-		fmt.Scan(&max)
-		fmt.Scan(&min)
-		
-		if min > max {
-			max, min = min, max // Scambio i valori usando l'assegnamento multiplo
-		}
-		
-		fmt.Println(max, min)
-		
-		return
-	}
+{{cat maggiore.go | sed 's/^/	/g'}}
 
 ## Esercizio 3 - Pari e dispari
 
-*Problema:* Scrivere un programma ``pari_dispari.go`` che legge un
+*Problema:* Scrivere un programma <a href="pari_dispari.go">pari_dispari.go</a> che legge un
 intero ``n`` e, a seconda del valore di ``n``, stampa uno dei messaggi
 "n è pari" oppure "n è dispari".
 
@@ -483,34 +380,16 @@ numero: **5**
 5 è dispari
 
 
-*Nota*: Un numero intero ``n`` è pari se il resto della divisione 
+*Nota*: Un numero intero ``n`` è pari se il resto della divisione
 di ``n`` per 2 è pari a zero. In go l'operatore che calcola il resto della
 divisione intera è ``%``.
 
 ### Soluzione
-
-	package main
-	
-	import "fmt"
-	
-		func main() {
-		var numero int
-		
-		fmt.Println("numero:")
-		fmt.Scan(&numero)
-		
-		if numero % 2 == 0 {
-			fmt.Println(numero, " è pari")
-		} else {
-			fmt.Println(numero, " è dispari")
-		}
-		
-		return
-	}
+{{cat pari_dispari.go | sed 's/^/	/g'}}
 
 ## Esercizio 4 - Tariffe scontate
 
-*Problema:* Scrivere un programma ``tariffe.go`` che chiede
+*Problema:* Scrivere un programma <a href="tariffe.go">tariffe.go</a> che chiede
 all'utente l'età (``int``) e se è studente (``bool``) e stampa il costo
 del biglietto di ingresso al cinema secondo la seguente tabella:
 
@@ -565,37 +444,11 @@ studente? (t/f): t
 ingresso 5 euro
 
 ### Soluzione
-
-	package main
-	
-	import "fmt"
-	
-	func main() {
-		var eta int
-		var studente bool
-		
-		fmt.Println("età:")
-		fmt.Scan(&eta) 
-		
-		fmt.Println("studente? (t/f):")
-		fmt.Scan(&studente)
-		
-		if eta >= 0 && eta < 9 {
-			fmt.Println("gratis")
-		} else if studente || eta < 14 {
-			fmt.Println("5 euro")
-		} else if (eta >= 14 && eta < 26) || eta > 65 {
-			fmt.Println("7.5 euro")
-		} else {
-			fmt.Println("10 euro")
-		}
-		
-		return
-	}
+{{cat tariffe.go | sed 's/^/	/g'}}
 
 ## Esercizio 5 - Sovrapposizione
 
-*Problema:* Scrivere un programma ``sovrapposizione.go`` che legge da
+*Problema:* Scrivere un programma <a href="sovrapposizione.go">sovrapposizione.go</a> che legge da
 tastiera il giorno [1-31], l'ora di inizio [0-24] e l'ora di fine
 [0-24] di due appuntamenti e stabilisce se si sovrappongono (anche
 parzialmente) oppure no.
@@ -616,29 +469,5 @@ appuntamento 2 (gg, start, end): **28 16 20**
 non si sovrappongono
 
 ### Soluzione
+{{cat sovrapposizione.go | sed 's/^/	/g'}}
 
-	package main
-	
-	import "fmt"
-	
-	func main() {
-		var gg1, start1, end1 int
-		var gg2, start2, end2 int
-		
-		fmt.Println("appuntamento 1 (gg, start, end): ")
-		fmt.Scan(&gg1, &start1, &end1)
-		
-		fmt.Println("appuntamento 2 (gg, start, end): ")
-		fmt.Scan(&gg2, &start2, &end2)
-		
-		if gg1 != gg2 {
-			fmt.Println("non si sovrappongono")
-		} else {
-			if !(start2 < end1 && start1 < end2) {
-				fmt.Println("non si sovrappongono")
-			} else {
-				fmt.Println("si sovrappongono")
-			}
-		}
-		return
-	}

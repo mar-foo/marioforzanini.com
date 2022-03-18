@@ -8,39 +8,37 @@
 		<link rel="stylesheet" type="text/css" href="/pub/style.css">
 	</head>
 	<body>
-		<div id="header">
-			<h1 class="title">Lezione 21 Gennaio 2022</h1>
-		</div>
-		<div id="menu">
-			<ul>
-				<li><a href="/">Torna al mio sito</a></li>
-				<li><a href="index.html">CBI - 2021</a></li>
-				<h3>Lezioni</h3>
-				<ul>
-					<li><a href="lezione1.html">Lezione 1 Ottobre 2021</a></li>
-					<li><a href="lezione2.html">Lezione 8 Ottobre 2021</a></li>
-					<li><a href="lezione4.html">Lezione 22 Ottobre 2021</a></li>
-					<li><a href="lezione5.html">Lezione 29 Ottobre 2021</a></li>
-					<li><a href="lezione6.html">Lezione 5 Novembre 2021</a></li>
-					<li><a href="lezione7.html">Lezione 19 Novembre 2021</a></li>
-					<li><a href="lezione8.html">Lezione 26 Novembre 2021</a></li>
-				</ul>
-				<h3>Programmazione</h3>
-				<ul>
-					<li><a href="programmazione1.html">Lezione 3 Dicembre 2021</a></li>
-					<li><a href="programmazione2.html">Lezione 10 Dicembre 2021</a></li>
-					<li><a href="programmazione3.html">Lezione 17 Dicembre 2021</a></li>
-					<li><a href="programmazione4.html">Lezione 21 Gennaio 2022</a></li>
-					<li><a href="programmazione6.html">Lezione 4 Febbraio 2022</a></li>
-					<li><a href="programmazione8.html">Lezione 18 Febbraio 2022</a></li>
-					<li><a href="programmazione9.html">Lezione 4 Marzo 2022</a></li>
-					<li><a href="programmazione10.html">Lezione 11 Marzo 2022</a></li>
-					<li><a href="programmazione11.html">Lezione 18 Marzo 2022</a></li>
-				</ul>
-			</ul>
-		</div>
-		<div id="main">
-<h1>Correzione</h1>
+	<div id="header">
+		<h1 class="title">Lezione 21 Gennaio 2022</h1>
+	</div>
+	<div id="menu">
+		<ul>
+			<li><a href="/">Torna al mio sito</a></li>
+			<li><a href="index.html">CBI - 2021</a></li>
+			<h3>Lezioni</h3>
+		<ul>
+			<li><a href="lezione1.html">Lezione 1 Ottobre 2021</a></li>
+			<li><a href="lezione2.html">Lezione 8 Ottobre 2021</a></li>
+			<li><a href="lezione4.html">Lezione 22 Ottobre 2021</a></li>
+			<li><a href="lezione5.html">Lezione 29 Ottobre 2021</a></li>
+			<li><a href="lezione6.html">Lezione 5 Novembre 2021</a></li>
+			<li><a href="lezione7.html">Lezione 19 Novembre 2021</a></li>
+			<li><a href="lezione8.html">Lezione 26 Novembre 2021</a></li>
+		</ul>
+		<h3>Programmazione</h3>
+		<ul>
+			<li><a href="programmazione1.html">Lezione 3 Dicembre 2021</a></li>
+			<li><a href="programmazione2.html">Lezione 10 Dicembre 2021</a></li>
+			<li><a href="programmazione3.html">Lezione 17 Dicembre 2021</a></li>
+			<li><a href="programmazione4.html">Lezione 21 Gennaio 2022</a></li>
+			<li><a href="programmazione6.html">Lezione 4 Febbraio 2022</a></li>
+			<li><a href="programmazione8.html">Lezione 18 Febbraio 2022</a></li>
+			<li><a href="programmazione9.html">Lezione 4 Marzo 2022</a></li>
+			<li><a href="programmazione10.html">Lezione 11 Marzo 2022</a></li>
+		</ul>
+		</ul>
+	</div>
+	<div id="main"><h1>Correzione</h1>
 <p>Per prima cosa osserviamo le soluzioni agli esercizi precedenti:
 <a href="programmazione3.html">Lezione Precedente</a></p>
 <h1>Ripasso</h1>
@@ -60,16 +58,13 @@ ottenere il risultato desiderato, per esempio per calcolare la media
 di 10 numeri occorre sommare tutti e dieci i valori e dividere il
 risultato per 10; ovviamente siamo in grado di risolvere questo
 problema con gli strumenti che abbiamo imparato fino ad ora:</p>
-<pre><code>package main
-
-import &quot;fmt&quot;
-
-func main() {
+<pre><code>package main</code></pre>
+<pre><code>import &quot;fmt&quot;</code></pre>
+<pre><code>func main() {
 var numero1, numero2, numero3, numero4, numero5,
 	numero6, numero7, numero8, numero9, numero10 float64
-	var media float64
-	
-	fmt.Scan(&amp;numero1, &amp;numero2, &amp;numero3, &amp;numero4, &amp;numero5,
+	var media float64</code></pre>
+<pre><code>	fmt.Scan(&amp;numero1, &amp;numero2, &amp;numero3, &amp;numero4, &amp;numero5,
 	&amp;numero6, &amp;numero7, &amp;numero8, &amp;numero9, &amp;numero10)
 	media = (numero1 + numero2 + numero3 + numero4 + numero5 +
 	numero6 + numero7 + numero8 + numero9 + numero10) / 10
@@ -82,54 +77,41 @@ ed è noiosa da scrivere: bisogna scrivere troppo. Un altro modo, più
 elegante per risolvere il problema è quello di salvare i valori in
 una sola variabile e, prima di leggere il valore successivo,
 aggiungere il risultato alla media.</p>
-<pre><code>package main
-
-import &quot;fmt&quot;
-
-func main() {
-	var numero, media float64
-	
-	// Numero 1
+<pre><code>package main</code></pre>
+<pre><code>import &quot;fmt&quot;</code></pre>
+<pre><code>func main() {
+	var numero, media float64</code></pre>
+<pre><code>	// Numero 1
 	fmt.Scan(&amp;numero)
-	media += numero
-	
-	// Numero 2
+	media += numero</code></pre>
+<pre><code>	// Numero 2
 	fmt.Scan(&amp;numero)
-	media += numero
-	
-	// Numero 3
+	media += numero</code></pre>
+<pre><code>	// Numero 3
 	fmt.Scan(&amp;numero)
-	media += numero
-	
-	// Numero 4
+	media += numero</code></pre>
+<pre><code>	// Numero 4
 	fmt.Scan(&amp;numero)
-	media += numero
-	
-	// Numero 5
+	media += numero</code></pre>
+<pre><code>	// Numero 5
 	fmt.Scan(&amp;numero)
-	media += numero
-	
-	// Numero 6
+	media += numero</code></pre>
+<pre><code>	// Numero 6
 	fmt.Scan(&amp;numero)
-	media += numero
-	
-	// Numero 7
+	media += numero</code></pre>
+<pre><code>	// Numero 7
 	fmt.Scan(&amp;numero)
-	media += numero
-	
-	// Numero 8
+	media += numero</code></pre>
+<pre><code>	// Numero 8
 	fmt.Scan(&amp;numero)
-	media += numero
-	
-	// Numero 9
+	media += numero</code></pre>
+<pre><code>	// Numero 9
 	fmt.Scan(&amp;numero)
-	media += numero
-	
-	// Numero 10
+	media += numero</code></pre>
+<pre><code>	// Numero 10
 	fmt.Scan(&amp;numero)
-	media += numero
-	
-	media /= 10
+	media += numero</code></pre>
+<pre><code>	media /= 10
 	fmt.Println(&quot;Media: &quot;, media)
 	return
 }</code></pre>
@@ -144,18 +126,20 @@ parola chiave for occorre aggiungere un solo argomento, ovvero la
 condizione da verificare ogni volta che si arriva alla fine del
 blocco di istruzioni. Se la condizione specificata è vera si
 ripete l'intero blocco.</p>
-<pre><code>for &lt;cond&gt; {
-	// Istruzioni che si ripetono finchè &lt;cond&gt; non risulta falsa
-}</code></pre>
+<pre><code>for &lt;cond&gt; {</code></pre>
+<p>// Istruzioni che si ripetono finchè <cond> non risulta falsa
+<pre><code>}</code></pre>
+</p>
 <p><em>NOTA</em>: Negli altri linguaggi questo tipo di ciclo viene
 solitamente indicato con la parola <strong>while</strong>.</p>
 <h2>Ciclo for zerario</h2>
 <p>Per esprimere un ciclo che continua a ripetersi senza controllare
 nessuna condizione è sufficiente non inserire nessuna condizione
 dopo la parola chiave <strong>for</strong></p>
-<pre><code>for {
-	// Istruzioni che si ripetono sempre
-}</code></pre>
+<pre><code>for {</code></pre>
+<p>// Istruzioni che si ripetono sempre
+<pre><code>}</code></pre>
+</p>
 <h3>Break e continue</h3>
 <p>All'interno del blocco di istruzioni di un ciclo for sono
 disponibili due parole chiave che permettono di controllare il
@@ -168,10 +152,11 @@ nessun'altra istruzione.</p>
 <h3>Esempio</h3>
 <p>Si potrebbe utilizzare un ciclo for unario al posto del costrutto
 <strong>if</strong>:</p>
-<pre><code>for &lt;cond&gt; {
-	// Istruzioni da eseguire
-	break // Esci dal ciclo
-}</code></pre>
+<pre><code>for &lt;cond&gt; {</code></pre>
+<p>// Istruzioni da eseguire
+break // Esci dal ciclo
+<pre><code>}</code></pre>
+</p>
 <h2>Ciclo for ternario</h2>
 <p>Il secondo modo per specificare un ciclo è il <strong>for ternario</strong>: dopo
 la parola chiave for occorre aggiungere 3 argomenti separati da
@@ -195,11 +180,9 @@ fmt.Println(i)
 <p>A questo punto siamo in grado di risolvere in maniera molto più
 concisa il problema della media di 10 numeri che abbiamo posto
 all'inizio:</p>
-<pre><code>package main
-
-import &quot;fmt&quot;
-
-const nAddendi = 10
+<pre><code>package main</code></pre>
+<pre><code>import &quot;fmt&quot;</code></pre>
+<pre><code>const nAddendi = 10
 func main() {
 	var numero, media float64
 	for i := 0; i &lt; nAddendi; i++ {
@@ -221,7 +204,7 @@ numero a priori).</p>
 che vengono dichiarate negli argomenti del <strong>for</strong> sono locali.</p>
 <h1>Esercizi</h1>
 <h2>Esercizio 0 - Raddoppio</h2>
-<p><em>Problema:</em> Scrivere un programma go <code>raddoppio.go</code> che legge 5
+<p><em>Problema:</em> Scrivere un programma go <a href="raddoppio.go">raddoppio.go</a> che legge 5
 numeri da tastiera e di ciascuno stampa il doppio.</p>
 <p><em>Esempi di esecuzione</em>:</p>
 <p>Inserire un valore: <strong>2</strong></p>
@@ -247,13 +230,12 @@ func main() {
 	return
 }</code></pre>
 <h2>Esercizio 1 - Sequenza</h2>
-<p><em>Problema:</em>  Scrivere un programma go <code>sequenza.go</code> che legge un
+<p><em>Problema:</em>  Scrivere un programma go <a href="sequenza.go">sequenza.go</a> che legge un
 numero da tastiera e stampa la sequenza di valori da 1 a n.</p>
 <p><em>Esempio di esecuzione</em>:</p>
 <p>Inserire un valore: <strong>5</strong></p>
 12345<h3>Soluzione</h3>
-<pre><code>
-package main
+<pre><code>package main
 
 import &quot;fmt&quot;
 
@@ -267,7 +249,7 @@ func main() {
 	return
 }</code></pre>
 <h2>Esercizio 2 - Sequenza pari</h2>
-<p><em>Problema:</em> Scrivere un programma go <code>sequenza_pari.go</code> che legge
+<p><em>Problema:</em> Scrivere un programma go <a href="sequenza_pari.go">sequenza_pari.go</a> che legge
 un numero da tastiera e stampa la sequenza di valori pari tra 1 e
 n.</p>
 <p><em>Esempio di esecuzione</em>:</p>
@@ -287,7 +269,7 @@ func main() {
 	return
 }</code></pre>
 <h2>Esercizio 3 - Tabellina</h2>
-<p><em>Problema:</em> Scrivere un programma go <code>tabellina.go</code> che legge un
+<p><em>Problema:</em> Scrivere un programma go <a href="tabellina.go">tabellina.go</a> che legge un
 numero da tastiera e stampa la tabellina di quel numero (n<em>1, n</em>2,
 &#x2026;, n*10).</p>
 <p><em>Esempio di esecuzione</em>:</p>
@@ -308,14 +290,14 @@ func main() {
 	var numero int
 	fmt.Print(&quot;Inserire un valore: &quot;)
 	fmt.Scan(&amp;numero)
-	
+
 	for i := 1; i &lt;= 10; i++ {
 		fmt.Println(i * numero)
 	}
 	return
 }</code></pre>
 <h2>Esercizio 4 - Voto valido</h2>
-<p><em>Problema:</em> Scrivere un programma go <code>voto_valido.go</code> che stampa
+<p><em>Problema:</em> Scrivere un programma go <a href="voto_valido_loop.go">voto_valido_loop.go</a> che stampa
 "voto:" per chiedere un valore voto fino ad ottenere un valore
 valido, cioè compreso tra 3 &lt;= voto &lt;= 10, e poi stampa "voto
 valido"</p>
@@ -344,7 +326,7 @@ func main() {
 	return
 }</code></pre>
 <h2>Esercizio 5 - Massimo</h2>
-<p><em>Problema:</em> Scrivere un programma <code>massimo.go</code> che legge 5 numeri
+<p><em>Problema:</em> Scrivere un programma <a href="massimo.go">massimo.go</a> che legge 5 numeri
 numeri interi, ne stampa la somma ed il massimo.</p>
 <p><em>Esempio di esecuzione</em>:</p>
 <p>Inserire 5 valori: <strong>1 3 2 5 4</strong></p>
@@ -370,7 +352,7 @@ func main() {
 	return
 }</code></pre>
 <h2>Esercizio 6 - Primo</h2>
-<p><em>Problema:</em> Scrivere un programma <code>primo.go</code> che legge in input un
+<p><em>Problema:</em> Scrivere un programma <a href="primo.go">primo.go</a> che legge in input un
 numero intero e determina se è primo.</p>
 <p><em>Esempio di esecuzione</em>:</p>
 <p>Inserire un valore: <strong>7</strong></p>
@@ -384,17 +366,17 @@ import &quot;fmt&quot;
 
 func main() {
 	var numero int
-	for i := 2; i &lt;= numero / 2; i++ {
-		if numero % i == 0 {
+	for i := 2; i &lt;= numero/2; i++ {
+		if numero%i == 0 {
 			fmt.Println(numero, &quot; non è primo.&quot;)
-		return
+			return
 		}
 	}
 	fmt.Println(numero, &quot; è primo.&quot;)
 	return
 }</code></pre>
 <h2>Esercizio 7 - Media</h2>
-<p><em>Problema:</em> Scrivere un programma <code>media_var.go</code> che legge in input
+<p><em>Problema:</em> Scrivere un programma <a href="media_var.go">media_var.go</a> che legge in input
 dei numeri diversi da 0 e ne stampa la media.</p>
 <p><em>Esempio di esecuzione</em>:</p>
 <p>Inserire un valore: <strong>5</strong></p>
@@ -411,7 +393,7 @@ func main() {
 	var valore, quantità, media float64
 	fmt.Print(&quot;inserire un valore: &quot;)
 	fmt.Scan(&amp;valore)
-	for numero != 0 {
+	for valore != 0 {
 		media += valore
 		quantità++
 		fmt.Print(&quot;inserire un valore: &quot;)
@@ -420,8 +402,7 @@ func main() {
 	media /= quantità
 	fmt.Println(&quot;Media: &quot;, media)
 	return
-}
-</code></pre>
+}</code></pre>
 
 </div>
             <div id="footer">
