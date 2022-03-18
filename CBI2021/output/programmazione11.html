@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html;charset=utf-8"  lang="en">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Lezione 18 Marzo 2022 - CBI 2021/22</title>
+		<meta name="author" content="Mario Forzanini">
+		<link rel="stylesheet" type="text/css" href="/pub/style.css">
+	</head>
+	<body>
+		<div id="header">
+			<h1 class="title">Lezione 18 Marzo 2022</h1>
+		</div>
+		<div id="menu">
+			<ul>
+				<li><a href="/">Torna al mio sito</a></li>
+				<li><a href="index.html">CBI - 2021</a></li>
+				<h3>Lezioni</h3>
+				<ul>
+					<li><a href="lezione1.html">Lezione 1 Ottobre 2021</a></li>
+					<li><a href="lezione2.html">Lezione 8 Ottobre 2021</a></li>
+					<li><a href="lezione4.html">Lezione 22 Ottobre 2021</a></li>
+					<li><a href="lezione5.html">Lezione 29 Ottobre 2021</a></li>
+					<li><a href="lezione6.html">Lezione 5 Novembre 2021</a></li>
+					<li><a href="lezione7.html">Lezione 19 Novembre 2021</a></li>
+					<li><a href="lezione8.html">Lezione 26 Novembre 2021</a></li>
+				</ul>
+				<h3>Programmazione</h3>
+				<ul>
+					<li><a href="programmazione1.html">Lezione 3 Dicembre 2021</a></li>
+					<li><a href="programmazione2.html">Lezione 10 Dicembre 2021</a></li>
+					<li><a href="programmazione3.html">Lezione 17 Dicembre 2021</a></li>
+					<li><a href="programmazione4.html">Lezione 21 Gennaio 2022</a></li>
+					<li><a href="programmazione6.html">Lezione 4 Febbraio 2022</a></li>
+					<li><a href="programmazione8.html">Lezione 18 Febbraio 2022</a></li>
+					<li><a href="programmazione9.html">Lezione 4 Marzo 2022</a></li>
+					<li><a href="programmazione10.html">Lezione 11 Marzo 2022</a></li>
+					<li><a href="programmazione11.html">Lezione 18 Marzo 2022</a></li>
+				</ul>
+			</ul>
+		</div>
+		<div id="main">
+<h1>Ripasso</h1>
+<p>Settimana scorsa abbiamo parlato di stringhe e caratteri, vi avevo
+proposto un buon numero di esercizi quindi proviamo a rivedere le
+soluzioni.</p>
+<h1>Lettura e scrittura da file</h1>
+<p>Oggi impariamo a leggere e scrivere dati da e su file di testo. I file
+sono il mezzo che abbiamo per conservare dell'informazione sul computer
+in maniera semi-permanente. Le nostre variabili vivono solo in memoria
+e spariscono una volta fermata l'esecuzione del programma, quindi se é
+necessario mantenere informazione nel tempo siamo costretti a scriverla da
+qualche parte.</p>
+<p>Come vedremo queste operazioni su file sono molto simili a quello che abbiamo
+giá imparato per leggere e scrivere da e su terminale.</p>
+<h2>Aprire un file in lettura</h2>
+<p>Il pacchetto <code>os</code> mette a disposizione un modo per aprire un file mediante la
+funzione <code>os.Open(name string) (*File, error)</code>, per ora ignorate quel
+<code>*File</code> e pensate solamente che si tratta del tipo che descrive un  file. Se
+avremo tempo proveremo a parlare di come creare nuovi tipi in Go, ma non é
+questo il momento. Ogni file che viene aperto deve <strong>TASSATIVAMENTE</strong> essere
+chiuso prima della fine del programma, per farlo si usa questa sintassi:</p>
+<pre><code>f, _ := os.Open(&quot;nome_file.txt&quot;) // Apro il file 'nome_file.txt'
+// Leggo dati dal file nominato 'nome_file.txt'
+f.Close() // Chiudo il file</code></pre>
+<h2>Creare un file</h2>
+<p>Il pacchetto <code>os</code> mette a disposizione la funzione
+<code>os.Create(name string) (*File, error)</code> per creare un nuovo file in modalità
+lettura/scrittura.</p>
+<p><strong>ATTENZIONE</strong> Se il file esiste giá i contenuti verranno sovrascritti.</p>
+<pre><code>f, _ := os.Create(&quot;nuovo.txt&quot;) // Creo il file 'nuovo.txt'
+// Leggo o scrivo dati da/su 'nuovo.txt'
+f.Close() // Chiudo il file</code></pre>
+<h3>Leggere da file aperto</h3>
+<p>Una volta aperto un file con <code>os.Open</code> per leggere dati si usa la funzione
+<code>fmt.Fscan</code> in questo modo:</p>
+<pre><code>f, _ := os.Open(&quot;nome_file.txt&quot;) // Apro il file 'nome_file.txt'</code></pre>
+<pre><code>var s string
+fmt.Fscan(f, &amp;s) // Leggo una stringa dal file
+fmt.Println(s)</code></pre>
+<pre><code>f.Close()</code></pre>
+<h3>Scrivere su file aperto</h3>
+<p>Una volta aperto un file in lettura con <code>os.Create</code> si possono scrivere una
+quantità arbitraria di dati:</p>
+<pre><code>f, _ := os.Create(&quot;nuovo.txt&quot;) // Apro il file 'nuovo.txt'</code></pre>
+<pre><code>fmt.Fprintln(f, &quot;Questa riga andrà nel file&quot;) // Scrivo sul file</code></pre>
+<pre><code>f.Close() // Chiudo il file</code></pre>
+<h3>Aggiungere ad un file esistente</h3>
+<p>Uno dei problemi della funzione <code>os.Create</code> è che file già esistenti vengono
+troncati e sovrascritti, per evitare questo si può usare la funzione
+<code>os.OpenFile(name string, flag int, perm FileMode) (*File, error)</code> che è la
+generalizzazione delle altre due. Il funzionamento è un pochino più complicato,
+e permette maggiore controllo. A noi interessa soltanto aggiungere ad un file
+esistente:</p>
+<pre><code>f, _ := os.CreateFile(&quot;esistente.txt&quot;, O_APPEND, 0666)</code></pre>
+<pre><code>fmt.Println(&quot;Aggiunto alla fine&quot;)</code></pre>
+<pre><code>f.Close()</code></pre>
+<h2>Il pacchetto fmt</h2>
+<p>Molte delle funzioni del pacchetto <code>fmt</code> hanno degli analoghi che
+interagiscono con file, generalmente queste funzioni si riconoscono perchè il
+loro nome é identico a quelle che già conoscete ma con una 'F' come prefisso.
+Ad esempio <code>fmt.Fprint</code>, <code>fmt.Fscan</code>... tutte queste funzioni accettano
+come primo argomento un file.</p>
+<h1>Dei file importanti</h1>
+<p>L'input e l'output del terminale su sistemi Unix (progenitore di Linux) sono
+semplicemente dei file, in particolare dei file chiamati <em>standard input</em> e
+<em>standard output</em>. Le funzioni che agiscono su file possono agire anche su
+questi due file particolari che sono forniti dal pacchetto <code>os</code> nelle
+variabili <code>os.Stdin</code> e <code>os.Stdout</code>. <code>os.Stdin</code> è aperto in lettura,
+mentre <code>os.Stdout</code> è aperto in sola scrittura.</p>
+<h2>Lo standard error</h2>
+<p>Un terzo file molto importante, inventato su sistemi Unix è il cosiddetto
+<em>standard error</em>, questo file viene usato <strong>esclusivamente</strong> per stampare
+errori. Il pacchetto <code>os</code> mette ad disposizione questo file, aperto in
+modalità di scrittura, nella variabile <code>os.Stderr</code>.</p>
+<h1>Note per la prossima lezione</h1>
+<p>Al momento le nostre capacità di lettura sono piuttosto limitate,
+ma più avanti impareremo come gestire meglio l'input: come leggere un
+file riga per riga, parola per parola ecc. Per ora accontentiamoci</p>
+<h1>Esercizi</h1>
+<h2>Esercizio 0 - Cat</h2>
+<p><em>Problema</em>: Scrivere un programma <code>cat.go</code> che riproduce l'analogo programma
+UNIX (chiamato <code>cat</code>). Lo scopo di questo programma è stampare il contenuto
+di file.</p>
+<p><em>Nota</em>: Il funzionamento di <code>cat</code> è il seguente:</p>
+<pre><code>cat file1 file2</code></pre>
+<pre><code>contenuto di file1</code></pre>
+<pre><code>contenuto di file2</code></pre>
+<p>siccome noi non abbiamo ancora imparato a trattare gli argomenti dati al
+programma, lo modificheremo in questo modo:</p>
+<pre><code>cat</code></pre>
+<pre><code>Nomi dei file: **file1 file2**</code></pre>
+<pre><code>contenuto di file1</code></pre>
+<pre><code>contenuto di file2</code></pre>
+<h2>Esercizio 1 - Wc</h2>
+<p><em>Problema</em>: Scrivere un programma <code>wc.go</code> che riproduce l'analogo programma
+UNIX (chiamato <code>wc</code>). Lo scopo di questo programma è contare il numero di
+parole in un file.</p>
+<p><em>Nota</em>: Un problema analogo a quello di <code>cat</code> si ripropone qui. Leggi la nota
+all'esercizio 0</p>
+<p><em>Esempi di esecuzione</em>:</p>
+<p>wc</p>
+<p>Nome di file: file1 file2</p>
+<p>file1: 40 parole</p>
+<p>file2: 20 parole</p>
+<p>Totale: 60 parole</p>
+<h2>Esercizio 2 - Database 2</h2>
+<p><em>Problema</em>: Scrivere un programma <code>database2.go</code> che amplii il funzionamento
+del programma analogo visto nella lezione precedente. Dato un file <code>db.txt</code>
+in cui ogni riga ha il seguente formato:</p>
+<pre><code>nome;cognome;email;ultimo voto</code></pre>
+<p>stampare le informazioni contenute nel file nel formato discusso alla lezione
+precedente.</p>
+<h2>Esercizio 3 - Ricerca di parole</h2>
+<p><em>Problema</em>: Scrivere un programma <code>cerca_parole.go</code> che legge in input il
+nome di un file e una chiave di ricerca e stampi <code>true</code> oppure <code>false</code> se
+la chiave è presente nel file.</p>
+<p><em>Facoltativo</em>: Provate ad implementare la ricerca in modo da tenere traccia
+della riga in cui la parola è stata trovata. Il programma dovrà quindi stampare
+il numero della riga a cui è stata trovata la parola, oppure -1 se la chiave
+non è presente nel file.</p>
+<p><em>Esempi di esecuzione</em>:</p>
+<p>Nome del file: <strong>file1.txt</strong></p>
+<p>Chiave di ricerca: <strong>test</strong></p>
+<p>true</p>
+<p><em>Contenuti di file1.txt</em>:</p>
+<p>Questo file è un test per il programma</p>
+<p>cerca_parole.go</p>
+
+</div>
+            <div id="footer">
+			  <span style="float:left;"> <a href="/contacts.html">Contacts</a></span>
+			  <span style="float:center;"> <a href="https://creativecommons.org/share-your-work/public-domain/cc0">
+                  <img src="/pub/pics/public_domain.png">
+              </a></span>
+			  <span style="float:right;"><a href="/pub/pubkey.asc">PGP key</a></span>
+            </div>
+        </body>
+</html>
