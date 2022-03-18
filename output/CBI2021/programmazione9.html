@@ -164,6 +164,22 @@ memoria, <code>b</code> può anche essere scritto come</p>
 <p>Inserire un carattere: <strong>C</strong></p>
 <p>BCD</p>
 <p>A-L</p>
+<h3>Soluzione</h3>
+<pre><code>package main
+
+import &quot;fmt&quot;
+
+func main() {
+	var c rune
+	fmt.Print(&quot;Inserire un carattere: &quot;)
+	fmt.Scanf(&quot;%c&quot;, &amp;c)
+
+	fmt.Printf(&quot;%c%c%c&quot;, c - 1, c, c + 1)
+	if 'A' &lt; c &amp;&amp; c &lt; 'L' {
+		fmt.Println(&quot;A-L&quot;)
+	}
+	return
+}</code></pre>
 <h2>Esercizio 1 - Rompi stringa</h2>
 <p><em>Problema</em>: Scrivere un programma <a href="rompi_stringa.go">rompi_stringa.go</a> che legge in
 input una stringa e la stampa in verticale, una runa per riga.</p>
@@ -180,6 +196,25 @@ c
 h
 <br>
 è</p>
+<h3>Soluzione</h3>
+<pre><code>package main
+
+import &quot;fmt&quot;
+
+func main() {
+	var s string
+	fmt.Print(&quot;Inserire una stringa: &quot;)
+	fmt.Scan(&amp;s)
+
+	rompi(s)
+	return
+}
+
+func rompi(s string) {
+	for _, c := range s {
+		fmt.Println(c)
+	}
+}</code></pre>
 <h2>Esercizio 2 - Conta vocali</h2>
 <p><em>Problema</em>: Scrivere un programma <a href="conta_vocali.go">conta_vocali.go</a> che legge in
 input una parola e stampa il numero di lettere (<code>rune</code>) che sono
@@ -190,6 +225,39 @@ vocali (aeiou).</p>
 2</p>
 <p>Inserire una parola: <strong>supercalifragilisticoespiralidoso</strong></p>
 <p>15</p>
+<h3>Soluzione</h3>
+<pre><code>package main
+
+import (
+	&quot;fmt&quot;
+	&quot;strings&quot;
+)
+
+func main() {
+	var s string
+	fmt.Print(&quot;Inserire una parola: &quot;)
+	fmt.Scan(&amp;s)
+
+	fmt.Println(contaVocali(s))
+	return
+}
+
+func contaVocali(s string) int {
+	var count int
+
+	count += strings.Count(s, &quot;a&quot;)
+	count += strings.Count(s, &quot;e&quot;)
+	count += strings.Count(s, &quot;i&quot;)
+	count += strings.Count(s, &quot;o&quot;)
+	count += strings.Count(s, &quot;u&quot;)
+	count += strings.Count(s, &quot;A&quot;)
+	count += strings.Count(s, &quot;E&quot;)
+	count += strings.Count(s, &quot;I&quot;)
+	count += strings.Count(s, &quot;O&quot;)
+	count += strings.Count(s, &quot;U&quot;)
+
+	return count
+}</code></pre>
 <h2>Esercizio 3 - Trova rune</h2>
 <p><em>Problema</em>: Scrivere un programma <a href="trova.go">trova.go</a> che legge un <code>rune</code> e
 una stringa e stampa la prima posizione (indicizzata a partire da 0)
@@ -198,6 +266,27 @@ del carattere nella stringa, o -1 se il carattere non c'è.</p>
 <p>Carattere da cercare: <strong>c</strong></p>
 <p>Stringa: <strong>Tre tigri contro tre tigri</strong></p>
 <p>10</p>
+<h3>Soluzione</h3>
+<pre><code>package main
+
+import (
+	&quot;fmt&quot;
+	&quot;strings&quot;
+)
+
+func main() {
+	var s string
+	var c rune
+
+	fmt.Print(&quot;Carattere da cercare: &quot;)
+	fmt.Scanf(&quot;%c&quot;, &amp;c)
+
+	fmt.Print(&quot;Stringa: &quot;)
+	fmt.Scan(&amp;s)
+
+	fmt.Println(strings.IndexRune(s, c))
+	return
+}</code></pre>
 <h2>Esercizio 4 - Minuscole o maiuscole</h2>
 <p><em>Problema</em>: Scrivere un programma <a href="minuscole_maiuscole.go">minuscole_maiuscole.go</a> che legge
 una stringa e stabilisce se questa contiene solo maiuscole, solo
@@ -211,6 +300,37 @@ minuscole o entrambe e stampa un messaggio opportuno.</p>
 <p>Sia maiuscole che minuscole</p>
 <p>Inserire una stringa: <strong>dopo un punto fermo occorre una maiuscola</strong></p>
 <p>Solo minuscole</p>
+<h3>Soluzione</h3>
+<pre><code>package main
+
+import (
+	&quot;fmt&quot;
+	&quot;unicode&quot;
+)
+
+func main() {
+	var s string
+	fmt.Print(&quot;Inserire una stringa: &quot;)
+	fmt.Scan(&amp;s)
+
+	maiuscole, minuscole := false, false
+	for _, c := range {
+		if unicode.IsUpper(c) {
+			maiuscole = true
+		} else if unicode.IsLower(c) {
+			minuscole = true
+		}
+	}
+
+	if minuscole &amp;&amp; maiuscole {
+		fmt.Println(&quot;Sia maiuscole che minuscole&quot;)
+	} else if maiuscole {
+		fmt.Println(&quot;Solo maiuscole&quot;)
+	} else if minuscole {
+		fmt.Println(&quot;Solo minuscole&quot;)
+	}
+	return
+}</code></pre>
 <h2>Esercizio 5 - Cesare</h2>
 <p><em>Problema</em>: Scrivere un programma <a href="cesare.go">cesare.go</a> che legge un valore
 <code>int</code> non negativo <code>k</code> (la chiave di cifratura) e una sequenza di
@@ -230,6 +350,8 @@ lunghezza dell'alfabeto è <code>'z' - 'a' + 1</code>.</p>
 <p>chiave: <strong>100</strong></p>
 <p>testo: <strong>abcd</strong></p>
 <p>wxyz</p>
+<h3>Soluzione</h3>
+<p>Vedi prossima lezione</p>
 
 </div>
             <div id="footer">
