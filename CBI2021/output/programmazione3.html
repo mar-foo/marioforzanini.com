@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html;charset=utf-8"  lang="en">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Lezione 17 Dicembre 2021 - CBI 2021/22</title>
+		<meta name="author" content="Mario Forzanini">
+		<link rel="stylesheet" type="text/css" href="/pub/style.css">
+	</head>
+	<body>
+	<div id="header">
+		<h1 class="title">Lezione 17 Dicembre 2021</h1>
+	</div>
+	<div id="menu">
+		<ul>
+			<li><a href="/">Torna al mio sito</a></li>
+			<li><a href="index.html">CBI - 2021</a></li>
+			<h3>Lezioni</h3>
+		<ul>
+			<li><a href="lezione1.html">Lezione 1 Ottobre 2021</a></li>
+			<li><a href="lezione2.html">Lezione 8 Ottobre 2021</a></li>
+			<li><a href="lezione4.html">Lezione 22 Ottobre 2021</a></li>
+			<li><a href="lezione5.html">Lezione 29 Ottobre 2021</a></li>
+			<li><a href="lezione6.html">Lezione 5 Novembre 2021</a></li>
+			<li><a href="lezione7.html">Lezione 19 Novembre 2021</a></li>
+			<li><a href="lezione8.html">Lezione 26 Novembre 2021</a></li>
+		</ul>
+		<h3>Programmazione</h3>
+		<ul>
+			<li><a href="programmazione1.html">Lezione 3 Dicembre 2021</a></li>
+			<li><a href="programmazione2.html">Lezione 10 Dicembre 2021</a></li>
+			<li><a href="programmazione3.html">Lezione 17 Dicembre 2021</a></li>
+			<li><a href="programmazione4.html">Lezione 21 Gennaio 2022</a></li>
+			<li><a href="programmazione6.html">Lezione 4 Febbraio 2022</a></li>
+			<li><a href="programmazione8.html">Lezione 18 Febbraio 2022</a></li>
+			<li><a href="programmazione9.html">Lezione 4 Marzo 2022</a></li>
+			<li><a href="programmazione10.html">Lezione 11 Marzo 2022</a></li>
+		</ul>
+		</ul>
+	</div>
+	<div id="main"><h1>Correzione</h1>
+<p>Per prima cosa osserviamo le soluzioni agli
+<a href="programmazione2.html">esercizi precedenti</a></p>
+<h1>Ripasso</h1>
+<p>Nella scorsa lezione abbiamo parlato di lettura di dati e di
+variabili, come due modi per rendere il programma dinamico ed
+interattivo.</p>
+<h2>Leggere input</h2>
+<p>Il costrutto per leggere input dall'utente ha questa forma:</p>
+<pre><code>fmt.Scan(&amp;nomeVariabile)</code></pre>
+<p>La variabile chiamata <em>nomeVariabile</em> deve essere stata dichiarata
+precedentemente e l'utente deve inserire informazioni del tipo
+corretto: se <em>nomeVariabile</em> è una variabile di tipo <strong>int</strong> non può
+essere usata per conservare stringhe.</p>
+<h1>Selezione ad una via: if</h1>
+<p>Oggi continuiamo con i concetti fondamentali della
+programmazione e parliamo di una struttura che si ripeterà in molti
+programmi: il costrutto if/else.</p>
+<h2>Esempi</h2>
+<p>Molto spesso nei programmi occorre fare una scelta sulla base del
+valore di qualche variabile o dell'avverarsi di qualche condizione.
+Per esempio nell'<a href="programmazione2.html">Esercizio 3</a> della volta scorsa sarebbe utile
+decidere di abortire l'esecuzione se l'utente inserisce un voto che
+non è compreso tra 3 e 10, oppure nell'<a href="programmazione2.html">Esercizio 2</a> controllare se
+la distanza totale e la quantità di carburante utilizzata sono
+numeri diversi da zero, poichè dividere per zero fa andare in crash
+il programma (provare per credere).</p>
+<h2>Sintassi</h2>
+<p>La sintassi del costrutto <strong>if/else</strong> è composta da diverse parti:</p>
+<ul>
+<li>La parola chiave <code>if</code></li>
+<li>La condizione che va verificata</li>
+<li>Un blocco di codice (compreso tra '<code>{}</code>') da eseguire
+nel caso in cui la condizione sia verificata</li>
+</ul>
+<p>Per esempio per controllare che il contenuto di una variabile
+chiamata <em>numero</em> sia uguale a zero si scriverebbe:</p>
+<pre><code>if numero == 0 {
+	// Cose da fare se uguale a 0
+}</code></pre>
+<p>In questo codice è apparso una nuova combinazione di simboli che
+non avevamo ancora visto: l'operatore <strong>==</strong> che, come si può
+intuire, ha questa sintassi: <primoArgomento> <strong>==</strong> <secondoArgomento>
+e che si legge "primoArgomento uguale a secondoArgomento".</p>
+<h3>Operatori di confronto</h3>
+<p>Gli operatori che confrontano diversi valori sono tanti, ma noi ne
+vedremo 6. Ciascuno di questi argomenti restituisce un valore di
+tipo <strong>bool</strong> (cioè <em>true</em> oppure <em>false</em>). Semplificando: ciascuno
+di questi operatori risponde <em>si</em> oppure <em>no</em> ad una domanda sugli
+argomenti che gli vengono forniti.</p>
+<p><table border="2" cellspacing="0" cellpadding="6" rules="groups" >
+<thead>
+<tr>
+<th scope="col">Operatore</th>
+<th scope="col">Domanda</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>==</td>
+<td>Il primo argomento è esattamente uguale al secondo?</td>
+</tr>
+</p>
+<p><tr>
+<td>!=</td>
+<td>Il primo argomento è diverso dal secondo?</td>
+</tr>
+</p>
+<p><tr>
+<td><</td>
+<td>Il primo argomento è minore del secondo?</td>
+</tr>
+</p>
+<p><tr>
+<td>></td>
+<td>Il primo argomento è maggiore del secondo?</td>
+</tr>
+</p>
+<p><tr>
+<td><=</td>
+<td>Il primo argomento è minore o uguale al secondo?</td>
+</tr>
+</p>
+<p><tr>
+<td>>=</td>
+<td>Il primo argomento è maggiore o uguale al secondo?</td>
+</tr>
+&lt;/tbody>
+&lt;/table></p>
+<h4>Nota bene</h4>
+<p>Prestate attenzione a non confondere l'operatore di confronto <code>==</code>
+con l'operatore di assegnamento <code>=</code>. Purtroppo l'abitudine di
+utilizzare <code>=</code> per esprimere il fatto che due quantità siano
+uguali può portare ad errori particolarmente ostici da trovare, se
+volete confrontare due quantità ricordatevi di usare <code>==</code>.</p>
+<h2>Operatori booleani</h2>
+<p>Molto spesso occorre agire se più condizioni si verificano
+contemporaneamente oppure se se ne verifica una sola, oppure se non
+se ne verifica nessuna: ad esempio nell'<a href="lezione2.html">Esercizio 3</a> della volta
+scorsa vorremmo calcolare la media solo se primoVoto &lt;= 10 <strong>e</strong>
+primoVoto &gt;= 3 Ma come faccio ad esprimere che voglio agire quando
+sono vere l'una <strong>e</strong> l'altra cosa? Ho bisogno di nuovi simboli che
+mi permettano di combinare dei valori booleani.</p>
+<p>Occorre allora introdurre gli <strong>operatori booleani</strong>, ovvero quei
+connettori logici che ci permettono di collegare diverse
+condizioni. Questi 3 operatori sono facilmente traducibili in
+italiano con delle espressioni di uso comune: <strong>&&</strong> (e), <strong>||</strong> (o),
+<strong>!</strong> (non)</p>
+<p>A questo punto nell'esercizio 3 della volta scorsa potrebbe
+apparire un blocco di codice fatto così:</p>
+<pre><code>if primoVoto &lt;= 10 &amp;&amp; primoVoto &gt;= 3 &amp;&amp; secondoVoto &lt;= 10 &amp;&amp; secondoVoto &gt;= 3 {
+	// Va tutto bene
+}</code></pre>
+<h1>Selezione a due vie: if/else</h1>
+<p>A volte occorre eseguire cose diverse se la condizione è verificata
+oppure se non lo è, in questi casi al costrutto <strong>if</strong> si aggiungono
+due parti:</p>
+<ul>
+<li>La parola chiave <strong>else</strong> (traduzione: <em>altrimenti</em>)</li>
+<li>Un blocco di codice da eseguire nel caso in cui la condizione non
+sia verificata.</li>
+</ul>
+<h2>Variabili locali</h2>
+<p>Una forma alternativa del costrutto <strong>if</strong> (oppure <strong>if/else</strong>)
+consiste nel dichiarare una variabile prima di specificare la
+condizione da verificare, ad esempio:</p>
+<pre><code>if t := c * 2; t &lt; 100 {
+	fmt.Println(&quot;t vale&quot;, t, &quot; che è minore di 100&quot;)
+} else {
+	fmt.Println(&quot;t vale&quot;, t, &quot; che è maggiore o uguale a 100&quot;)
+}</code></pre>
+<p>In questo caso la variabile t viene dichiarata subito dopo la
+parola if e la condizione da testare segue il <strong>;</strong>.</p>
+<p>Le variabili dichiarate in questo modo e le variabili dichiarate
+all'interno dell'if sono locali, ovvero scompaiono non appena il
+blocco di istruzioni è terminato.</p>
+<pre><code>if t &gt; 0 {
+	s := t * 2 					// la variabile s è locale a questo blocco
+	fmt.Println(s)
+}
+fmt.Println(s)					// ERRORE: La variabile s non esiste fuori dal blocco</code></pre>
+<h1>Selezione a più vie: if/else if</h1>
+<p>Se le condizioni mutualmente esclusive sono più di una si può usare
+un costrutto simile ai precedenti:</p>
+<pre><code>if &lt;condizione&gt; {
+	// &lt;condizione1&gt; è vera
+} else if &lt;condizione2&gt; {
+	// &lt;condizione2&gt; è vera
+} else {
+	// nessuna delle precedenti è vera
+}</code></pre>
+<h1>Esercizi</h1>
+<h2>Esercizio 0 - Operatori di confronto e logici</h2>
+<p><em>Problema</em>: Scrivere un programma go <code>condizioni.go</code> per testare,
+una a una, le condizioni nella tabella che segue. Il programma, per
+ogni condizione (a., &#x2026;, x.), legge un valore da tastiera (del
+tipo indicato) e stampa <code>true</code> o <code>false</code>, a seconda che la
+condizione sia verificata o no. Implementare una condizione alla
+volta, testarla su almeno due input (uno che la verifica ed uno che
+la falsifica) e solo poi procedere alla successiva.</p>
+<p><table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<thead>
+<tr>
+<th scope="col">n</th>
+<th scope="col">tipo</th>
+<th scope="col">condizione</th>
+</p>
+<p>&lt;/tr>
+&lt;/thead>
+<tbody>
+<tr>
+<td>a</td>
+<td>int</td>
+<td>uguale a 10</td>
+</p>
+<p>&lt;/tr></p>
+<p><tr>
+<td>b</td>
+<td>int</td>
+<td>diverso da 10</td>
+</tr>
+</p>
+<p><tr>
+<td>c</td>
+<td>int</td>
+<td>diverso da 10 e da 20</td>
+</tr>
+</p>
+<p><tr>
+<td>d</td>
+<td>int</td>
+<td>diverso da 10 o da 20</td>
+</tr>
+</p>
+<p><tr>
+<td>e</td>
+<td>int</td>
+<td>maggiore o uguale a 10</td>
+</tr>
+</p>
+<p><tr>
+<td>f</td>
+<td>int</td>
+<td>compreso tra 10 e 20, inclusi</td>
+</tr>
+</p>
+<p><tr>
+<td>g</td>
+<td>int</td>
+<td>compreso tra 10 e 20, esclusi</td>
+</tr>
+</p>
+<p><tr>
+<td>h</td>
+<td>int</td>
+<td>compreso tra 10 e 20, 10 incluso e 20 escluso</td>
+</tr>
+</p>
+<p><tr>
+<td>i</td>
+<td>int</td>
+<td>minore di 10 o maggiore di 20</td>
+</tr>
+</p>
+<p><tr>
+<td>j</td>
+<td>int</td>
+<td>tra 10 e 20 inclusi o tra 30 e 40 inclusi</td>
+</tr>
+</p>
+<p><tr>
+<td>k</td>
+<td>int</td>
+<td>multiplo di 4 ma non di 100</td>
+</tr>
+</p>
+<p><tr>
+<td>l</td>
+<td>int</td>
+<td>dispari e compreso tra 0 e 100, inclusi</td>
+</tr>
+&lt;/tbody>
+&lt;/table></p>
+<p><em>Esempi di esecuzione:</em></p>
+<p>int uguale a 10: <strong>10</strong></p>
+<p>true</p>
+<p>int uguale a 10: <strong>11</strong></p>
+<p>false</p>
+<p><em>Nota</em>: Il seguente codice:</p>
+<pre><code>if n == 10 {
+	fmt.Println(true)
+} else {
+	fmt.Println(false)
+}</code></pre>
+<p>si può scrivere in modo più compatto (ed equivalente) così:</p>
+<pre><code>fmt.Println(n == 10)</code></pre>
+<p>Questo perchè l'espressione <strong>n == 10</strong> quando viene valutata dà come
+risultato <code>true</code> se è vera e <code>false</code> altrimenti.</p>
+<h3>Soluzione</h3>
+<pre><code>package main
+
+import &quot;fmt&quot;
+
+func main() {
+	var n int
+	
+	// Punto a
+	fmt.Println(&quot;int uguale a 10: &quot;)
+	fmt.Scan(&amp;n)
+	fmt.Println(n == 10)
+	
+	// Punto b
+	fmt.Println(&quot;int diverso da 10: &quot;)
+	fmt.Scan(&amp;n)
+	fmt.Println(n != 10)
+	
+	// Punto c
+	fmt.Println(&quot;int diverso da 10 e da 20: &quot;)
+	fmt.Scan(&amp;n)
+	fmt.Println(n != 10 &amp;&amp; n != 20)
+	
+	// Punto d
+	fmt.Println(&quot;int diverso da 10 o da 20: &quot;)
+	fmt.Scan(&amp;n)
+	fmt.Println(n != 10 || n != 20)
+	
+	// Punto e
+	fmt.Println(&quot;int maggiore o uguale a 10: &quot;)
+	fmt.Scan(&amp;n)
+	fmt.Println(n &gt;= 10)
+	
+	// Punto f
+	fmt.Println(&quot;int compreso tra 10 e 20, inclusi: &quot;)
+	fmt.Scan(&amp;n)
+	fmt.Println(n &lt;= 20 &amp;&amp; n &gt;= 10)
+	
+	// Punto g
+	fmt.Println(&quot;int compreso tra 10 e 20, esclusi: &quot;)
+	fmt.Scan(&amp;n)
+	fmt.Println(n &lt; 20 &amp;&amp; n &gt; 10)
+	
+	// Punto h
+	fmt.Println(&quot;int compreso tra 10 e 20, 10 incluso e 20 escluso: &quot;)
+	fmt.Scan(&amp;n)
+	fmt.Println(n &lt; 20 &amp;&amp; n &gt;= 10)
+	
+	// Punto i
+	fmt.Println(&quot;int minore di 10 o maggiore di 20&quot;)
+	fmt.Scan(&amp;n)
+	fmt.Println(n &lt; 10 || n &gt; 20)
+	
+	// Punto j
+	fmt.Println(&quot;int compreso tra 10 e 20 o tra 30 e 40, estremi inclusi: &quot;)
+	fmt.Scan(&amp;n)
+	fmt.Println((n &lt;= 20 &amp;&amp; n &gt;= 10) || (n &lt;= 40 &amp;&amp; n &gt;= 30))
+	
+	// Punto k
+	fmt.Println(&quot;int multiplo di 4 ma non di 100&quot;)
+	fmt.Scan(&amp;n)
+	fmt.Println(n % 4 == 0 &amp;&amp; n % 100 != 0)
+	
+	// Punto l
+	fmt.Println(&quot;int dispari e compreso tra 0 e 100, inclusi&quot;)
+	fmt.Scan(&amp;n)
+	fmt.Println(n % 2 == 1 &amp;&amp; 0 &lt;= n &amp;&amp; a &lt;= 100)
+	
+	return
+}</code></pre>
+<h2>Esercizio 1 - Voto valido</h2>
+<p><em>Problema:</em> Scrivere un programma Go <code>voto_valido.go</code> che legge un
+numero intero, se il numero non è compreso tra 3 e 10, stampa "voto
+non valido", altrimenti non stampa niente.</p>
+<p><em>Esempi di esecuzione</em>:</p>
+<p>voto: <strong>11</strong></p>
+<p>voto non valido</p>
+<p>voto: <strong>4</strong></p>
+<h3>Soluzione</h3>
+<pre><code>package main
+
+import &quot;fmt&quot;
+
+func main() {
+	var voto int
+	fmt.Println(&quot;voto: &quot;)
+	fmt.Scan(&amp;voto)
+	
+	if voto &lt; 3 || voto  &gt; 10 {
+		fmt.Println(&quot;voto non valido&quot;)
+	}
+	
+	return
+}</code></pre>
+<h2>Esercizio 2 - Maggiore</h2>
+<p><em>Problema:</em> Scrivere un programma Go maggiore.go che legga due
+interi, li salvi in due variabili <code>max</code> e <code>min</code> in qualsiasi
+ordine; se non sono in ordine, li sistemi in modo che <code>min</code>
+contenga il minore e <code>max</code> il maggiore; infine stampi il contenuto
+di <code>max</code>.</p>
+<p><em>Esempi di esecuzione</em>:</p>
+<p>due int: <strong>10 20</strong></p>
+<p>20</p>
+<p>due int: <strong>20 10</strong></p>
+<p>20</p>
+<h3>Soluzione</h3>
+<pre><code>package main
+
+import &quot;fmt&quot;
+
+func main() {
+	var max, min int
+	
+	fmt.Println(&quot;due int:&quot;)
+	fmt.Scan(&amp;max)
+	fmt.Scan(&amp;min)
+	
+	if min &gt; max {
+		max, min = min, max // Scambio i valori usando l'assegnamento multiplo
+	}
+	
+	fmt.Println(max, min)
+	
+	return
+}</code></pre>
+<h2>Esercizio 3 - Pari e dispari</h2>
+<p><em>Problema:</em> Scrivere un programma <code>pari_dispari.go</code> che legge un
+intero <code>n</code> e, a seconda del valore di <code>n</code>, stampa uno dei messaggi
+"n è pari" oppure "n è dispari".</p>
+<p><em>Esempi di esecuzione</em>:</p>
+<p>numero: <strong>4</strong></p>
+<p>4 è pari</p>
+<p>numero: <strong>5</strong></p>
+<p>5 è dispari</p>
+<p><em>Nota</em>: Un numero intero <code>n</code> è pari se il resto della divisione 
+di <code>n</code> per 2 è pari a zero. In go l'operatore che calcola il resto della
+divisione intera è <code>%</code>.</p>
+<h3>Soluzione</h3>
+<pre><code>package main
+
+import &quot;fmt&quot;
+
+	func main() {
+	var numero int
+	
+	fmt.Println(&quot;numero:&quot;)
+	fmt.Scan(&amp;numero)
+	
+	if numero % 2 == 0 {
+		fmt.Println(numero, &quot; è pari&quot;)
+	} else {
+		fmt.Println(numero, &quot; è dispari&quot;)
+	}
+	
+	return
+}</code></pre>
+<h2>Esercizio 4 - Tariffe scontate</h2>
+<p><em>Problema:</em> Scrivere un programma <code>tariffe.go</code> che chiede
+all'utente l'età (<code>int</code>) e se è studente (<code>bool</code>) e stampa il costo
+del biglietto di ingresso al cinema secondo la seguente tabella:</p>
+<p><table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<thead>
+<tr>
+<th scope="col">età</th>
+<th scope="col">tariffa</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>[0-9) anni</td>
+<td>gratis</td>
+</tr>
+</p>
+<p><tr>
+<td>[9-14) anni</td>
+<td>5</td>
+</tr>
+</p>
+<p><tr>
+<td>[14-26) anni</td>
+<td>7.5</td>
+</tr>
+</p>
+<p><tr>
+<td>[26-65) anni</td>
+<td>10</td>
+</tr>
+</p>
+<p><tr>
+<td>>=65 anni</td>
+<td>7.5</td>
+</tr>
+</p>
+<p><tr>
+<td>studenti >= 14</td>
+<td>5</td>
+</tr>
+&lt;/tbody>
+&lt;/table></p>
+<p><em>Esempi di esecuzione</em>:</p>
+<p>età: 16</p>
+<p>studente? (t/f): t</p>
+<p>ingresso 5 euro</p>
+<h3>Soluzione</h3>
+<pre><code>package main
+
+import &quot;fmt&quot;
+
+func main() {
+	var eta int
+	var studente bool
+	
+	fmt.Println(&quot;età:&quot;)
+	fmt.Scan(&amp;eta) 
+	
+	fmt.Println(&quot;studente? (t/f):&quot;)
+	fmt.Scan(&amp;studente)
+	
+	if eta &gt;= 0 &amp;&amp; eta &lt; 9 {
+		fmt.Println(&quot;gratis&quot;)
+	} else if studente || eta &lt; 14 {
+		fmt.Println(&quot;5 euro&quot;)
+	} else if (eta &gt;= 14 &amp;&amp; eta &lt; 26) || eta &gt; 65 {
+		fmt.Println(&quot;7.5 euro&quot;)
+	} else {
+		fmt.Println(&quot;10 euro&quot;)
+	}
+	
+	return
+}</code></pre>
+<h2>Esercizio 5 - Sovrapposizione</h2>
+<p><em>Problema:</em> Scrivere un programma <code>sovrapposizione.go</code> che legge da
+tastiera il giorno [1-31], l'ora di inizio [0-24] e l'ora di fine
+[0-24] di due appuntamenti e stabilisce se si sovrappongono (anche
+parzialmente) oppure no.</p>
+<p><em>Esempi di esecuzione</em>:</p>
+<p>appuntamento 1 (gg, start, end): <strong>28 15 18</strong></p>
+<p>appuntamento 2 (gg, start, end): <strong>28 16 20</strong></p>
+<p>si sovrappongono</p>
+<p>appuntamento 1 (gg, start, end): <strong>11 15 18</strong></p>
+<p>appuntamento 2 (gg, start, end): <strong>28 16 20</strong></p>
+<p>non si sovrappongono</p>
+<h3>Soluzione</h3>
+<pre><code>package main
+
+import &quot;fmt&quot;
+
+func main() {
+	var gg1, start1, end1 int
+	var gg2, start2, end2 int
+	
+	fmt.Println(&quot;appuntamento 1 (gg, start, end): &quot;)
+	fmt.Scan(&amp;gg1, &amp;start1, &amp;end1)
+	
+	fmt.Println(&quot;appuntamento 2 (gg, start, end): &quot;)
+	fmt.Scan(&amp;gg2, &amp;start2, &amp;end2)
+	
+	if gg1 != gg2 {
+		fmt.Println(&quot;non si sovrappongono&quot;)
+	} else {
+		if !(start2 &lt; end1 &amp;&amp; start1 &lt; end2) {
+			fmt.Println(&quot;non si sovrappongono&quot;)
+		} else {
+			fmt.Println(&quot;si sovrappongono&quot;)
+		}
+	}
+	return
+}
+</code></pre>
+
+</div>
+            <div id="footer">
+			  <span style="float:left;"> <a href="/contacts.html">Contacts</a></span>
+			  <span style="float:center;"> <a href="https://creativecommons.org/share-your-work/public-domain/cc0">
+                  <img src="/pub/pics/public_domain.png">
+              </a></span>
+			  <span style="float:right;"><a href="/pub/pubkey.asc">PGP key</a></span>
+            </div>
+        </body>
+</html>

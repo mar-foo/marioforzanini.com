@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html;charset=utf-8"  lang="en">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Lezione 4 Marzo 2022 - CBI 2021/22</title>
+		<meta name="author" content="Mario Forzanini">
+		<link rel="stylesheet" type="text/css" href="/pub/style.css">
+	</head>
+	<body>
+	<div id="header">
+		<h1 class="title">Lezione 4 Marzo 2022</h1>
+	</div>
+	<div id="menu">
+		<ul>
+			<li><a href="/">Torna al mio sito</a></li>
+			<li><a href="index.html">CBI - 2021</a></li>
+			<h3>Lezioni</h3>
+		<ul>
+			<li><a href="lezione1.html">Lezione 1 Ottobre 2021</a></li>
+			<li><a href="lezione2.html">Lezione 8 Ottobre 2021</a></li>
+			<li><a href="lezione4.html">Lezione 22 Ottobre 2021</a></li>
+			<li><a href="lezione5.html">Lezione 29 Ottobre 2021</a></li>
+			<li><a href="lezione6.html">Lezione 5 Novembre 2021</a></li>
+			<li><a href="lezione7.html">Lezione 19 Novembre 2021</a></li>
+			<li><a href="lezione8.html">Lezione 26 Novembre 2021</a></li>
+		</ul>
+		<h3>Programmazione</h3>
+		<ul>
+			<li><a href="programmazione1.html">Lezione 3 Dicembre 2021</a></li>
+			<li><a href="programmazione2.html">Lezione 10 Dicembre 2021</a></li>
+			<li><a href="programmazione3.html">Lezione 17 Dicembre 2021</a></li>
+			<li><a href="programmazione4.html">Lezione 21 Gennaio 2022</a></li>
+			<li><a href="programmazione6.html">Lezione 4 Febbraio 2022</a></li>
+			<li><a href="programmazione8.html">Lezione 18 Febbraio 2022</a></li>
+			<li><a href="programmazione9.html">Lezione 4 Marzo 2022</a></li>
+			<li><a href="programmazione10.html">Lezione 11 Marzo 2022</a></li>
+		</ul>
+		</ul>
+	</div>
+	<div id="main"><h1>Byte e Rune</h1>
+<p>Go mette a disposizione due tipi per descrivere un carattere: <code>byte</code>
+e <code>rune</code>.  Entrambe questi tipi vengono rappresentati in memoria
+come degli interi.</p>
+<h2>Byte</h2>
+<p>Il tipo <code>byte</code> viene rappresentato in memoria come un intero di 8
+bit senza segno (<code>uint8</code>), i cui valori sono associati univocamente
+a lettere secondo la tabella ASCII.  I letterali <code>byte</code> sono
+circondati da <code>'</code>.</p>
+<h3>La codifica ASCII</h3>
+<p>Lo standard ASCII risale al 1961 e contiene le indicazioni su come
+codificare lettere e simboli dell'alfabeto americano come interi.
+Ogni carattere occupa un byte.  Poiché in inglese non sono presenti
+accenti nè altri simboli utilizzati in altre lingue, questa codifica è
+stata usata come base per un altro standard più versatile: UTF-8.</p>
+<h2>Rune</h2>
+<p>Il tipo <code>rune</code> rappresenta un <code>code point</code> della codifica UTF-8,
+questo tipo è quello che useremo per la codifica dei caratteri nei
+nostri sorgenti.</p>
+<h3>UTF-8 (Unicode)</h3>
+<p>La codifica UTF-8 utilizza una quantità variabile di bit per
+codificare un range di 1.112.064 <code>code points</code>.  I primi 128
+caratteri sono quelli della tabella ASCII, gli altri caratteri
+spaziano da lettere accentate fino ad emoticon.  Per quanto capace di
+rappresentare caratteri che necessitano di 4 byte (32 bit), i
+caratteri ASCII utilizzano comunque 1 byte (8 bit).</p>
+<h3>Il pacchetto unicode</h3>
+<p>Il pacchetto <code>unicode</code> contiene molte funzioni utili per lavorare
+con <code>rune</code>, per esempio:</p>
+<pre><code>func IsLetter(r rune) bool
+func IsDigit(r rune) bool
+func IsSpace(r rune) bool
+func ToLower(r rune) rune</code></pre>
+<h1>Stringhe</h1>
+<p>In Go una stringa è una sequenza di <code>rune</code>, cioè una sequenza di
+caratteri di grandezza variabile.  Le stringhe sono un tipo
+immutabile, una volta create non possono essere modificate (capiremo
+più avanti perchè).</p>
+<p>Ci sono 2 tipi di letterali stringa:</p>
+<ul>
+<li><strong>Interpretato</strong>: Circondato da <code>&quot;&quot;</code>, le sequenze di escape vengono interpretate (per esempio <code>\n</code> rappresenta un 'a capo', <code>\t</code> rappresenta un tab, <code>\&quot;</code> rappresenta letteralmente un ")</li>
+<li><strong>Raw</strong>: Circondato da ``, vengono prese letteralmente</li>
+</ul>
+<p>Per esempio:</p>
+<pre><code>str := &quot;Questa è la prima linea\nQuesta è la seconda linea&quot;
+str2 := ``Questa è la prima linea
+Questa è la seconda``</code></pre>
+<p>Il valore di default di una stringa è <code>&quot;&quot;</code>.</p>
+<h2>La funzione len()</h2>
+<p>La lunghezza di una stringa <code>str</code> si ottiene con la funzione
+<code>len</code>:
+<pre><code>len(str)</code></pre>
+</p>
+<h2>Concatenare stringhe</h2>
+<p>Due stringhe <code>s1</code> ed <code>s2</code> possono venire concatenate in un'unica
+stringa utilizzando <code>+</code></p>
+<pre><code>s := s1 + s2</code></pre>
+<h2>For-range</h2>
+<p>Go mette a disposizione un quarto tipo di loop che agisce sulle
+stringhe di <code>rune</code>.  Vista la natura variabile in spazio dei
+caratteri UTF-8 non è possibile trattarli con un semplice <code>for</code>
+ternario.  La sintassi è la seguente:</p>
+<pre><code>for pos, byte := range str {
+	// pos contiene l'indice attuale, byte la runa attuale
+}</code></pre>
+<p>Con questo costrutto è possibile iterare sui <code>code points</code> uno alla
+volta, <code>byte</code> conterrà una copia della runa attuale (è utile solo
+per leggere valori, non può essere usato per cambiare la stringa).</p>
+<h2>Strconv e strings</h2>
+<p>I pacchetti <code>strconv</code> e <code>strings</code> contengono molte funzioni utili per lavorare sulle stringhe.</p>
+<h3>Esempi</h3>
+<h4>strconv.Atoi</h4>
+<pre><code>func Atoi(s string) (int, error)</code></pre>
+<p>Ritorna come primo valore l'intero corrispondente alla stringa s:</p>
+<pre><code>package main</code></pre>
+<pre><code>import (
+	&quot;fmt&quot;
+	&quot;strconv&quot;
+)</code></pre>
+<pre><code>func main() {
+	var str string
+	var n, m int</code></pre>
+<pre><code>	n = 50
+	str = &quot;45&quot;</code></pre>
+<pre><code>	m, _ = strconv.Atoi(str)
+	fmt.Println(m + n) // Stampa 95
+	return
+}</code></pre>
+<p>La funzione <code>Itoa</code> fa l'opposto:</p>
+<pre><code>func Itoa(i int) string</code></pre>
+<h4>strings.HasPrefix, strings.HasSuffix</h4>
+<pre><code>func HasPrefix(s, prefix string) bool
+func HasSuffix(s, suffix string) bool</code></pre>
+<p>Queste funzioni testano se la stringa <code>s</code> contiene come
+suffisso/prefisso la stringa <code>prefix</code> o <code>suffix</code>.  Siccome
+ritornano un <code>bool</code> possono essere usate in if e for.</p>
+<h4>strings.Contains</h4>
+<pre><code>func Contains(s, substr string) bool</code></pre>
+<p>La funzione <code>strings.Contains</code> controlla se la stringa <code>s</code>
+contiene la sottostringa <code>substr</code>.</p>
+<h4>E molte altre...</h4>
+<h1>Esercizi</h1>
+<p>Nella risoluzione di questi esercizi mi aspetto 2 cose:
+<ol>
+<li>Utilizzate <code>go doc</code> per trovare funzioni che potrebbero servirvi nei pacchetti <code>unicode</code>, <code>strings</code> e <code>strconv</code></li>
+<li>Cercate di utilizzare delle funzioni per rendere il codice dentro <code>main()</code> più leggibile. Ad esempio nell'esercizio 2 potreste servirvi di una funzione <code>func isVocale(r rune) bool</code> e di una funzione <code>func contaVocali(s string) int</code></li>
+</ol>
+</p>
+<h2>Esercizio 0</h2>
+<p><em>Problema</em>: Scrivere un programma es0.go che legge un byte (Occorre
+uno Scan in più per catturare l'invio) e
+<ol>
+<li>Stampa il byte precedente, il byte stesso e quello successivo in ordine lessicografico (ASCII)</li>
+<li>Stabilisce se è una lettera tra A e L (maiuscole), o altro</li>
+</ol>
+</p>
+<p><em>Nota</em>: Siccome i <code>byte</code> vengono rappresentati come interi in
+memoria, <code>b</code> può anche essere scritto come</p>
+<pre><code>'a' + 1</code></pre>
+<p><em>Esempio di esecuzione</em>:</p>
+<p>Inserire un carattere: <strong>n</strong></p>
+<p>mno</p>
+<p>altro</p>
+<p>Inserire un carattere: <strong>C</strong></p>
+<p>BCD</p>
+<p>A-L</p>
+<h2>Esercizio 1 - Rompi stringa</h2>
+<p><em>Problema</em>: Scrivere un programma <code>rompi_stringa.go</code> che legge in
+input una stringa e la stampa in verticale, una runa per riga.</p>
+<p><em>Esempio di esecuzione</em>:</p>
+<p>Inserire una stringa: <strong>Perchè</strong></p>
+<p>P
+<br>
+e
+<br>
+r
+<br>
+c
+<br>
+h
+<br>
+è</p>
+<h2>Esercizio 2 - Conta vocali</h2>
+<p><em>Problema</em>: Scrivere un programma <code>conta_vocali.go</code> che legge in
+input una parola e stampa il numero di lettere (<code>rune</code>) che sono
+vocali (aeiou).</p>
+<p><em>Esempio di esecuzione</em>:</p>
+<p>Inserire una parola: <strong>Golang</strong>
+<br>
+2</p>
+<p>Inserire una parola: <strong>supercalifragilisticoespiralidoso</strong></p>
+<p>15</p>
+<h2>Esercizio 3 - Trova rune</h2>
+<p><em>Problema</em>: Scrivere un programma <code>trova.go</code> che legge un <code>rune</code> e
+una stringa e stampa la prima posizione (indicizzata a partire da 0)
+del carattere nella stringa, o -1 se il carattere non c'è.</p>
+<p><em>Esempio di esecuzione</em>:</p>
+<p>Carattere da cercare: <strong>c</strong></p>
+<p>Stringa: <strong>Tre tigri contro tre tigri</strong></p>
+<p>10</p>
+<h2>Esercizio 4 - Minuscole o maiuscole</h2>
+<p><em>Problema</em>: Scrivere un programma <code>minuscole_maiuscole.go</code> che legge
+una stringa e stabilisce se questa contiene solo maiuscole, solo
+minuscole o entrambe e stampa un messaggio opportuno.</p>
+<p><em>Nota</em>: Il pacchetto <code>unicode</code> contiene le funzioni <code>IsLower</code> e
+<code>IsUpper</code> che potrebbero essere utili</p>
+<p><em>Esempio di esecuzione</em>:</p>
+<p>Inserire una stringa: <strong>ATTENZIONE</strong></p>
+<p>Solo maiuscole</p>
+<p>Inserire una stringa: <strong>Una frase</strong></p>
+<p>Sia maiuscole che minuscole</p>
+<p>Inserire una stringa: <strong>dopo un punto fermo occorre una maiuscola</strong></p>
+<p>Solo minuscole</p>
+<h2>Esercizio 5 - Cesare</h2>
+<p><em>Problema</em>: Scrivere un programma <code>cesare.go</code> che legge un valore
+<code>int</code> non negativo <code>k</code> (la chiave di cifratura) e una sequenza di
+lettere minuscole (sulla stessa riga e senza spazi), terminate da
+'\n'.  Il programma stampa la sequenza letta cifrata secondo il
+cifrario di Cesare, usando come chiave <code>k</code>: ogni lettera del testo
+viene sostituita dalla lettera che si trova <code>k</code> posizioni dopo
+nell'alfabeto, ritornando dopo la 'z' alla lettera 'a'.</p>
+<p><em>Nota</em>: Ricordate che i <code>byte</code> sono semplicemente numeri.  Quindi
+per rimanere entro un certo range si può usare l'operazione '%': il
+resto della divisione intera per <code>n</code> sta tra <code>0</code> e <code>n - 1</code> e la
+lunghezza dell'alfabeto è <code>'z' - 'a' + 1</code>.</p>
+<p><em>Esempio di esecuzione</em>:</p>
+<p>chiave: <strong>2</strong></p>
+<p>testo: <strong>zaprb</strong></p>
+<p>bcrtd</p>
+<p>chiave: <strong>100</strong></p>
+<p>testo: <strong>abcd</strong></p>
+<p>wxyz</p>
+
+</div>
+            <div id="footer">
+			  <span style="float:left;"> <a href="/contacts.html">Contacts</a></span>
+			  <span style="float:center;"> <a href="https://creativecommons.org/share-your-work/public-domain/cc0">
+                  <img src="/pub/pics/public_domain.png">
+              </a></span>
+			  <span style="float:right;"><a href="/pub/pubkey.asc">PGP key</a></span>
+            </div>
+        </body>
+</html>

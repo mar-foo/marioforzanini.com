@@ -1,0 +1,15 @@
+PAGES=\
+     cell_phones.html\
+     contacts.html\
+     index.html\
+     plan9.html\
+     read_more.html\
+     static.html\
+
+all:V: $PAGES
+
+%.html: %.md
+	smu $stem.md > $stem.html
+
+clean:V:
+	rm *.html

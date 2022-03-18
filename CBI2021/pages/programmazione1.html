@@ -1,0 +1,39 @@
+<h1>Programmazione</h1>
+<p>I programmi sono quello che fa funzionare l'hardware, le istruzioni che la macchina deve eseguire. Poiché la CPU comprende una serie di istruzioni ben precise, sotto forma di codice binario, e diverse per le diverse architetture, il modo di scrivere programmi se è evoluto nel tempo.</p>
+<ul>
+<li>Inizialmente i programmi venivano scritti in linguaggio macchina ed i bit venivano attivati a mano per caricare il programma</li>
+<li>Successivamente fu inventato l'assembly: un linguaggio che permette di esprimere le istruzioni che la macchina sa comprendere in un linguaggio umano che viene poi <strong>compilato</strong> da un <em>assembler</em>. <strong>Compilare</strong> significa trasformare il programma scritto in assembly in una sequenza di bit che hanno senso per la macchina</li>
+<li>Vengono inventati linguaggi <strong>strutturati</strong> (ad alto livello) che permettono di scrivere il programma in un linguaggio meno vicino alla macchina ma che può essere tradotto per più architetture differenti</li>
+</ul>
+<p><strong>Go</strong> appartiene all'ultima categoria</p>
+<h2>Compilazione</h2>
+<p>I linguaggi "ad alto livello" si suddividono poi in ulteriori classi (procedurali, funzionali, staticamente tipizzati...). In particolare:</p>
+<ul>
+<li>Un linguaggio si dice compilato se il codice sorgente per essere eseguito necessita di venire trasformato in una serie di istruzioni binarie</li>
+<li>Un linguaggio si dice interpretato se viene eseguito da un programma</li>
+</ul>
+<h1>Golang</h1>
+<p>I linguaggio nasce a Google dalle idea di Ken Thompson, Rob Pike e
+Robert Griesemer. Due membri del gruppo che ha lavorato su Unix, Plan9
+ed Inferno. Ken Thompson è uno dei padri del C (linguaggio nato negli
+anni '70 ed utilizzato ancora oggi per applicazioni di ogni tipo nel
+campo della progettazione di sistemi). Go viene concepito inizialmente
+nel 2007, viene rilasciato pubblicamente nel 2009. ('Il C del XXI
+secolo')</p>
+<h2>Idee</h2>
+<p>Semplicità, leggibilità, velocità di compilazione e scrittura.</p>
+<h2>Installazione</h2>
+<p>Seguire le istruzioni del <a href="https://go.dev">sito ufficiale di Go</a>. Test
+dell'installazione: creare un file 'test.go' con i seguenti
+contenuti</p>
+<pre><code>package main
+
+import &quot;fmt&quot;
+
+func main() {
+	fmt.Println(&quot;Hello world!&quot;)
+}</code></pre>
+<p>Aprite un <b>prompt dei comandi</b> nella stessa cartella e scrivete:</p>
+<pre><code>go build test.go
+test.exe</code></pre>
+<p>Dovrebbe apparire a schermo "Hello world!"</p>

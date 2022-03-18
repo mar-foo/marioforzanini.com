@@ -1,0 +1,141 @@
+<h1>Premessa</h1>
+<h2>La struttura dei file</h2>
+<p>L'ultima volta ho avuto l'impressione che ci fosse un po'
+di confusione riguardo alla struttura di file, cartelle ecc. Colpa
+mia che l'ho dato per scontato.
+I file nel computer sono organizzati in una struttura che è
+assimilabile a quella di un albero. A partire dalla radice ogni
+cartella è come il nodo di un albero, sotto ogni cartella si
+diramano i file (le foglie dell'albero) e le cartelle in essa
+contenute.
+Per riferirsi ad un file si possono usare due modi:</p>
+<ul>
+<li>Dare un percorso che parte dalla radice dell'albero e percorre
+tutti i nodi necessari per raggiungere il file (percorso
+assoluto)</li>
+<li>Dare un percorso verso il file a partire dalla cartella in cui ci
+si trova (percorso relativo). Per riferirsi alla cartella
+precedente nell'albero si usa il simbolo '..'</li>
+</ul>
+<p>Dal punto di vista del gestore grafico di documenti: dare un
+percorso assoluto significa tornare sempre indietro finchè si può e
+seguire tutto il percorso verso il file, dare un percorso relativo
+significa procedere a ritroso fino alla prima cartella in comune e
+poi procedere con il percorso verso il file.</p>
+<h2>Estensioni dei file</h2>
+<p>La seconda impressione che ho avuto è stata che il concetto di
+formato di un file e relativa estensione fosse sconosciuto. Diversi
+tipi di informazione richiedono diversi modi di essere salvati in un
+file, per esempio: per i video ci sono <strong>mp4</strong>, <strong>mkv</strong>&#x2026; per le
+immagini <strong>png</strong>, <strong>jpg</strong>, <strong>gif</strong>&#x2026; Per convenzione si indica un file
+che contiene un certo tipo di dato aggiungendo l'estensione relativa
+al suo formato alla fine del nome. L'ultima volta questo forse era
+risultato un po' confuso perchè di default il file manager di
+windows nascondeva l'estensione, ma il nome del file <strong>comprende
+l'estensione</strong>! Il file "immagine.jpeg", il file "immagine.png" ed il
+file "immagine" sono diversi, inoltre windows si basa
+sull'estensione per capire di che tipo di file si tratti e per
+proporre un programma adatto. Tutti i file scritti in linguaggio di
+markup, oppure in un qualunque linguaggio di programmazione sono
+file di testo semplice, ma l'estensione che si usa dipende dal
+linguaggio scelto: <strong>.go</strong> per i file go, <strong>.html</strong> per i file HTML,
+<strong>.cpp</strong> per i file C++&#x2026;</p>
+<h2>Server</h2>
+<p>Dopo la premessa riguardo alla struttura del <strong>filesystem</strong> forse è
+più semplice capire cosa significa che la struttura di un sito web è
+soltanto una cartella sul server. Nel momento in cui guardo un sito
+nella barra dell'indirizzo appare un percorso relativo che mi porta
+dalla cartella iniziale fino al file che sto guardando. Il sito può
+essere organizzato con una struttura più o meno complicata di
+cartelle e generalmente in ogni cartella ci sarà un file chiamato
+index.html (per convenzione). Ogni link che punti a pagine
+all'interno del sito <strong>deve</strong> specificare un percorso <strong>a partire dalla
+cartella in cui si trova il file</strong> dove c'è il link <strong>verso il file a
+cui si vuole puntare</strong>. Per esempio se io mi trovo in una cartella
+che contiene due file: 'index.html' e 'test.html' un link dal file
+index.html al file test.html avrà questa faccia:</p>
+<pre><code>&lt;a href=&quot;test.html&quot;&gt;Test&lt;/a&gt;</code></pre>
+<p>poiché i file <strong>sono nella stessa cartella</strong>.
+Al contrario se il file test.html si trovasse nella cartella
+'articoli' un link da index.html a test.html avrebbe questa faccia:</p>
+<pre><code>&lt;a href=&quot;articoli/test.html&quot;&gt;Test in un'altra cartella&lt;/a&gt;</code></pre>
+<p>Mentre un link da test.html ad index.html sarebbe così:</p>
+<pre><code>&lt;a href=&quot;../index.html&quot;&gt;Indice&lt;/a&gt;</code></pre>
+<p>Lo stesso va fatto quando si aggiungono immagini, video
+(controllando che l'estensione sia corretta)&#x2026;</p>
+<h1>Nuovi concetti di rete</h1>
+<h2>Sottorete</h2>
+<p>Come abbiamo detto nella prima lezione sul web, la rete è
+soltanto un grafico con tanti nodi collegati tra loro e
+identificati con degli indirizzi IP. Siccome gli indirizzi IP non
+sono infiniti occorre utilizzarli in modo intelligente per servire
+tutti gli utenti della rete senza duplicazioni. Per questo la rete
+in realtà risulta organizzata in <strong>sottoreti</strong>. Un esempio sono le
+reti di casa: in una casa possono esserci molti dispositivi
+connessi alla rete, ma questi non hanno un indirizzo <strong>pubblico</strong>
+ovvero questi dispositivi non sono raggiungibili dall'esterno
+direttamente: quello che succede è che all'interno della rete
+privata ognuno ha il suo indirizzo <strong>privato</strong> (per convenzione
+iniziano tutti con 192.168.0.), l'unico dispositivo che ha un
+indirizzo pubblico visibile a tutta la rete internet è il router; a
+sua volta il router fa parte di una sottorete di router, per
+esempio quella gestita da TIM. Il router che connette due sottoreti
+si chiama <strong>gateway</strong>, ogni gateway conosce bene le sottoreti a cui è
+collegato e sa come indirizzare i pacchetti all'interno di queste
+sottoreti.</p>
+<h2>Porte</h2>
+<p>Il traffico di rete in entrata può essere di diversa natura: un
+computer potrebbe scaricare email, navigare su internet e
+connettersi in SSH (da remoto) ad un altro; occorre un metodo per
+dividere in maniera coerente il traffico in ingresso. La soluzione
+adottata per questo problema è quella di definire un canale diverso
+per ogni protocollo, questi canali si chiamano <strong>porte</strong>. Come in un
+porto ci sono diversi moli, a cui attraccano diversi tipi di
+imbarcazione; così il computer è in grado di ricevere traffico di
+rete su diverse porte. Le porte che interessano a noi sono quelle
+del traffico web che sono <strong>80</strong> (per l'http) e <strong>443</strong> (per l'https).</p>
+<h2>Servire un sito web</h2>
+<p>Per avere un sito web occorre innanzitutto configurare il proprio
+computer in modo che si metta in ascolto sulla porta corretta
+(porta 80 nel nostro caso); solitamente per fare questa cosa si
+installano dei programmi appositi che si chiamano <strong>server http</strong>,
+l'unico scopo di questi programmi è quello di <strong>servire un sito</strong>:
+rispondere ad ogni chiamata sulla porta 80 con la pagina richiesta
+del vostro sito, le pagine del sito saranno cercate nella cartella
+che voi indicate.</p>
+<h1>Uniamo i puntini</h1>
+<p>Ho scritto un semplicissimo server, mi piacerebbe che ognuno
+di voi scrivesse un piccolo sito fatto così:</p>
+<ul>
+<li>Una pagina di presentazione (index.html): chi siete, quanti anni
+avete, che liceo frequentate &#x2026;</li>
+<li>Una o più pagine a vostra scelta in cui mettete quello che volete.
+Queste pagine devono essere raggiungibili in qualche modo: a
+partire dall'indice devono esserci tutti i link necessari per
+arrivare a queste pagine</li>
+</ul>
+<p>Mentre state lavorando potete attivare un programma che ho scritto
+io che fa da server web, il codice è disponibile <a href="/files/server.go">qui</a>. Questo
+programma lo trovate <a href="/files/server.exe">sulla mia pagina web</a> e dovete metterlo nella
+stessa cartella in cui creerete il vostro sito. Se avete capito
+qualcosa di quello che abbiamo detto delle sottoreti, saprete che le
+pagine web che state per scrivere saranno accessibili soltanto a
+coloro che sono connessi alla rete interna della scuola a cui siete
+connessi voi, quindi gli unici che possono vederle siamo noi.</p>
+<h2>Istruzioni per attivare il programma</h2>
+<p>Per far partire il server dovete salvare il file nella cartella in
+cui si trova il vostro sito, aprire quella cartella nel file
+manager, schiacciare con il tasto destro e aprire un terminale
+nella cartella. Nel terminale scrivete</p>
+<pre><code>server.exe</code></pre>
+<p>per far partire il programma <strong>server.exe</strong>. Se qualcosa non funziona
+è probabile che non siate nella cartella giusta: prestate
+attenzione ad aprire il terminale dal file manager mentre siete
+nella cartella del sito.</p>
+<h2>Vedere i siti degli altri</h2>
+<p>Per vedere i siti dei vostri compagni, e perchè il vostro sito sia
+visibile a loro, è necessario che diciate il vostro indirizzo ip
+privato nella rete della scuola; per trovarlo aprite un prompt dei
+comandi e scrivete <strong>ipconfig</strong>. Scrivendo nella barra degli
+indirizzi del browser uno degli indirizzi dei vostri compagni
+dovreste vedere apparire il loro sito.</p>

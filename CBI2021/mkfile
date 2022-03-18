@@ -1,0 +1,12 @@
+all:V: lessons
+	for(i in `{walk pages | grep cfg | sort -r})
+		saait $i
+
+lessons:
+	cd pages ; mk all
+	cd ..
+
+clean:V:
+	rm output/*.html
+	cd pages ; mk clean
+	cd ..

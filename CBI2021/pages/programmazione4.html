@@ -1,0 +1,382 @@
+<h1>Correzione</h1>
+<p>Per prima cosa osserviamo le soluzioni agli esercizi precedenti:
+<a href="programmazione3.html">Lezione Precedente</a></p>
+<h1>Ripasso</h1>
+<p>Nella scorsa lezione abbiamo parlato di <strong>if</strong> ed <strong>if/else</strong>: le parole
+chiave che forniscono un modo di cambiare il flusso di esecuzione di
+un programma sulla base del verificarsi o meno di una condizione.</p>
+<p>Il costrutto per eseguire delle istruzioni sulla base del
+verificarsi della condizione <strong><cond>*</strong> è:</p>
+<pre><code>if &lt;cond&gt; {
+	// eseguito se &lt;cond&gt; == true
+} else {
+	// eseguito se &lt;cond&gt; == false
+}</code></pre>
+<h1>Ripetizione di istruzioni: cicli</h1>
+<p>Molto spesso occorre ripetere la stessa sequenza di istruzioni per
+ottenere il risultato desiderato, per esempio per calcolare la media
+di 10 numeri occorre sommare tutti e dieci i valori e dividere il
+risultato per 10; ovviamente siamo in grado di risolvere questo
+problema con gli strumenti che abbiamo imparato fino ad ora:</p>
+<pre><code>package main
+
+import &quot;fmt&quot;
+
+func main() {
+var numero1, numero2, numero3, numero4, numero5,
+	numero6, numero7, numero8, numero9, numero10 float64
+	var media float64
+	
+	fmt.Scan(&amp;numero1, &amp;numero2, &amp;numero3, &amp;numero4, &amp;numero5,
+	&amp;numero6, &amp;numero7, &amp;numero8, &amp;numero9, &amp;numero10)
+	media = (numero1 + numero2 + numero3 + numero4 + numero5 +
+	numero6 + numero7 + numero8 + numero9 + numero10) / 10
+	fmt.Println(&quot;Media: &quot;, media)
+	return
+}</code></pre>
+<p>Questa soluzione però è poco robusta: ogni volta che cambia il
+numero di valori di cui fare la media occorre cambiare il programma,
+ed è noiosa da scrivere: bisogna scrivere troppo. Un altro modo, più
+elegante per risolvere il problema è quello di salvare i valori in
+una sola variabile e, prima di leggere il valore successivo,
+aggiungere il risultato alla media.</p>
+<pre><code>package main
+
+import &quot;fmt&quot;
+
+func main() {
+	var numero, media float64
+	
+	// Numero 1
+	fmt.Scan(&amp;numero)
+	media += numero
+	
+	// Numero 2
+	fmt.Scan(&amp;numero)
+	media += numero
+	
+	// Numero 3
+	fmt.Scan(&amp;numero)
+	media += numero
+	
+	// Numero 4
+	fmt.Scan(&amp;numero)
+	media += numero
+	
+	// Numero 5
+	fmt.Scan(&amp;numero)
+	media += numero
+	
+	// Numero 6
+	fmt.Scan(&amp;numero)
+	media += numero
+	
+	// Numero 7
+	fmt.Scan(&amp;numero)
+	media += numero
+	
+	// Numero 8
+	fmt.Scan(&amp;numero)
+	media += numero
+	
+	// Numero 9
+	fmt.Scan(&amp;numero)
+	media += numero
+	
+	// Numero 10
+	fmt.Scan(&amp;numero)
+	media += numero
+	
+	media /= 10
+	fmt.Println(&quot;Media: &quot;, media)
+	return
+}</code></pre>
+<p>Questa soluzione risulta più robusta della precedente: non occorre
+aggiungere una nuova variabile ogni volta che cambia il numero di
+addendi, ma è comunque molto lunga e noiosa da scrivere: bisogna
+ricopiare lo stesso pezzo di codice 10 volte per ottenere il
+risultato.</p>
+<h2>Ciclo for</h2>
+<p>Il primo modo di specificare un ciclo è il <strong>for unario</strong>: dopo la
+parola chiave for occorre aggiungere un solo argomento, ovvero la
+condizione da verificare ogni volta che si arriva alla fine del
+blocco di istruzioni. Se la condizione specificata è vera si
+ripete l'intero blocco.</p>
+<pre><code>for &lt;cond&gt; {
+	// Istruzioni che si ripetono finchè &lt;cond&gt; non risulta falsa
+}</code></pre>
+<p><em>NOTA</em>: Negli altri linguaggi questo tipo di ciclo viene
+solitamente indicato con la parola <strong>while</strong>.</p>
+<h2>Ciclo for zerario</h2>
+<p>Per esprimere un ciclo che continua a ripetersi senza controllare
+nessuna condizione è sufficiente non inserire nessuna condizione
+dopo la parola chiave <strong>for</strong></p>
+<pre><code>for {
+	// Istruzioni che si ripetono sempre
+}</code></pre>
+<h3>Break e continue</h3>
+<p>All'interno del blocco di istruzioni di un ciclo for sono
+disponibili due parole chiave che permettono di controllare il
+flusso di esecuzione del ciclo: <strong>break</strong> e <strong>continue</strong>. La parola
+chiave break permette di uscire dal ciclo e continuare
+l'esecuzione del programma a partire dalla prima istruzione
+successiva. La parola chiave <strong>continue</strong> permette di passare
+immediatamente all'iterazione successiva senza eseguire
+nessun'altra istruzione.</p>
+<h3>Esempio</h3>
+<p>Si potrebbe utilizzare un ciclo for unario al posto del costrutto
+<strong>if</strong>:</p>
+<pre><code>for &lt;cond&gt; {
+	// Istruzioni da eseguire
+	break // Esci dal ciclo
+}</code></pre>
+<h2>Ciclo for ternario</h2>
+<p>Il secondo modo per specificare un ciclo è il <strong>for ternario</strong>: dopo
+la parola chiave for occorre aggiungere 3 argomenti separati da
+<code>;</code>. Il primo argomento è l'istruzione che va eseguita prima di
+iniziare il ciclo, il secondo argomento la condizione che viene
+verificata alla fine di ogni iterazione, il terzo argomento è
+l'istruzione che viene ripetuta all'inizio di ogni nuovo blocco.
+Per esempio per stampare una sequenza di numeri da 1 a 10 si può
+scrivere:</p>
+<pre><code>for i := 1; i &lt;= 10; i++ {
+fmt.Println(i)
+}</code></pre>
+<p>In questo caso l'esecuzione del codice ha questo ordine:</p>
+<ol>
+<li>dichiaro i = 1</li>
+<li>stampo i</li>
+<li>se i &lt;= 10 incremento di 1 il valore di i (è il significato di <strong>i++</strong>)</li>
+<li>torno al passo 2</li>
+</ol>
+<h3>Media</h3>
+<p>A questo punto siamo in grado di risolvere in maniera molto più
+concisa il problema della media di 10 numeri che abbiamo posto
+all'inizio:</p>
+<pre><code>package main
+
+import &quot;fmt&quot;
+
+const nAddendi = 10
+func main() {
+	var numero, media float64
+	for i := 0; i &lt; nAddendi; i++ {
+		fmt.Scan(&amp;numero)
+		media += numero
+	}
+	media /= nAddendi
+	fmt.Println(&quot;Media: &quot;, media)
+	return
+}</code></pre>
+<p>Questa risoluzione è robusta quanto quella di prima: ogni volta
+che cambia il numero di addendi è sufficiente cambiare il valore
+10 nel codice, ma risulta molto più breve e semplice da scrivere.
+Resta il problema di non essere in grado di calcolare la media in
+base al numero di addendi inseriti dall'utente (senza fissare il
+numero a priori).</p>
+<h2>Variabili locali</h2>
+<p>Come per i costrutti di selezione <strong>if</strong> e <strong>if/else</strong> le variabili
+che vengono dichiarate negli argomenti del <strong>for</strong> sono locali.</p>
+<h1>Esercizi</h1>
+<h2>Esercizio 0 - Raddoppio</h2>
+<p><em>Problema:</em> Scrivere un programma go <code>raddoppio.go</code> che legge 5
+numeri da tastiera e di ciascuno stampa il doppio.</p>
+<p><em>Esempi di esecuzione</em>:</p>
+<p>Inserire un valore: <strong>2</strong></p>
+4<p>Inserire un valore: <strong>5</strong></p>
+<p>10</p>
+<p>Inserire un valore: <strong>7</strong></p>
+<p>14</p>
+<p>Inserire un valore: <strong>3</strong></p>
+6<p>Inserire un valore: <strong>53</strong></p>
+<p>106</p>
+<h2>Soluzione</h2>
+<pre><code>package main
+
+import &quot;fmt&quot;
+
+func main() {
+	var numero int
+	for i := 0; i &lt; 4; i++ {
+		fmt.Print(&quot;Inserire un valore: &quot;)
+		fmt.Scan(&amp;numero)
+		fmt.Println(numero * 2)
+	}
+	return
+}</code></pre>
+<h2>Esercizio 1 - Sequenza</h2>
+<p><em>Problema:</em>  Scrivere un programma go <code>sequenza.go</code> che legge un
+numero da tastiera e stampa la sequenza di valori da 1 a n.</p>
+<p><em>Esempio di esecuzione</em>:</p>
+<p>Inserire un valore: <strong>5</strong></p>
+12345<h3>Soluzione</h3>
+<pre><code>
+package main
+
+import &quot;fmt&quot;
+
+func main() {
+	var end int
+	fmt.Print(&quot;Inserire un valore: &quot;)
+	fmt.Scan(&amp;end)
+	for i := 1; i &lt;= end; i++ {
+		fmt.Println(i)
+	}
+	return
+}</code></pre>
+<h2>Esercizio 2 - Sequenza pari</h2>
+<p><em>Problema:</em> Scrivere un programma go <code>sequenza_pari.go</code> che legge
+un numero da tastiera e stampa la sequenza di valori pari tra 1 e
+n.</p>
+<p><em>Esempio di esecuzione</em>:</p>
+<p>Inserire un valore: <strong>5</strong></p>
+24<h3>Soluzione</h3>
+<pre><code>package main
+
+import &quot;fmt&quot;
+
+func main() {
+	var numero int
+	fmt.Print(&quot;Inserire un valore: &quot;)
+	fmt.Scan(&amp;numero)
+	for i := 2; i &lt;= numero; i = i + 2 {
+		fmt.Println(i)
+	}
+	return
+}</code></pre>
+<h2>Esercizio 3 - Tabellina</h2>
+<p><em>Problema:</em> Scrivere un programma go <code>tabellina.go</code> che legge un
+numero da tastiera e stampa la tabellina di quel numero (n<em>1, n</em>2,
+&#x2026;, n*10).</p>
+<p><em>Esempio di esecuzione</em>:</p>
+<p>Inserire un valore: <strong>3</strong></p>
+369<p>12</p>
+<p>15</p>
+<p>18</p>
+<p>21</p>
+<p>24</p>
+<p>27</p>
+<p>30</p>
+<h3>Soluzione</h3>
+<pre><code>package main
+
+import &quot;fmt&quot;
+
+func main() {
+	var numero int
+	fmt.Print(&quot;Inserire un valore: &quot;)
+	fmt.Scan(&amp;numero)
+	
+	for i := 1; i &lt;= 10; i++ {
+		fmt.Println(i * numero)
+	}
+	return
+}</code></pre>
+<h2>Esercizio 4 - Voto valido</h2>
+<p><em>Problema:</em> Scrivere un programma go <code>voto_valido.go</code> che stampa
+"voto:" per chiedere un valore voto fino ad ottenere un valore
+valido, cioè compreso tra 3 &lt;= voto &lt;= 10, e poi stampa "voto
+valido"</p>
+<p><em>Esempio di esecuzione</em>:</p>
+<p>Inserire un voto: <strong>11</strong></p>
+<p>voto non valido</p>
+<p>Inserire un voto: <strong>2</strong></p>
+<p>voto non valido</p>
+<p>Inserire un voto: <strong>5</strong></p>
+<p>voto valido</p>
+<h3>Soluzione</h3>
+<pre><code>package main
+
+import &quot;fmt&quot;
+
+func main() {
+	var voto int
+	fmt.Print(&quot;Inserire un voto: &quot;)
+	fmt.Scan(&amp;voto)
+	for voto &lt; 3 || voto &gt; 10 {
+		fmt.Print(&quot;voto non valido&quot;)
+		fmt.Print(&quot;Inserire un voto: &quot;)
+		fmt.Scan(&quot;&amp;voto&quot;)
+	}
+	fmt.Println(&quot;voto valido&quot;)
+	return
+}</code></pre>
+<h2>Esercizio 5 - Massimo</h2>
+<p><em>Problema:</em> Scrivere un programma <code>massimo.go</code> che legge 5 numeri
+numeri interi, ne stampa la somma ed il massimo.</p>
+<p><em>Esempio di esecuzione</em>:</p>
+<p>Inserire 5 valori: <strong>1 3 2 5 4</strong></p>
+<p>Somma: 15</p>
+<p>Massimo: 5</p>
+<h3>Soluzione</h3>
+<pre><code>package main
+
+import &quot;fmt&quot;
+
+func main() {
+	var somma, massimo, numero int
+	fmt.Print(&quot;Inserire 5 valori&quot;)
+	for i := 0; i &lt; 4; i++ {
+		fmt.Scan(&amp;numero)
+		if numero &gt; massimo {
+			massimo = numero
+		}
+		somma += numero
+	}
+	fmt.Println(&quot;Somma: &quot;, somma)
+	fmt.Println(&quot;Massimo: &quot;, massimo)
+	return
+}</code></pre>
+<h2>Esercizio 6 - Primo</h2>
+<p><em>Problema:</em> Scrivere un programma <code>primo.go</code> che legge in input un
+numero intero e determina se è primo.</p>
+<p><em>Esempio di esecuzione</em>:</p>
+<p>Inserire un valore: <strong>7</strong></p>
+<p>È primo</p>
+<p><em>Nota</em>: Per stabilire se un valore è primo è sufficiente
+determinare il primo numero che è suo divisore (se c'è).</p>
+<h3>Soluzione</h3>
+<pre><code>package main
+
+import &quot;fmt&quot;
+
+func main() {
+	var numero int
+	for i := 2; i &lt;= numero / 2; i++ {
+		if numero % i == 0 {
+			fmt.Println(numero, &quot; non è primo.&quot;)
+		return
+		}
+	}
+	fmt.Println(numero, &quot; è primo.&quot;)
+	return
+}</code></pre>
+<h2>Esercizio 7 - Media</h2>
+<p><em>Problema:</em> Scrivere un programma <code>media_var.go</code> che legge in input
+dei numeri diversi da 0 e ne stampa la media.</p>
+<p><em>Esempio di esecuzione</em>:</p>
+<p>Inserire un valore: <strong>5</strong></p>
+<p>Inserire un valore: <strong>4</strong></p>
+<p>Inserire un valore: <strong>6</strong></p>
+<p>Inserire un valore: <strong>0</strong></p>
+<p>Media: 5</p>
+<h3>Soluzione</h3>
+<pre><code>package main
+
+import &quot;fmt&quot;
+
+func main() {
+	var valore, quantità, media float64
+	fmt.Print(&quot;inserire un valore: &quot;)
+	fmt.Scan(&amp;valore)
+	for numero != 0 {
+		media += valore
+		quantità++
+		fmt.Print(&quot;inserire un valore: &quot;)
+		fmt.Scan(&amp;valore)
+	}
+	media /= quantità
+	fmt.Println(&quot;Media: &quot;, media)
+	return
+}
+</code></pre>

@@ -1,0 +1,24 @@
+#!/bin/sh
+export PATH="${PATH}:$HOME/.local/bin/scripts/"
+export PATH="${PATH}:$HOME/.local/bin/scripts/kiss"
+export PATH="$HOME/go/bin/:${PATH}"
+
+# Kiss repositories
+export KISS_PATH=/var/repos/repo/core
+export KISS_PATH=$KISS_PATH:/var/repos/repo/xorg
+export KISS_PATH=$KISS_PATH:/var/repos/repo/extra
+export KISS_PATH=$KISS_PATH:/var/repos/community/community
+export KISS_PATH=$KISS_PATH:/var/repos/bin/bin
+# Forked packages
+export KISS_PATH=/home/mario/personalRepos:$KISS_PATH
+
+export LANG=en_US.UTF-8
+# Editor
+export EDITOR=nvim
+export VISUAL=nvim
+
+export FZF_DEFAULT_COMMAND='find -L . | cut -b3-'
+
+alias luamake=/home/mario/.config/nvim/lua-language-server/3rd/luamake/luamake
+
+# test "$(tty)" = "/dev/tty1" && startx

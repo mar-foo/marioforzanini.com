@@ -1,0 +1,745 @@
+diff --git a/LICENSE b/LICENSE
+index 809d284..2cdab7c 100644
+--- a/LICENSE
++++ b/LICENSE
+@@ -15,27 +15,18 @@ MIT/X Consortium License
+ © 2013 Alexander Sedov <alex0player@gmail.com>
+ © 2013 Nick White <git@njw.me.uk>
+ © 2013 David Dufberg <david@dufberg.se>
+-© 2014-2021 Quentin Rameau <quinq@fifth.space>
++© 2014-2017 Quentin Rameau <quinq@fifth.space>
+ © 2014-2016 Markus Teich <markus.teich@stusta.mhn.de>
+ © 2015 Jakukyo Friel <weakish@gmail.com>
+ © 2015 Ben Woolley <tautolog@gmail.com>
+ © 2015 Greg Reagle <greg.reagle@umbc.edu>
+ © 2015 GhostAV <ghostav@riseup.net>
+-© 2015-2017 Ivan Tham <pickfire@riseup.net>
++© 2015 Ivan Tham <pickfire@riseup.net>
+ © 2015 Alexander Huemer <alexander.huemer@xx.vu>
+ © 2015 Michael Stevens <mstevens@etla.org>
+ © 2015 Felix Janda <felix.janda@posteo.de>
+ © 2016 Charles Lehner <cel@celehner.com>
+ © 2016 Dmitry Bogatov <KAction@gnu.org>
+-© 2017 Hiltjo Posthuma <hiltjo@codemadness.org>
+-© 2017 ssd <ssd@mailless.org>
+-© 2017 Constantine Bytensky <kostya3@gmail.com>
+-© 2017 Eon S. Jeon <esjeon@hyunmu.am>
+-© 2017 Jochen Sprickerhof <git@jochen.sprickerhof.de>
+-© 2018 nzl <uruabi@gmail.com>
+-© 2018 Eddie Thieda <eddie.thieda@gmail.com>
+-© 2018 Leonardo Taccari <iamleot@gmail.com>
+-© 2019 efe <efe@efe.kim>
+ 
+ Permission is hereby granted, free of charge, to any person obtaining a
+ copy of this software and associated documentation files (the "Software"),
+diff --git a/Makefile b/Makefile
+index 1edf820..e5d4172 100644
+--- a/Makefile
++++ b/Makefile
+@@ -47,7 +47,7 @@ dist: distclean
+ 	mkdir -p surf-$(VERSION)
+ 	cp -R LICENSE Makefile config.mk config.def.h README \
+ 	    surf-open.sh arg.h TODO.md surf.png \
+-	    surf.1 common.h $(SRC) $(WSRC) surf-$(VERSION)
++	    surf.1 $(SRC) $(CSRC) $(WSRC) surf-$(VERSION)
+ 	tar -cf surf-$(VERSION).tar surf-$(VERSION)
+ 	gzip surf-$(VERSION).tar
+ 	rm -rf surf-$(VERSION)
+diff --git a/config.def.h b/config.def.h
+index 1355ba3..316b091 100644
+--- a/config.def.h
++++ b/config.def.h
+@@ -1,11 +1,29 @@
+ /* modifier 0 means no modifier */
+-static int surfuseragent    = 1;  /* Append Surf version to default WebKit user agent */
+-static char *fulluseragent  = ""; /* Or override the whole user agent string */
++static int surfuseragent    = 0;  /* Append Surf version to default WebKit user agent */
++static char *fulluseragent  = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36"; /* Or override the whole user agent string */
+ static char *scriptfile     = "~/.surf/script.js";
+ static char *styledir       = "~/.surf/styles/";
+ static char *certdir        = "~/.surf/certificates/";
+ static char *cachedir       = "~/.surf/cache/";
+ static char *cookiefile     = "~/.surf/cookies.txt";
++static SearchEngine searchengines[] = {
++	{ "d",    "https://www.duckduckgo.com/html?q=%s"   },
++	{ "s",    "https://www.searx.bar/search?q=%s"      },
++};
++static char **plugindirs    = (char*[]){
++	"~/.surf/plugins/",
++		LIBPREFIX "/mozilla/plugins/",
++		NULL
++};
++static char *linkselect_curwin [] = { "/bin/sh", "-c",
++	"$HOME/.local/bin/scripts/surf_linkselect.sh $0 'Link' | xargs -r xprop -id $0 -f _SURF_GO 8s -set _SURF_GO",
++	winid, NULL
++};
++static char *linkselect_newwin [] = { "/bin/sh", "-c",
++	"$HOME/.local/bin/scripts/surf_linkselect.sh $0 'Link (new window)' | xargs -r surf",
++	winid, NULL
++};
++static char *editscreen[] = { "/bin/sh", "-c", "$HOME/.local/bin/scripts/edit_screen.sh", NULL};
+ 
+ /* Webkit default features */
+ /* Highest priority value will be used.
+@@ -15,11 +33,12 @@ static char *cookiefile     = "~/.surf/cookies.txt";
+  */
+ static Parameter defconfig[ParameterLast] = {
+ 	/* parameter                    Arg value       priority */
+-	[AccessMicrophone]    =       { { .i = 0 },     },
+-	[AccessWebcam]        =       { { .i = 0 },     },
++	[AcceleratedCanvas]   =       { { .i = 1 },     },
++	[AccessMicrophone]    =       { { .i = 1 },     },
++	[AccessWebcam]        =       { { .i = 1 },     },
+ 	[Certificate]         =       { { .i = 0 },     },
+ 	[CaretBrowsing]       =       { { .i = 0 },     },
+-	[CookiePolicies]      =       { { .v = "@Aa" }, },
++	[CookiePolicies]      =       { { .v = "a@" },   }, /* @ accept no third party, A accept all, a accept none */
+ 	[DefaultCharset]      =       { { .v = "UTF-8" }, },
+ 	[DiskCache]           =       { { .i = 1 },     },
+ 	[DNSPrefetch]         =       { { .i = 0 },     },
+@@ -31,16 +50,17 @@ static Parameter defconfig[ParameterLast] = {
+ 	[HideBackground]      =       { { .i = 0 },     },
+ 	[Inspector]           =       { { .i = 0 },     },
+ 	[Java]                =       { { .i = 1 },     },
+-	[JavaScript]          =       { { .i = 1 },     },
++	[JavaScript]          =       { { .i = 0 },     0 },
+ 	[KioskMode]           =       { { .i = 0 },     },
+-	[LoadImages]          =       { { .i = 1 },     },
++	[LoadImages]          =       { { .i = 0 },     },
+ 	[MediaManualPlay]     =       { { .i = 1 },     },
+-	[PreferredLanguages]  =       { { .v = (char *[]){ NULL } }, },
++	[Plugins]             =       { { .i = 0 },     },
++	[PreferredLanguages]  =       { { .v = (char *[]){ "en_US", NULL } }, },
+ 	[RunInFullscreen]     =       { { .i = 0 },     },
+-	[ScrollBars]          =       { { .i = 1 },     },
++	[ScrollBars]          =       { { .i = 0 },     },
+ 	[ShowIndicators]      =       { { .i = 1 },     },
+ 	[SiteQuirks]          =       { { .i = 1 },     },
+-	[SmoothScrolling]     =       { { .i = 0 },     },
++	[SmoothScrolling]     =       { { .i = 1 },     },
+ 	[SpellChecking]       =       { { .i = 0 },     },
+ 	[SpellLanguages]      =       { { .v = ((char *[]){ "en_US", NULL }) }, },
+ 	[StrictTLS]           =       { { .i = 1 },     },
+@@ -51,38 +71,45 @@ static Parameter defconfig[ParameterLast] = {
+ 
+ static UriParameters uriparams[] = {
+ 	{ "(://|\\.)suckless\\.org(/|$)", {
+-	  [JavaScript] = { { .i = 0 }, 1 },
+-	}, },
++						  [JavaScript] = { { .i = 0 }, 1 },
++						  [Plugins]    = { { .i = 0 }, 1 },
++					  }, },
++	{ "(://|\\.)protonmail\\.com(/|$)", {
++						    [CookiePolicies] = { { .v = "@" }, 2 },
++						    [JavaScript] = { { .i = 1}, 1 },
++					    }, },
++	{ "(://|\\.)vultr\\.com(/|$)" , {
++						[CookiePolicies] = { { .v = "A" }, 2},
++					},},
+ };
+ 
+ /* default window size: width, height */
+ static int winsize[] = { 800, 600 };
+ 
+ static WebKitFindOptions findopts = WEBKIT_FIND_OPTIONS_CASE_INSENSITIVE |
+-                                    WEBKIT_FIND_OPTIONS_WRAP_AROUND;
++WEBKIT_FIND_OPTIONS_WRAP_AROUND;
+ 
+ #define PROMPT_GO   "Go:"
+ #define PROMPT_FIND "Find:"
+ 
+ /* SETPROP(readprop, setprop, prompt)*/
+ #define SETPROP(r, s, p) { \
+-        .v = (const char *[]){ "/bin/sh", "-c", \
+-             "prop=\"$(printf '%b' \"$(xprop -id $1 "r" " \
+-             "| sed -e 's/^"r"(UTF8_STRING) = \"\\(.*\\)\"/\\1/' " \
+-             "      -e 's/\\\\\\(.\\)/\\1/g')\" " \
+-             "| dmenu -p '"p"' -w $1)\" " \
+-             "&& xprop -id $1 -f "s" 8u -set "s" \"$prop\"", \
+-             "surf-setprop", winid, NULL \
+-        } \
++	.v = (const char *[]){ "/bin/sh", "-c", \
++		"prop=\"$(printf '%b' \"$(xprop -id $1 $2 " \
++		"| sed \"s/^$2(STRING) = //;s/^\\\"\\(.*\\)\\\"$/\\1/\" && cat ~/.surf/bookmarks)\" " \
++		"| dmenu -l 10 -p \"$4\" -w $1)\" && " \
++		"xprop -id $1 -f $3 8s -set $3 \"$prop\"", \
++		"surf-setprop", winid, r, s, p, NULL \
++	} \
+ }
+ 
+ /* DOWNLOAD(URI, referer) */
+ #define DOWNLOAD(u, r) { \
+-        .v = (const char *[]){ "st", "-e", "/bin/sh", "-c",\
+-             "curl -g -L -J -O -A \"$1\" -b \"$2\" -c \"$2\"" \
+-             " -e \"$3\" \"$4\"; read", \
+-             "surf-download", useragent, cookiefile, r, u, NULL \
+-        } \
++	.v = (const char *[]){ "st", "-e", "/bin/sh", "-c",\
++		"curl -g -L -J -O -A \"$1\" -b \"$2\" -c \"$2\"" \
++		" -e \"$3\" \"$4\"; read", \
++		"surf-download", useragent, cookiefile, r, u, NULL \
++	} \
+ }
+ 
+ /* PLUMB(URI) */
+@@ -90,16 +117,27 @@ static WebKitFindOptions findopts = WEBKIT_FIND_OPTIONS_CASE_INSENSITIVE |
+  * "http://" or "https://" should be opened.
+  */
+ #define PLUMB(u) {\
+-        .v = (const char *[]){ "/bin/sh", "-c", \
+-             "xdg-open \"$0\"", u, NULL \
+-        } \
++	.v = (const char *[]){ "/bin/sh", "-c", \
++		"xdg-open \"$0\"", u, NULL \
++	} \
+ }
+ 
+ /* VIDEOPLAY(URI) */
+ #define VIDEOPLAY(u) {\
+-        .v = (const char *[]){ "/bin/sh", "-c", \
+-             "mpv --really-quiet \"$0\"", u, NULL \
+-        } \
++	.v = (const char *[]){ "/bin/sh", "-c", \
++		"mpv --really-quiet \"$0\"", u, NULL \
++	} \
++}
++
++/* BM_ADD(readprop) */
++#define BM_ADD(r) {\
++	.v = (const char *[]){ "/bin/sh", "-c", \
++		"(echo $(xprop -id $0 $1) | cut -d '\"' -f2 " \
++		"| sed 's/.*https*:\\/\\/\\(www\\.\\)\\?//' && cat ~/.surf/bookmarks) " \
++		"| awk '!seen[$0]++' > ~/.surf/bookmarks.tmp && " \
++		"mv ~/.surf/bookmarks.tmp ~/.surf/bookmarks", \
++		winid, r, NULL \
++	} \
+ }
+ 
+ /* styles */
+@@ -123,6 +161,7 @@ static SiteSpecific certs[] = {
+ 
+ #define MODKEY GDK_CONTROL_MASK
+ 
++
+ /* hotkeys */
+ /*
+  * If you use anything else but MODKEY and GDK_SHIFT_MASK, don't forget to
+@@ -130,52 +169,67 @@ static SiteSpecific certs[] = {
+  */
+ static Key keys[] = {
+ 	/* modifier              keyval          function    arg */
+-	{ MODKEY,                GDK_KEY_g,      spawn,      SETPROP("_SURF_URI", "_SURF_GO", PROMPT_GO) },
+-	{ MODKEY,                GDK_KEY_f,      spawn,      SETPROP("_SURF_FIND", "_SURF_FIND", PROMPT_FIND) },
+-	{ MODKEY,                GDK_KEY_slash,  spawn,      SETPROP("_SURF_FIND", "_SURF_FIND", PROMPT_FIND) },
++	{ 0,                     GDK_KEY_m,      spawn,      BM_ADD("_SURF_URI") },
++	{ 0,                     GDK_KEY_g,      spawn,      SETPROP("_SURF_URI", "_SURF_GO", PROMPT_GO) },
++	{ 0,                     GDK_KEY_f,      spawn,      SETPROP("_SURF_FIND", "_SURF_FIND", PROMPT_FIND) },
++	{ 0,                     GDK_KEY_slash,  spawn,      SETPROP("_SURF_FIND", "_SURF_FIND", PROMPT_FIND) },
++	{ 0,                     GDK_KEY_w,      playexternal, { 0 } },
++
++
++	{ 0,                     GDK_KEY_d,      externalpipe, { .v = linkselect_curwin } },
++	{ GDK_SHIFT_MASK,        GDK_KEY_d,      externalpipe, { .v = linkselect_newwin } },
++	{ 0,                     GDK_KEY_o,      externalpipe, { .v = editscreen        } },
+ 
+-	{ 0,                     GDK_KEY_Escape, stop,       { 0 } },
+-	{ MODKEY,                GDK_KEY_c,      stop,       { 0 } },
++	{ 0,                     GDK_KEY_i,      insert,     { .i = 1 } },
++	{ 0,                     GDK_KEY_Escape, insert,     { .i = 0 } },
+ 
+-	{ MODKEY|GDK_SHIFT_MASK, GDK_KEY_r,      reload,     { .i = 1 } },
+-	{ MODKEY,                GDK_KEY_r,      reload,     { .i = 0 } },
++	{ 0,                     GDK_KEY_c,      stop,       { 0 } },
+ 
+-	{ MODKEY,                GDK_KEY_l,      navigate,   { .i = +1 } },
+-	{ MODKEY,                GDK_KEY_h,      navigate,   { .i = -1 } },
++	{ MODKEY,                GDK_KEY_r,      reload,     { .i = 1 } },
++	{ 0,                     GDK_KEY_r,      reload,     { .i = 0 } },
++
++	{ 0,                     GDK_KEY_l,      navigate,   { .i = +1 } },
++	{ 0,                     GDK_KEY_h,      navigate,   { .i = -1 } },
+ 
+ 	/* vertical and horizontal scrolling, in viewport percentage */
+-	{ MODKEY,                GDK_KEY_j,      scrollv,    { .i = +10 } },
+-	{ MODKEY,                GDK_KEY_k,      scrollv,    { .i = -10 } },
+-	{ MODKEY,                GDK_KEY_space,  scrollv,    { .i = +50 } },
+-	{ MODKEY,                GDK_KEY_b,      scrollv,    { .i = -50 } },
+-	{ MODKEY,                GDK_KEY_i,      scrollh,    { .i = +10 } },
+-	{ MODKEY,                GDK_KEY_u,      scrollh,    { .i = -10 } },
++	{ 0,                     GDK_KEY_j,      scrollv,    { .i = +10 } },
++	{ 0,                     GDK_KEY_k,      scrollv,    { .i = -10 } },
++	{ 0,                     GDK_KEY_space,  scrollv,    { .i = +50 } },
++	{ 0,                     GDK_KEY_b,      scrollv,    { .i = -50 } },
++	{ 0,                     GDK_KEY_i,      scrollh,    { .i = +10 } },
++	{ 0,                     GDK_KEY_u,      scrollh,    { .i = -10 } },
+ 
+ 
+-	{ MODKEY|GDK_SHIFT_MASK, GDK_KEY_j,      zoom,       { .i = -1 } },
+-	{ MODKEY|GDK_SHIFT_MASK, GDK_KEY_k,      zoom,       { .i = +1 } },
+-	{ MODKEY|GDK_SHIFT_MASK, GDK_KEY_q,      zoom,       { .i = 0  } },
+-	{ MODKEY,                GDK_KEY_minus,  zoom,       { .i = -1 } },
+-	{ MODKEY,                GDK_KEY_plus,   zoom,       { .i = +1 } },
++	{ 0|GDK_SHIFT_MASK,      GDK_KEY_j,      zoom,       { .i = -1 } },
++	{ 0|GDK_SHIFT_MASK,      GDK_KEY_k,      zoom,       { .i = +1 } },
++	{ 0|GDK_SHIFT_MASK,      GDK_KEY_q,      zoom,       { .i = 0  } },
++	{ 0,                     GDK_KEY_minus,  zoom,       { .i = -1 } },
++	{ 0|GDK_SHIFT_MASK,      GDK_KEY_plus,   zoom,       { .i = +1 } },
++	{ 0,                     GDK_KEY_equal,  zoom,       { .i = 0  } },
+ 
+-	{ MODKEY,                GDK_KEY_p,      clipboard,  { .i = 1 } },
+-	{ MODKEY,                GDK_KEY_y,      clipboard,  { .i = 0 } },
++	{ 0,                     GDK_KEY_p,      clipboard,  { .i = 1 } },
++	{ 0,                     GDK_KEY_y,      clipboard,  { .i = 0 } },
+ 
+-	{ MODKEY,                GDK_KEY_n,      find,       { .i = +1 } },
+-	{ MODKEY|GDK_SHIFT_MASK, GDK_KEY_n,      find,       { .i = -1 } },
++	{ 0,                     GDK_KEY_n,      find,       { .i = +1 } },
++	{ 0|GDK_SHIFT_MASK,      GDK_KEY_n,      find,       { .i = -1 } },
+ 
+-	{ MODKEY|GDK_SHIFT_MASK, GDK_KEY_p,      print,      { 0 } },
++	{ MODKEY,                GDK_KEY_p,      print,      { 0 } },
+ 	{ MODKEY,                GDK_KEY_t,      showcert,   { 0 } },
+ 
+ 	{ MODKEY|GDK_SHIFT_MASK, GDK_KEY_a,      togglecookiepolicy, { 0 } },
+ 	{ 0,                     GDK_KEY_F11,    togglefullscreen, { 0 } },
+ 	{ MODKEY|GDK_SHIFT_MASK, GDK_KEY_o,      toggleinspector, { 0 } },
+ 
++	{ MODKEY,                     GDK_KEY_d,      externalpipe, { .v = linkselect_curwin } },
++	{ GDK_SHIFT_MASK|MODKEY,      GDK_KEY_d,      externalpipe, { .v = linkselect_newwin } },
++	{ MODKEY,                     GDK_KEY_o,      externalpipe, { .v = editscreen        } },
++
+ 	{ MODKEY|GDK_SHIFT_MASK, GDK_KEY_c,      toggle,     { .i = CaretBrowsing } },
+ 	{ MODKEY|GDK_SHIFT_MASK, GDK_KEY_f,      toggle,     { .i = FrameFlattening } },
+ 	{ MODKEY|GDK_SHIFT_MASK, GDK_KEY_g,      toggle,     { .i = Geolocation } },
+ 	{ MODKEY|GDK_SHIFT_MASK, GDK_KEY_s,      toggle,     { .i = JavaScript } },
+ 	{ MODKEY|GDK_SHIFT_MASK, GDK_KEY_i,      toggle,     { .i = LoadImages } },
++	{ MODKEY|GDK_SHIFT_MASK, GDK_KEY_v,      toggle,     { .i = Plugins } },
+ 	{ MODKEY|GDK_SHIFT_MASK, GDK_KEY_b,      toggle,     { .i = ScrollBars } },
+ 	{ MODKEY|GDK_SHIFT_MASK, GDK_KEY_t,      toggle,     { .i = StrictTLS } },
+ 	{ MODKEY|GDK_SHIFT_MASK, GDK_KEY_m,      toggle,     { .i = Style } },
+diff --git a/config.mk b/config.mk
+index 2eb9fb0..f1910bf 100644
+--- a/config.mk
++++ b/config.mk
+@@ -1,5 +1,5 @@
+ # surf version
+-VERSION = 2.1
++VERSION = 2.0
+ 
+ # Customize below to fit your system
+ 
+diff --git a/surf.1 b/surf.1
+index 496afb9..45c31bb 100644
+--- a/surf.1
++++ b/surf.1
+@@ -91,6 +91,12 @@ Disable the Web Inspector (Developer Tools).
+ .B \-N
+ Enable the Web Inspector (Developer Tools).
+ .TP
++.B \-p
++Disable Plugins.
++.TP
++.B \-P
++Enable Plugins.
++.TP
+ .B \-r scriptfile
+ Specify the user
+ .IR scriptfile .
+@@ -225,6 +231,10 @@ Toggle script execution. This will reload the page.
+ .B Ctrl\-Shift\-t
+ Toggle strict TLS check. This will reload the page.
+ .TP
++.B Ctrl\-Shift\-v
++Toggle the enabling of plugins on that surf instance. This will reload the
++page.
++.TP
+ .B F11
+ Toggle fullscreen mode.
+ .SH INDICATORS OF OPERATION
+@@ -255,6 +265,9 @@ images
+ .B s S
+ scripts
+ .TP
++.B v V
++plugins
++.TP
+ .B m M
+ styles
+ .TP
+@@ -296,10 +309,22 @@ If this variable is set and not empty upon startup, surf will use it as the http
+ .SH SIGNALS
+ Surf will reload the current page on
+ .BR SIGHUP .
++.SH PLUGINS
++For using plugins in surf, first determine your running architecture. Then get
++the appropriate plugin for that architecture and copy it to
++.BR /usr/lib/browser-plugins
++or
++.BR /usr/lib64/browser-plugins.
++Surf should load them automatically.
++.BR
++If you want to use a 32bit plugin on a 64bit system,
++.BR nspluginwrapper(1)
++will help you.
+ .SH SEE ALSO
+ .BR dmenu(1),
+ .BR xprop(1),
+ .BR tabbed(1),
++.BR nspluginwrapper(1),
+ .BR xdotool(1)
+ .SH BUGS
+ Please report them!
+diff --git a/surf.c b/surf.c
+index 03d8242..208c287 100644
+--- a/surf.c
++++ b/surf.c
+@@ -37,7 +37,7 @@
+ #define LENGTH(x)               (sizeof(x) / sizeof(x[0]))
+ #define CLEANMASK(mask)         (mask & (MODKEY|GDK_SHIFT_MASK))
+ 
+-enum { AtomFind, AtomGo, AtomUri, AtomUTF8, AtomLast };
++enum { AtomFind, AtomGo, AtomUri, AtomLast };
+ 
+ enum {
+ 	OnDoc   = WEBKIT_HIT_TEST_RESULT_CONTEXT_DOCUMENT,
+@@ -51,6 +51,7 @@ enum {
+ };
+ 
+ typedef enum {
++	AcceleratedCanvas,
+ 	AccessMicrophone,
+ 	AccessWebcam,
+ 	CaretBrowsing,
+@@ -71,6 +72,7 @@ typedef enum {
+ 	KioskMode,
+ 	LoadImages,
+ 	MediaManualPlay,
++	Plugins,
+ 	PreferredLanguages,
+ 	RunInFullscreen,
+ 	ScrollBars,
+@@ -129,6 +131,11 @@ typedef struct {
+ 	unsigned int stopevent;
+ } Button;
+ 
++typedef struct {
++	char *token;
++	char *uri;
++} SearchEngine;
++
+ typedef struct {
+ 	const char *uri;
+ 	Parameter config[ParameterLast];
+@@ -177,6 +184,7 @@ static void spawn(Client *c, const Arg *a);
+ static void msgext(Client *c, char type, const Arg *a);
+ static void destroyclient(Client *c);
+ static void cleanup(void);
++static int insertmode = 0;
+ 
+ /* GTK/WebKit */
+ static WebKitWebView *newview(Client *c, WebKitWebView *rv);
+@@ -216,6 +224,7 @@ static void webprocessterminated(WebKitWebView *v,
+                                  Client *c);
+ static void closeview(WebKitWebView *v, Client *c);
+ static void destroywin(GtkWidget* w, Client *c);
++static gchar *parseuri(const gchar *uri);
+ 
+ /* Hotkeys */
+ static void pasteuri(GtkClipboard *clipboard, const char *text, gpointer d);
+@@ -233,6 +242,9 @@ static void togglefullscreen(Client *c, const Arg *a);
+ static void togglecookiepolicy(Client *c, const Arg *a);
+ static void toggleinspector(Client *c, const Arg *a);
+ static void find(Client *c, const Arg *a);
++static void insert(Client *c, const Arg *a);
++static void playexternal(Client *c, const Arg *a);
++static void externalpipe(Client *c, const Arg *a);
+ 
+ /* Buttons */
+ static void clicknavigate(Client *c, const Arg *a, WebKitHitTestResult *h);
+@@ -240,7 +252,7 @@ static void clicknewwindow(Client *c, const Arg *a, WebKitHitTestResult *h);
+ static void clickexternplayer(Client *c, const Arg *a, WebKitHitTestResult *h);
+ 
+ static char winid[64];
+-static char togglestats[11];
++static char togglestats[12];
+ static char pagestats[2];
+ static Atom atoms[AtomLast];
+ static Window embed;
+@@ -271,6 +283,7 @@ static ParamName loadtransient[] = {
+ };
+ 
+ static ParamName loadcommitted[] = {
++	AcceleratedCanvas,
+ //	AccessMicrophone,
+ //	AccessWebcam,
+ 	CaretBrowsing,
+@@ -283,6 +296,7 @@ static ParamName loadcommitted[] = {
+ 	Java,
+ //	KioskMode,
+ 	MediaManualPlay,
++	Plugins,
+ 	RunInFullscreen,
+ 	ScrollBars,
+ 	SiteQuirks,
+@@ -301,6 +315,80 @@ static ParamName loadfinished[] = {
+ /* configuration, allows nested code to access above variables */
+ #include "config.h"
+ 
++static void
++externalpipe_execute(char* buffer, Arg *arg) {
++	int to[2];
++	void (*oldsigpipe)(int);
++
++	if (pipe(to) == -1)
++		return;
++
++	switch (fork()) {
++	case -1:
++		close(to[0]);
++		close(to[1]);
++		return;
++	case 0:
++		dup2(to[0], STDIN_FILENO); close(to[0]); close(to[1]);
++		execvp(((char **)arg->v)[0], (char **)arg->v);
++		fprintf(stderr, "st: execvp %s\n", ((char **)arg->v)[0]);
++		perror("failed");
++		exit(0);
++	}
++
++	close(to[0]);
++	oldsigpipe = signal(SIGPIPE, SIG_IGN);
++	write(to[1], buffer, strlen(buffer));
++	close(to[1]);
++	signal(SIGPIPE, oldsigpipe);
++}
++
++static void
++externalpipe_resource_done(WebKitWebResource *r, GAsyncResult *s, Arg *arg)
++{
++	GError *gerr = NULL;
++	guchar *buffer = webkit_web_resource_get_data_finish(r, s, NULL, &gerr);
++	if (gerr == NULL) {
++		externalpipe_execute((char *) buffer, arg);
++	} else {
++		g_error_free(gerr);
++	}
++	g_free(buffer);
++}
++
++static void
++externalpipe_js_done(WebKitWebView *wv, GAsyncResult *s, Arg *arg)
++{
++	WebKitJavascriptResult *j = webkit_web_view_run_javascript_finish(
++		wv, s, NULL);
++	if (!j) {
++		return;
++	}
++	JSCValue *v = webkit_javascript_result_get_js_value(j);
++	if (jsc_value_is_string(v)) {
++		char *buffer = jsc_value_to_string(v);
++		externalpipe_execute(buffer, arg);
++		g_free(buffer);
++	}
++	webkit_javascript_result_unref(j);
++}
++
++void
++externalpipe(Client *c, const Arg *arg)
++{
++	if (curconfig[JavaScript].val.i) {
++		webkit_web_view_run_javascript(
++			c->view, "window.document.documentElement.outerHTML",
++			NULL, externalpipe_js_done, arg);
++	} else {
++		WebKitWebResource *resource = webkit_web_view_get_main_resource(c->view);
++		if (resource != NULL) {
++			webkit_web_resource_get_data(
++				resource, NULL, externalpipe_resource_done, arg);
++		}
++	}
++}
++
+ void
+ die(const char *errstr, ...)
+ {
+@@ -339,7 +427,6 @@ setup(void)
+ 	atoms[AtomFind] = XInternAtom(dpy, "_SURF_FIND", False);
+ 	atoms[AtomGo] = XInternAtom(dpy, "_SURF_GO", False);
+ 	atoms[AtomUri] = XInternAtom(dpy, "_SURF_URI", False);
+-	atoms[AtomUTF8] = XInternAtom(dpy, "UTF8_STRING", False);
+ 
+ 	gtk_init(NULL, NULL);
+ 
+@@ -577,7 +664,7 @@ loaduri(Client *c, const Arg *a)
+ 			url = g_strdup_printf("file://%s", path);
+ 			free(path);
+ 		} else {
+-			url = g_strdup_printf("http://%s", uri);
++			url = parseuri(uri);
+ 		}
+ 		if (apath != uri)
+ 			free(apath);
+@@ -609,7 +696,7 @@ void
+ setatom(Client *c, int a, const char *v)
+ {
+ 	XChangeProperty(dpy, c->xid,
+-	                atoms[a], atoms[AtomUTF8], 8, PropModeReplace,
++	                atoms[a], XA_STRING, 8, PropModeReplace,
+ 	                (unsigned char *)v, strlen(v) + 1);
+ 	XSync(dpy, False);
+ }
+@@ -624,8 +711,7 @@ getatom(Client *c, int a)
+ 	unsigned char *p = NULL;
+ 
+ 	XSync(dpy, False);
+-	XGetWindowProperty(dpy, c->xid,
+-	                   atoms[a], 0L, BUFSIZ, False, atoms[AtomUTF8],
++	XGetWindowProperty(dpy, c->xid, atoms[a], 0L, BUFSIZ, False, XA_STRING,
+ 	                   &adummy, &idummy, &ldummy, &ldummy, &p);
+ 	if (p)
+ 		strncpy(buf, (char *)p, LENGTH(buf) - 1);
+@@ -670,10 +756,12 @@ gettogglestats(Client *c)
+ 	togglestats[3] = curconfig[DiskCache].val.i ?       'D' : 'd';
+ 	togglestats[4] = curconfig[LoadImages].val.i ?      'I' : 'i';
+ 	togglestats[5] = curconfig[JavaScript].val.i ?      'S' : 's';
+-	togglestats[6] = curconfig[Style].val.i ?           'M' : 'm';
+-	togglestats[7] = curconfig[FrameFlattening].val.i ? 'F' : 'f';
+-	togglestats[8] = curconfig[Certificate].val.i ?     'X' : 'x';
+-	togglestats[9] = curconfig[StrictTLS].val.i ?       'T' : 't';
++	togglestats[6] = curconfig[Plugins].val.i ?         'V' : 'v';
++	togglestats[7] = curconfig[Style].val.i ?           'M' : 'm';
++	togglestats[8] = curconfig[FrameFlattening].val.i ? 'F' : 'f';
++	togglestats[9] = curconfig[Certificate].val.i ?     'X' : 'x';
++	togglestats[10] = curconfig[StrictTLS].val.i ?      'T' : 't';
++	togglestats[11] = '\0';
+ }
+ 
+ void
+@@ -753,6 +841,9 @@ setparameter(Client *c, int refresh, ParamName p, const Arg *a)
+ 	modparams[p] = curconfig[p].prio;
+ 
+ 	switch (p) {
++	case AcceleratedCanvas:
++		webkit_settings_set_enable_accelerated_2d_canvas(s, a->i);
++		break;
+ 	case AccessMicrophone:
+ 		return; /* do nothing */
+ 	case AccessWebcam:
+@@ -818,6 +909,9 @@ setparameter(Client *c, int refresh, ParamName p, const Arg *a)
+ 	case MediaManualPlay:
+ 		webkit_settings_set_media_playback_requires_user_gesture(s, a->i);
+ 		break;
++	case Plugins:
++		webkit_settings_set_enable_plugins(s, a->i);
++		break;
+ 	case PreferredLanguages:
+ 		return; /* do nothing */
+ 	case RunInFullscreen:
+@@ -1020,6 +1114,7 @@ newwindow(Client *c, const Arg *a, int noembed)
+ 	cmd[i++] = curconfig[KioskMode].val.i ?       "-K" : "-k" ;
+ 	cmd[i++] = curconfig[Style].val.i ?           "-M" : "-m" ;
+ 	cmd[i++] = curconfig[Inspector].val.i ?       "-N" : "-n" ;
++	cmd[i++] = curconfig[Plugins].val.i ?         "-P" : "-p" ;
+ 	if (scriptfile && g_strcmp0(scriptfile, "")) {
+ 		cmd[i++] = "-r";
+ 		cmd[i++] = scriptfile;
+@@ -1119,6 +1214,8 @@ newview(Client *c, WebKitWebView *rv)
+ 		   "enable-html5-local-storage", curconfig[DiskCache].val.i,
+ 		   "enable-java", curconfig[Java].val.i,
+ 		   "enable-javascript", curconfig[JavaScript].val.i,
++		   "enable-plugins", curconfig[Plugins].val.i,
++		   "enable-accelerated-2d-canvas", curconfig[AcceleratedCanvas].val.i,
+ 		   "enable-site-specific-quirks", curconfig[SiteQuirks].val.i,
+ 		   "enable-smooth-scrolling", curconfig[SmoothScrolling].val.i,
+ 		   "enable-webgl", curconfig[WebGL].val.i,
+@@ -1162,6 +1259,10 @@ newview(Client *c, WebKitWebView *rv)
+ 		webkit_web_context_set_cache_model(context,
+ 		    curconfig[DiskCache].val.i ? WEBKIT_CACHE_MODEL_WEB_BROWSER :
+ 		    WEBKIT_CACHE_MODEL_DOCUMENT_VIEWER);
++		/* plugins directories */
++		for (; *plugindirs; ++plugindirs)
++			webkit_web_context_set_additional_plugins_directory(
++			    context, *plugindirs);
+ 
+ 		/* Currently only works with text file to be compatible with curl */
+ 		if (!curconfig[Ephemeral].val.i)
+@@ -1343,7 +1444,11 @@ winevent(GtkWidget *w, GdkEvent *e, Client *c)
+ 		updatetitle(c);
+ 		break;
+ 	case GDK_KEY_PRESS:
+-		if (!curconfig[KioskMode].val.i) {
++		if (!curconfig[KioskMode].val.i &&
++		    !insertmode ||
++		    CLEANMASK(e->key.state) == (MODKEY|GDK_SHIFT_MASK) ||
++		    CLEANMASK(e->key.state) == (MODKEY) ||
++		    gdk_keyval_to_lower(e->key.keyval) == (GDK_KEY_Escape)) {
+ 			for (i = 0; i < LENGTH(keys); ++i) {
+ 				if (gdk_keyval_to_lower(e->key.keyval) ==
+ 				    keys[i].keyval &&
+@@ -1777,6 +1882,22 @@ destroywin(GtkWidget* w, Client *c)
+ 		gtk_main_quit();
+ }
+ 
++gchar *
++parseuri(const gchar *uri) {
++	guint i;
++
++	for (i = 0; i < LENGTH(searchengines); i++) {
++		if (searchengines[i].token == NULL || searchengines[i].uri == NULL ||
++		    *(uri + strlen(searchengines[i].token)) != ' ')
++			continue;
++		if (g_str_has_prefix(uri, searchengines[i].token))
++			return g_strdup_printf(searchengines[i].uri,
++					       uri + strlen(searchengines[i].token) + 1);
++	}
++
++	return g_strdup_printf("http://%s", uri);
++}
++
+ void
+ pasteuri(GtkClipboard *clipboard, const char *text, gpointer d)
+ {
+@@ -1962,6 +2083,12 @@ find(Client *c, const Arg *a)
+ 	}
+ }
+ 
++void
++insert(Client *c, const Arg *a)
++{
++		insertmode = (a->i);
++}
++
+ void
+ clicknavigate(Client *c, const Arg *a, WebKitHitTestResult *h)
+ {
+@@ -1986,6 +2113,15 @@ clickexternplayer(Client *c, const Arg *a, WebKitHitTestResult *h)
+ 	spawn(c, &arg);
+ }
+ 
++void
++playexternal(Client *c, const Arg *a)
++{
++	Arg arg;
++
++	arg = (Arg)VIDEOPLAY(geturi(c));
++	spawn(c, &arg);
++}
++
+ int
+ main(int argc, char *argv[])
+ {
+@@ -2073,6 +2209,14 @@ main(int argc, char *argv[])
+ 		defconfig[Inspector].val.i = 1;
+ 		defconfig[Inspector].prio = 2;
+ 		break;
++	case 'p':
++		defconfig[Plugins].val.i = 0;
++		defconfig[Plugins].prio = 2;
++		break;
++	case 'P':
++		defconfig[Plugins].val.i = 1;
++		defconfig[Plugins].prio = 2;
++		break;
+ 	case 'r':
+ 		scriptfile = EARGF(usage());
+ 		break;

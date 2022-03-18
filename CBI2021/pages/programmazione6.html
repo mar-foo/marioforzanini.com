@@ -1,0 +1,129 @@
+<h1>Esercizi</h1>
+<p>Continuiamo con altri esercizi che
+riguardano gli argomenti visti nelle
+scorse lezioni: cicli <strong>for</strong> e
+condizioni <strong>if/else</strong>.</p>
+<h2>Esercizio 0 - Differenze</h2>
+<p><em>Problema</em>: Scrivere un programma <code>differenze.go</code>
+che legge una serie di valori <code>float64</code> da tastiera e
+stampa le differenze, cioè la differenza tra il secondo e il primo,
+tra il terzo ed il secondo, e così via. Il programma termina quando
+riceve in input il valore 0.</p>
+<p><em>Esempi di esecuzione</em>:</p>
+<p>Scrivi un numero: <strong>10</strong></p>
+<p>Scrivi un numero: <strong>20</strong></p>
+<p>Differenza = 10</p>
+<p>Scrivi un numero: <strong>34</strong></p>
+<p>Differenza = 14</p>
+<p>Scrivi un numero: <strong>0</strong></p>
+<p>Differenza = -34</p>
+<h3>Soluzione</h3>
+<pre><code>package main
+
+import &quot;fmt&quot;
+
+func main() {
+	var corrente, precedente float64
+	fmt.Print(&quot;Scrivi un numero: &quot;)
+	fmt.Scan(&amp;corrente);
+	for corrente != 0 {
+		precedente = corrente
+		fmt.Print(&quot;Scrivi un numero: &quot;)
+		fmt.Scan(&amp;corrente)
+		fmt.Println(&quot;Differenza = &quot;, corrente - precedente)
+	}
+	return
+}</code></pre>
+<h2>Esercizio 1 - Quadrati</h2>
+<p><em>Problema</em>: Scrivere un programma <code>quadrati.go</code> che
+legge in input un intero n positivo e calcola il massimo quadrato
+<code>(k^2) &lt;= n</code>.</p>
+<p><em>Esempi di esecuzione</em>:</p>
+<p>Inserisci un numero: <strong>56</strong></p>
+<p>Massimo quadrato: 49</p>
+<h3>Soluzione</h3>
+<pre><code>package main
+
+import &quot;fmt&quot;
+
+func main() {
+	var n, k int
+	fmt.Print(&quot;Inserisci un numero: &quot;)
+	fmt.Scan(&amp;n)
+	
+	for i:= 1; i*i &lt; n; i++ {
+		k = i*i
+	}
+	fmt.Println(&quot;Massimo quadrato: &quot;, k);
+	return
+}</code></pre>
+<h2>Esercizio 2 - Euclide</h2>
+<p><em>Problema</em>: Scrivere un programma <code>euclide.go</code> che
+legge da standard input due interi <em>a</em> e <em>b</em>, con <code>a &gt;=
+b</code>, e calcola il MCD tra i due numeri con l'algoritmo di
+Euclide.</p>
+<p><em>Esempi di esecuzione</em>:</p>
+<p>Inserire due interi: <strong>21 49</strong></p>
+<p>MCD: 7</p>
+<h3>Algoritmo di Euclide</h3>
+<p>Dati due numeri naturali <em>a</em> e <em>b</em></p>
+<ol>
+<li>Si controlla se <em>b</em>* è zero</li>
+<li>Se lo è, a è il MCD</li>
+<li>Se non lo è, si assegna ad <em>r</em> il resto della divisione tra <em>a</em> e <em>b</em>, si pone <code>a = b</code> e <code>b = r</code> e
+si ripete da 1.</li>
+</ol>
+<h2>Esercizio 3 - Andamento</h2>
+<p><em>Problema</em>: Scrivere un programma <code>andamento.go</code>
+che legge da tastiera una serie (di almeno un elemento) di numeri
+interi &gt; -1 e stampa "+" ogni volta che il nuovo valore è maggiore o
+uguale al precedente e "-" altrimenti. Il programma si ferma quando il
+numero in input è -1 e stampa la somma di tutti i numeri letti.</p>
+<p><em>Esempi di esecuzione</em>:</p>
+<p>Inserire dei valori (terminare con -1): <strong>2 4 7 3 9 5 -1</strong></p>
+<p>++-+-+</p>
+<p>somma: 31</p>
+<h2>Esercizio 4 - Somma cifre</h2>
+<p><em>Problema</em>: Scrivere un programma <code>somma_cifre.go</code>
+che calcola la somma delle cifre di un numero intero positivo fornito
+da standard input.</p>
+<p><em>Esempi di esecuzione</em>:</p>
+<p>Inserire un numero: <strong>5467913</strong></p>
+<p>Somma: 35</p>
+<h2>Esercizio 5 - Slash</h2>
+<p><em>Problema</em>: Scrivere un programma
+<code>slash.go</code> che legge un intero positivo e stampa un
+back-slash () di asterischi di altezza n.</p>
+<p><em>Esempi di esecuzione</em>:</p>
+<p>Dimensione \: <strong>3</strong></p>
+<p><pre>
+*
+ *
+  *</pre>
+</p>
+<h3>Soluzione</h3>
+<pre><code>package main
+import &quot;fmt&quot;
+
+func main() {
+	var lines int
+	fmt.Print(&quot;Altezza: &quot;)
+	fmt.Scan(&amp;lines)
+	for i := 0; i &lt; lines; i++ {
+		for j := 0; j &lt; i; j++ {
+			fmt.Print(&quot; &quot;)
+		}
+		fmt.Println(&quot;*&quot;)
+	}
+	return
+}</code></pre>
+<h2>Esercizio 6 - Fibonacci</h2>
+<p><em>Problema</em>: Scrivere un programma <code>fibonacci.go</code>
+che legge un intero positivo e stampa i numeri di fibonacci dal primo
+all'n-esimo.</p>
+<p><em>Esempi di esecuzione</em>:</p>
+<p>Inserire un numero: <strong>6</strong></p>
+<p>1 1 2 3 5 8</p>
+<h3>Fibonacci</h3>
+<p>L'n-esimo numero della sequenza di fibonacci si ottiene sommando
+l'(n-1)-esimo e l'(n-2)-esimo. I primi due numeri sono entrambe 1.</p>
