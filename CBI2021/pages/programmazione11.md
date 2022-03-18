@@ -75,7 +75,7 @@ esistente:
 
 	f, _ := os.CreateFile("esistente.txt", O_APPEND, 0666)
 
-	fmt.Println("Aggiunto alla fine")
+	fmt.Fprintln("Aggiunto alla fine")
 
 	f.Close()
 
