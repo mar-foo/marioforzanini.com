@@ -176,6 +176,10 @@ BCD
 
 A-L
 
+### Soluzione
+
+{{cat es0.go | sed 's/^/	/g'}}
+
 ## Esercizio 1 - Rompi stringa
 *Problema*: Scrivere un programma <a href="rompi_stringa.go">rompi_stringa.go</a> che legge in
 input una stringa e la stampa in verticale, una runa per riga.
@@ -196,6 +200,10 @@ h
 <br>
 è
 
+### Soluzione
+
+{{cat rompi_stringa.go | sed 's/^/	/g'}}
+
 ## Esercizio 2 - Conta vocali
 
 *Problema*: Scrivere un programma <a href="conta_vocali.go">conta_vocali.go</a> che legge in
@@ -212,6 +220,10 @@ Inserire una parola: **supercalifragilisticoespiralidoso**
 
 15
 
+### Soluzione
+
+{{cat conta_vocali.go | sed 's/^/	/g'}}
+
 ## Esercizio 3 - Trova rune
 
 *Problema*: Scrivere un programma <a href="trova.go">trova.go</a> che legge un ``rune`` e
@@ -225,6 +237,10 @@ Carattere da cercare: **c**
 Stringa: **Tre tigri contro tre tigri**
 
 10
+
+### Soluzione
+
+{{cat trova.go | sed 's/^/	/g'}}
 
 ## Esercizio 4 - Minuscole o maiuscole
 
@@ -248,6 +264,10 @@ Sia maiuscole che minuscole
 Inserire una stringa: **dopo un punto fermo occorre una maiuscola**
 
 Solo minuscole
+
+### Soluzione
+
+{{cat minuscole_maiuscole.go | sed 's/^/	/g'}}
 
 ## Esercizio 5 - Cesare
 *Problema*: Scrivere un programma <a href="cesare.go">cesare.go</a> che legge un valore
@@ -276,3 +296,7 @@ chiave: **100**
 testo: **abcd**
 
 wxyz
+
+### Soluzione
+
+Vedi prossima lezione

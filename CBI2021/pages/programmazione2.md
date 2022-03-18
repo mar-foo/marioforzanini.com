@@ -256,7 +256,7 @@ Media: 6.5
 
 ## Esercizio 4 - Velocità
 
-*Problema:* Scrivere un programma Go <a href="velocità.go">velocità.go</a> che calcola la
+*Problema:* Scrivere un programma Go <a href="velocita.go">velocita.go</a> che calcola la
 velocità media su un tratto di strada, dopo aver letto in input la
 lunghezza del tratto (in km) e il tempo trascorso nel percorrerlo
 (in ore). I valori letto sono di tipo float64.

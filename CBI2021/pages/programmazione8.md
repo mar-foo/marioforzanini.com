@@ -199,6 +199,9 @@ Altezza: **4**
 	*****
 	*****
 
+### Soluzione
+
+{{cat rettangolo.go | sed 's/^/	/g'}}
 
 ## Esercizio 3 - Legge oraria
 
@@ -237,6 +240,10 @@ t₁: **20**
 	18  91
 	19  96
 	20  101
+
+### Soluzione
+
+{{cat legge_oraria.go | sed 's/^/	/g'}}
 
 
 ## Esercizio 4 - Piano inclinato
