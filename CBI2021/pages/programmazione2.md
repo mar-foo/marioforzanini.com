@@ -52,10 +52,10 @@ variabile.
 	import "fmt"
 
 	func main() {
-var n int
-n = 10
-fmt.Println(n)
-return
+		var n int
+		n = 10
+		fmt.Println(n)
+		return
 	}
 
 ### Tipi di variabili
@@ -71,10 +71,10 @@ decimali e valori di verità (*true* oppure *false*).
 	import "fmt"
 
 	func main() {
-var n float64
-n = 1.10
-fmt.Println(n)
-return
+		var n float64
+		n = 1.10
+		fmt.Println(n)
+		return
 	}
 
 ## Nota: dichiarazioni multiple
@@ -95,12 +95,12 @@ variabili come intero e come float64 dà un errore.
 	import "fmt"
 
 	func main() {
-var n int
-var m float64
-n = 10
-m = 20.0
-fmt.Println(n + m) // ERRORE
-return
+		var n int
+		var m float64
+		n = 10
+		m = 20.0
+		fmt.Println(n + m) // ERRORE
+		return
 	}
 
 ## Nota: variabili inizializzate
@@ -114,9 +114,9 @@ il tipo della variabile e assegnerà il valore.
 	import "fmt"
 
 	func main() {
-primo := 20
-fmt.Println(primo)
-return
+		primo := 20
+		fmt.Println(primo)
+		return
 	}
 
 ## Nota: identificatore blank
@@ -130,9 +130,9 @@ variabile occorre mettere il simbolo ``_``
 	import "fmt"
 
 	func main() {
-_, n := 10, 20
-fmt.Println(n)
-return
+		_, n := 10, 20
+		fmt.Println(n)
+		return
 	}
 
 # Lettura da tastiera
@@ -159,9 +159,9 @@ conserva il valore letto in una variabile è fatto così:
 	import "fmt"
 
 	func main() {
-var numero int
-fmt.Scan(&numero)
-return
+		var numero int
+		fmt.Scan(&numero)
+		return
 	}
 
 Alla fine del programma nella variabile ``numero`` sarà conservato il
