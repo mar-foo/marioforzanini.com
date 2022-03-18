@@ -119,6 +119,32 @@ risultato.</p>
 <p><em>Esempi di esecuzione</em>:</p>
 <p>Inserire una string: <strong>AbCdEfG</strong></p>
 <p>Maiuscole: 4</p>
+<h3>Soluzione</h3>
+<pre><code>package main</code></pre>
+<pre><code>import (
+	&quot;fmt&quot;
+	&quot;strings&quot;
+)</code></pre>
+<pre><code>func main() {
+	var input string
+	fmt.Print(&quot;Inserire una stringa: &quot;)
+	fmt.Scan(&amp;input)
+	fmt.Println(&quot;Maiuscole: &quot;, contaMaiuscole(input))
+}</code></pre>
+<pre><code>func contaMaiuscole(s string) int {
+	var count int
+	count += strings.Count(s, &quot;a&quot;)
+	count += strings.Count(s, &quot;e&quot;)
+	count += strings.Count(s, &quot;i&quot;)
+	count += strings.Count(s, &quot;o&quot;)
+	count += strings.Count(s, &quot;u&quot;)
+	count += strings.Count(s, &quot;A&quot;)
+	count += strings.Count(s, &quot;E&quot;)
+	count += strings.Count(s, &quot;I&quot;)
+	count += strings.Count(s, &quot;O&quot;)
+	count += strings.Count(s, &quot;U&quot;)</code></pre>
+<pre><code>	return count
+}</code></pre>
 <h2>Esercizio 1 - Capitalize</h2>
 <p><em>Problema</em>: Scrivere un programma go <code>capitalize.go</code> che legge in
 input una stringa e restituisce la stessa stringa in cui l'inizio di
@@ -126,6 +152,29 @@ ogni parola è maiuscolo mentre il resto è minuscolo.</p>
 <p><em>Esempi di esecuzione</em>:</p>
 <p>Inserire una stringa: <strong>nESSuno sCriVe iN quESTo moDo</strong></p>
 <p>Nessuno Scrive In Questo Modo</p>
+<h3>Soluzione</h3>
+<pre><code>package main</code></pre>
+<pre><code>import (
+	&quot;fmt&quot;
+	&quot;unicode&quot;
+)</code></pre>
+<pre><code>func main() {
+	var c rune
+	fmt.Print(&quot;Inserire una stringa: &quot;)</code></pre>
+<pre><code>	first := true
+	for fmt.Scanf(&quot;%c&quot;, &amp;c); c != '\n'; fmt.Scanf(&quot;%c&quot;, &amp;c) {
+		if first &amp;&amp; ! unicode.IsSpace(c) {
+			first = false
+			fmt.Printf(&quot;%c&quot;, unicode.ToUpper(c))
+			continue
+		} else if unicode.IsSpace(c) {
+			first = true
+		}
+		fmt.Printf(&quot;%c&quot;, unicode.ToLower(c))
+	}
+	fmt.Println()</code></pre>
+<pre><code>	return
+}</code></pre>
 <h2>Esercizio 2 - Database</h2>
 <p><em>Problema</em>: Scrivere un programma go <code>database.go</code> che legge in
 input una stringa che ha questo formato:</p>
@@ -138,6 +187,39 @@ corretta (è facoltativo aggiungere maiuscola al nome ed al cognome):</p>
 <p>Cognome: Forzanini</p>
 <p>Email: mario.forzanini@studenti.unimi.it</p>
 <p>Ultimo voto: 18</p>
+<h3>Soluzione</h3>
+<pre><code>package main</code></pre>
+<pre><code>import &quot;fmt&quot;</code></pre>
+<pre><code>func main() {
+	var input string
+	fmt.Print(&quot;Inserire una riga del database: &quot;)
+	fmt.Scan(&amp;input)
+	database(input)
+}</code></pre>
+<pre><code>// name;surname;email;mark
+func database(s string) {
+	var index int
+	var currentField string</code></pre>
+<pre><code>	for _, c := range  s {
+		if c != ';' {
+			currentField += string(c)
+		} else {
+			switch(index){
+			case 0:
+				fmt.Println(&quot;Nome: &quot;, currentField)
+			case 1:
+				fmt.Println(&quot;Cognome: &quot;, currentField)
+			case 2:
+				fmt.Println(&quot;Email: &quot;, currentField)
+			default:
+			}
+			currentField = &quot;&quot;
+			index++
+		}
+	}
+	fmt.Println(&quot;Ultimo voto: &quot;, currentField)
+	return
+}</code></pre>
 <h2>Esercizio 3 - Cripta password</h2>
 <p><em>Problema</em>: Scrivere un programma <code>cripta_password.go</code> che legge in
 input una stringa e la 'trasforma' in una password applicando le
@@ -155,6 +237,36 @@ seguenti trasformazioni:</p>
 <p>Parola: <strong>nomedelmiocane118</strong></p>
 <p>Password: n0m3d3lm10c@n3118</p>
 <p><em>Nota</em>: Non usatelo per delle password vere</p>
+<h3>Soluzione</h3>
+<pre><code>package main</code></pre>
+<pre><code>import &quot;fmt&quot;</code></pre>
+<pre><code>func main() {
+	var c rune
+	for fmt.Scanf(&quot;%c&quot;, &amp;c); c != '\n'; fmt.Scanf(&quot;%c&quot;, &amp;c) {
+		fmt.Print(password(c))
+	}
+	return
+}</code></pre>
+<pre><code>func password(c rune) string {
+	switch(c){
+	case 'a':
+		return &quot;@&quot;
+	case 'e':
+		return &quot;3&quot;
+	case 'o':
+		return &quot;0&quot;
+	case 's':
+		return &quot;$&quot;
+	case 'i':
+		return &quot;1&quot;
+	case 'E':
+		return &quot;€&quot;
+	case 'L':
+		return &quot;£&quot;
+	}
+	return string(c)
+}
+</code></pre>
 
 </div>
             <div id="footer">
