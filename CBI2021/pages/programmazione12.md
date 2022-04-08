@@ -214,6 +214,10 @@ contenuti in un array può essere dichiarata così:
 utilizzando un array di tipo ``[10]float64``. Leggete i voti da un
 file **voti.txt** che contenga 10 numeri.
 
+### Soluzione
+
+{{cat media_array.go | sed 's/^/	/g'}}
+
 ## Esercizio 1 - Database 3
 
 *Problema*: Scrivere un programma ``database.go`` che legge da un file
@@ -242,12 +246,16 @@ esercizio.
 il file database.txt:
 
 	matematica_4
-		matematica_7
+	matematica_7
 	fisica_3
 	programmazione_10
 	fisica_6
 	matematica_5.5
 	... 10 voti per ogni entrata
+
+### Soluzione
+
+{{cat database_3.go | sed 's/^/	/g'}}
 
 ## Esercizio 2 - Fibonacci
 
@@ -259,3 +267,7 @@ calcolare quello successivo.
 *Definizione*: I primi due numeri della sequenza di fibonacci sono 0 e
 1, tutti gli altri numeri sono la somma dei due precedenti nella
 sequenza.
+
+### Soluzione
+
+{{cat fibonacci.go | sed 's/^/	/g'}}
