@@ -15,7 +15,8 @@ PAGES = index.html \
         programmazione9.html \
         programmazione10.html \
         programmazione11.html \
-        programmazione12.html
+        programmazione12.html \
+        programmazione13.html
 
 all: $(PAGES)
 
