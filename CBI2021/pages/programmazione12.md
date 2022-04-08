@@ -223,7 +223,7 @@ file **voti.txt** che contenga 10 numeri.
 *Problema*: Scrivere un programma ``database.go`` che legge da un file
 **database.txt** che abbia questa sintassi:
 
-	materia_voto
+	materia voto
 
 e calcola la media dei voti associati ad una particolare materia. Le
 materie possibili sono 3: **matematica**, **fisica** e
@@ -245,12 +245,12 @@ esercizio.
 
 il file database.txt:
 
-	matematica_4
-	matematica_7
-	fisica_3
-	programmazione_10
-	fisica_6
-	matematica_5.5
+	matematica 4
+	matematica 7
+	fisica 3
+	programmazione 10
+	fisica 6
+	matematica 5.5
 	... 10 voti per ogni entrata
 
 ### Soluzione
