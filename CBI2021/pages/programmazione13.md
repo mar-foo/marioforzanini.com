@@ -174,9 +174,17 @@ stringhe sono soltanto **slice di rune**.
 in modo che sia possibile specificare un numero arbitrario di voti per
 ciascuna materia.
 
+### Soluzione
+
+{{cat database_slice.go | sed 's/^/	/g'}}
+
 ## Esercizio 1 - Fibonacci
 
 *Problema*: Riprendete l'esercizio della volta scorsa e modificatelo
 in modo che sia possibile specificare un intero ``n`` da terminale, ed
 il programma generi una slice contenente i primi ``n`` numeri di
 fibonacci.
+
+### Soluzione
+
+{{cat fib_slice.go | sed 's/^/	/g'}}
