@@ -9,7 +9,7 @@
 0. Go back to step 1
 
 
-I'm currently reading: Günther Anders, "The obsolescence of Humankind"
+I'm currently reading: Hannah Arendt, "Eichmann in Jerusalem. A report on the banality of evil"
 
 ## Book suggestions
 
