@@ -3,6 +3,9 @@ PAGES = index.html \
 
 all: $(PAGES)
 
+index.html: index.md
+	smu $< | shtpl > $@
+
 %.html: %.md
 	smu $< > $@
 

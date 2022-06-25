@@ -14,3 +14,7 @@ It's still very much a work in progress.
 * [The GNU Project](https://gnu.org)
 * [The Free Software Foundation](https://fsf.org)
 * [Encyclopedia of things considered harmful](http://harmful.cat-v.org)
+
+## Most recent articles
+
+{{./makeindex.sh}}
