@@ -13,25 +13,11 @@ examples:
 
 ## The web
 
-0. Common situation: you are talking to your friends, and suddenly a
-question arises: when did this happen? Who did that? Where did he go?
-Most of the time nobody cares about the answer to this question, the
-discussion simply moves on; but there is always someone that has to
-look things up on the web and interrupt the natural course of the
-conversation to tell you when it happened, who actually did it, where
-he went.
+0. Common situation: you are talking to your friends, and suddenly a question arises: when did this happen? Who did that? Where did he go? Most of the time nobody cares about the answer to this question, the discussion simply moves on; but there is always someone that has to look things up on the web and interrupt the natural course of the conversation to tell you when it happened, who actually did it, where he went.
 
-0. Being able to look everything up on the spot also takes away the
-need to figure things out on your own, which is an important skill, if
-you ask me. e.g. there is no need to look up where the nearest bar is:
-just walk around the city block and you'll find it. When travelling, I
-often tried to remember every turn needed to go from A to B and got
-lost, but this only happened the first time: now I know where to go,
-and I also know many interesting places close to B.
+0. Being able to look everything up on the spot also takes away the need to figure things out on your own, which is an important skill, if you ask me. e.g. there is no need to look up where the nearest bar is: just walk around the city block and you'll find it. When travelling, I often tried to remember every turn needed to go from A to B and got lost, but this only happened the first time: now I know where to go, and I also know many interesting places close to B.
 
-0. Don't look at the screen all day. I don't know what's so important
-about a cat playing the piano but I can guarantee you that the real
-everyday world is probably more important than that.
+0. Don't look at the screen all day. I don't know what's so important about a cat playing the piano but I can guarantee you that the real everyday world is probably more important than that.
 
 ## Music
 
