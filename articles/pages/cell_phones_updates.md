@@ -30,8 +30,8 @@ lost, but this only happened the first time: now I know where to go,
 and I also know many interesting places close to B.
 
 0. Don't look at the screen all day. I don't know what's so important
-about a cat meowing but I can guarantee you that the real everyday
-world is probably more important than that.
+about a cat playing the piano but I can guarantee you that the real
+everyday world is probably more important than that.
 
 ## Music
 
