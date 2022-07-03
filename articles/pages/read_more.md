@@ -9,7 +9,7 @@
 0. Go back to step 1
 
 
-I'm currently reading: Hannah Arendt, "Eichmann in Jerusalem. A report on the banality of evil"
+I'm currently reading: Fëdor Dostoevsky, "The Brothers Karamazov"
 
 ## Book suggestions
 
