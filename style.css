@@ -23,6 +23,9 @@ a:hover {
 
 #main {
 	grid-area: main;
+	margin-left: 10px;
+	margin-right: 10px;
+	margin-bottom: 5px;
 }
 
 #main img {
@@ -92,6 +95,9 @@ pre {
 			"menu"
 			"main"
 			"footer"
+	}
+	#main {
+	    max-width: 100%;
 	}
 	#main img {
 		float: none;
