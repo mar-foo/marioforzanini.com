@@ -5,7 +5,7 @@ lessons:
 	cd pages ; $(MAKE) all
 
 clean:
-	rm output/*.html
+	rm -f output/*.html
 	cd pages ; $(MAKE) clean
 
 .PHONY: all

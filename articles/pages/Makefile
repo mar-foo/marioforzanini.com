@@ -14,6 +14,6 @@ index.html:
 	smu $< > $@
 
 clean:
-	rm *.html
+	rm -f *.html
 
 .PHONY: all clean

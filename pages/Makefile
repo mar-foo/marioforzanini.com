@@ -10,6 +10,6 @@ index.html: index.md
 	smu $< > $@
 
 clean:
-	rm *.html
+	rm -f *.html
 
 .PHONY: all clean

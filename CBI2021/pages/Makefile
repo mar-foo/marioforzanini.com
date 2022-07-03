@@ -25,6 +25,6 @@ all: $(PAGES)
 	shtpl < $< | smu > $@
 
 clean:
-	rm *.html
+	rm -f *.html
 
 .PHONY: all clean

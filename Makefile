@@ -13,7 +13,7 @@ cbi:
 	cp CBI2021/pages/*.go output/CBI2021/
 
 clean:
-	rm output/*.html output/pub/*.css
+	rm -f output/*.html output/pub/*.css
 	cd pages ; $(MAKE) clean
 	cd articles ; $(MAKE) clean
 	cd CBI2021 ; $(MAKE) clean
